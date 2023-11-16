@@ -1,0 +1,51 @@
+    /* Add your existing styles here */
+
+    /* Styles for the modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    /* Increase the width and set the height of the modal content to 40% */
+    /* Update the background color of the modal content to the specified gradient */
+    .modal-content {
+        background: linear-gradient(45deg, #29323c, #485563);
+        margin: 10% auto;
+        padding: 20px;
+        width: 50%; /* Increase the width to 80% of the screen width */
+        height: 70%; /* Set the height to 40% of the viewport height */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+        color: #000; /* Set text color to black */
+    }
+
+    /* Style the title text */
+    .modal-content h2 {
+        color: #fff; /* Set title text color to white */
+    }
+
+    /* Style the label for "Name" */
+    .modal-content label[for="input-1"] {
+        color: #fff; /* Set label text color to white */
+    }
+
+    /* Style form input, select, and button text */
+    .modal-content input, .modal-content select, .modal-content button {
+        color: #000; /* Set text color to black */
+    }
+
+    /* Style the close button */
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        cursor: pointer;
+        color: #000; /* Set close button color to black */
+    }
