@@ -4,7 +4,7 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
     // Redirect to the login page
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 } 
 else {
