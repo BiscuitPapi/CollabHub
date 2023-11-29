@@ -4,7 +4,7 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
     // Redirect to the login page
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 } 
 else {
@@ -26,7 +26,7 @@ else {
 		<title>My Application</title>
 
 		<style>
-			/* Define the toggle switch styles (you can modify these as needed) */
+			/* Define the toggle switch styles (you can modify these as needed)
 			.toggle-switch {
             display: inline-block;
             position: relative;
@@ -67,7 +67,7 @@ else {
 			}
 
 			/* Define styles to hide and show content */
-			.hidden-content {
+			/* .hidden-content {
 				display: none;
 			}
 
@@ -78,7 +78,16 @@ else {
 				border-radius: 50%;
 				object-fit: cover; /* Maintain image aspect ratio */
 				/* Add any additional styles or adjustments as needed */
+			/*} */ */
+
+			.page {
+            	display: none;
 			}
+
+			.visible {
+				display: block;
+			}
+
 		</style>
 		<!-- loader-->
 		<link href="assets/css/pace.min.css" rel="stylesheet"/>
@@ -86,7 +95,7 @@ else {
 		<!--favicon-->
 		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- Vector CSS -->
-		<link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+		<!-- <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/> -->
 		<!-- simplebar CSS-->
 		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
 		<!-- Bootstrap core CSS-->
@@ -290,11 +299,16 @@ else {
 					<p><p>
 						
 					<!-- SWITCH -->	
-					<label class="toggle-switch">
+					<!-- <label class="toggle-switch">
 						<input type="checkbox" id="contentSwitch" checked>
                         <span class="toggle-slider"></span>
-                    </label>
+                    </label> -->
 
+					<!-- SWITCH BUTTON -->
+					<div class="row" style="justify-content: center; align-items: center; margin-bottom: 20px;">
+						<button class="btn btn-primary" id="list_1Button" onclick="togglePage('list_1')">Created Application</button>
+    					<button class="btn btn-dark" id="list_2Button" onclick="togglePage('list_2')">Applied Application</button>
+					</div>
 					<!-- Start of Created Application -->
 					<div class="row" id ="list_1">
 						<div class="col-12 col-lg-12">							
@@ -778,18 +792,50 @@ else {
 			</div>
 			<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
             <script src = "assets/js/testing.js"></script>
+			<!-- Bootstrap core JavaScript-->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/popper.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+
+			<!-- simplebar js -->
+			<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+			<!-- sidebar-menu js -->
+			<script src="assets/js/sidebar-menu.js"></script>
+			<!-- loader scripts -->
+			<!-- <script src="assets/js/jquery.loading-indicator.js"> -->
+			<!-- Custom scripts -->
+			<script src="assets/js/app-script.js"></script>
+			<!-- Chart js -->
+		
+			<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+		
+		
             <script>
-				$(document).ready(function () {
-					$("#contentSwitch").change(function () {
-						if (this.checked) {
-							$('#list_1').show();
-							$('#list_2').hide();
-						} else {
-							$('#list_1').hide();
-							$('#list_2').show();
-						}
-					});
-				});
+				// $(document).ready(function () {
+				// 	$("#contentSwitch").change(function () {
+				// 		if (this.checked) {
+				// 			$('#list_1').show();
+				// 			$('#list_2').hide();
+				// 		} else {
+				// 			$('#list_1').hide();
+				// 			$('#list_2').show();
+				// 		}
+				// 	});
+				// });
+
+				function togglePage(pageId) {
+					// Hide all pages
+					document.getElementById('list_1').style.display = 'none';
+					document.getElementById('list_2').style.display = 'none';
+
+					// Show the selected page
+					document.getElementById(pageId).style.display = 'block';
+
+					// Update button styles based on active page
+					document.getElementById('list_1Button').className = 'btn ' + (pageId === 'list_1' ? 'btn-primary' : 'btn-dark');
+        			document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
+				}
+				
 
                 function addNewGroup() {
                     var addedDepartmentInput = document.getElementById("input-1");
@@ -975,25 +1021,10 @@ else {
 			<!--end color switcher-->
 		</div>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
 		
-		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
-		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
-		<!-- loader scripts -->
-		<script src="assets/js/jquery.loading-indicator.js"></script>
-		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<!-- Chart js -->
-	  
-		<script src="assets/plugins/Chart.js/Chart.min.js"></script>
-	 
+		
 		<!-- Index js -->
-		<script src="assets/js/index.js"></script>
+		<!-- <script src="assets/js/index.js"></script> -->
 		<script src="assets/js/notification.js"></script>
     
 		<script>
