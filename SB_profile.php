@@ -376,7 +376,12 @@ if (!isset($_SESSION['user_ID'])) {
 																<?php
 																include("assets/php/connection.php");
 
-																$query = "SELECT * FROM `study_session` WHERE studyhub_ID = '$studyhub_ID';";
+																//$query = "SELECT * FROM `study_session` WHERE studyhub_ID = '$studyhub_ID';";
+																$query = "SELECT s.*, sm.studysession_id AS member_studysession_id
+																FROM `study_session` s
+																LEFT JOIN `studysession_member` sm ON s.studysession_id = sm.studysession_id AND sm.user_ID = '$user_ID'
+																WHERE s.studyhub_ID = '$studyhub_ID';";
+
 
 																$result = mysqli_query($connection, $query);
 
@@ -396,20 +401,34 @@ if (!isset($_SESSION['user_ID'])) {
 																		$sessionDate = strtotime($row['studysession_date']);
 
 																		if (date("Y-m-d", $sessionDate) == date("Y-m-d")) {
-																			if ($count < 4) {
-																				echo '
-																					<tr>
+
+																			// id in study_session
+																			$studysession_id = $row['studysession_id'];
+
+																			// id in studysession_member
+																			$member_studysession_id = $row['member_studysession_id'];
+
+																			// Check if the 'studysession_id' is not null, indicating that the user has joined the session
+																			$userHasJoined = !is_null($row['member_studysession_id']);
+
+																			// Determine the button label based on the user's status
+																			$buttonLabel = $userHasJoined ? 'View' : 'Join';
+
+																			echo '
+																				<tr>
 																					<th scope="row">' . $count . '</th>
 																					<td>' . $row['studysession_name'] . '</td>
 																					<td>' . $row['studysession_date'] . '</td>
-																					<td><a href="studyhub-profile.php?application_ID=' . $row['studysession_id'] . '" class="btn btn-success">Join</a></td>
-																					</tr>
-																				';
-																				$hasRows = true;
-																			}
+																					<td><a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a></td>
+																				</tr>
+																			';
+																			$hasRows = true;
+
+																			
+																			$count++; // Increment count for each row
 																		}
 
-																		$count++; // Increment count for each row
+																		
 																	}
 																}
 
@@ -457,28 +476,34 @@ if (!isset($_SESSION['user_ID'])) {
 																} else {
 																	while ($row = mysqli_fetch_assoc($result)) {
 
-																		// id in study_session
-																		$studysession_id = $row['studysession_id'];
+																		// Convert the retrieved date to a timestamp
+																		$sessionDate = strtotime($row['studysession_date']);
 
-																		// id in studysession_member
-																		$member_studysession_id = $row['member_studysession_id'];
+																		if (date("Y-m-d", $sessionDate) > date("Y-m-d") && date("Y-m-d", $sessionDate) != date("Y-m-d")) {
 
-																		// Check if the 'studysession_id' is not null, indicating that the user has joined the session
-																		$userHasJoined = !is_null($row['member_studysession_id']);
+																			// id in study_session
+																			$studysession_id = $row['studysession_id'];
 
-																		// Determine the button label based on the user's status
-																		$buttonLabel = $userHasJoined ? 'View' : 'Join';
+																			// id in studysession_member
+																			$member_studysession_id = $row['member_studysession_id'];
 
-																		echo '
-																			<tr>
-																				<th scope="row">' . $count . '</th>
-																				<td>' . $row['studysession_name'] . '</td>
-																				<td>' . $row['studysession_date'] . '</td>
-																				<td>  <a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a>
-																				</td>
-																			</tr>
-																		';
-																		$count++; // Increment count for each row
+																			// Check if the 'studysession_id' is not null, indicating that the user has joined the session
+																			$userHasJoined = !is_null($row['member_studysession_id']);
+
+																			// Determine the button label based on the user's status
+																			$buttonLabel = $userHasJoined ? 'View' : 'Join';
+
+																			echo '
+																				<tr>
+																					<th scope="row">' . $count . '</th>
+																					<td>' . $row['studysession_name'] . '</td>
+																					<td>' . $row['studysession_date'] . '</td>
+																					<td>  <a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a>
+																					</td>
+																				</tr>
+																			';
+																			$count++; // Increment count for each row
+																		}
 															
 																	}
 																}
@@ -504,13 +529,13 @@ if (!isset($_SESSION['user_ID'])) {
 											</div>
 										</div>
 										<!--End of First Tab-->
-										<button onclick="showModal()">Show Modal</button>
+										<!-- <button onclick="showModal()">Show Modal</button>
 
 										<div class="custom-modal" id="myCustomModal">
 											<div class="modal-content">
 												<div class="loader"></div>
 											</div>
-										</div>
+										</div> -->
 
 										<script>
 											function showModal() {
