@@ -382,10 +382,13 @@ if (!isset($_SESSION['user_ID'])) {
 
 																$count = 1; // Initialize count variable
 																$hasRows = false; // Initialize $hasRows to false
+
+																
 															
 																// Check if there are no studysessions or no rows found
 																if (mysqli_num_rows($result) == 0) {
-																	echo '<tr><td colspan="4">No study session found.</td></tr>';
+																	//echo '<tr><td colspan="4">No study session found.</td></tr>';
+																	
 																} else {
 																	while ($row = mysqli_fetch_assoc($result)) {
 
@@ -471,7 +474,7 @@ if (!isset($_SESSION['user_ID'])) {
 																				<th scope="row">' . $count . '</th>
 																				<td>' . $row['studysession_name'] . '</td>
 																				<td>' . $row['studysession_date'] . '</td>
-																				<td>  <a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-success' : 'btn-success') . '">' . $buttonLabel . '</a>
+																				<td>  <a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a>
 																				</td>
 																			</tr>
 																		';

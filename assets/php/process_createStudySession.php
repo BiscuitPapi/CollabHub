@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt2->affected_rows > 0) {
                 echo "Studyhub added successfully!";
                 
-                header("Location: ../../studyhub-profile.php?studyhub_ID=" . $studyhub_ID);
+                header("Location: ../../SB_profile.php?studyhub_ID=" . $studyhub_ID);
                 exit(); // Stop further execution
                 
             } else {
