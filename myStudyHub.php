@@ -253,13 +253,29 @@ session_start();
 						</li>
 						<li class="nav-item">
 							<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-								<span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle" alt="user avatar"></span>
+								<span class="user-profile">
+									<?php if ($_SESSION['picture'] === null): ?>
+										<img src="https://via.placeholder.com/110x110" class="img-circle" alt="user avatar">
+									<?php else: ?>
+										<img  src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>" alt="Profile Image" class="img-circle">
+									<?php endif; ?>
+								</span>
+								
 							</a>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li class="dropdown-item user-details">
 									<a href="myProfile.php">
 										<div class="media">
-											<div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110" alt="user avatar"></div>
+											<?php if ($_SESSION['picture'] === null): ?>
+												<div class="avatar">
+													<img class="align-self-start mr-3" src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"];?> " alt="profile-image">	
+												</div>
+											<?php else: ?>
+												<div class="avatar">
+													<img  src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>" alt="Profile Image" class="align-self-start mr-3">
+												</div>
+											<?php endif; ?>
+	
 											<div class="media-body">
 												<h6 class="mt-2 user-title"><?php echo $_SESSION["name"];?></h6>
 												<p class="user-subtitle"><?php echo $_SESSION["email"];?></p>
@@ -267,7 +283,7 @@ session_start();
 										</div>
 									</a>
 								</li>
-							
+								
 								<li class="dropdown-divider"></li>
 								<li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
 								<li class="dropdown-divider"></li>
@@ -277,10 +293,8 @@ session_start();
 
 								<li class="dropdown-divider"></li>
 								<a href = "assets/php/logout.php">
-									<li class="dropdown-item">
-										
-										<i class="icon-power mr-2"></i> Logout
-										
+									<li class="dropdown-item">	
+										<i class="icon-power mr-2"></i> Logout	
 									</li>
 								</a>
 							</ul>
