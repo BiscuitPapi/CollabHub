@@ -15,7 +15,7 @@
 			$application_id = $_GET['application_ID'];
 	
 			// Fetch the study hub profile based on the studyhub_ID
-			$sql = "SELECT * FROM `club-application` WHERE application_ID = '$application_id'";
+			$sql = "SELECT * FROM `club-application` WHERE club_id = '$application_id'";
 	
 			// Execute the query
 			$result = mysqli_query($connection, $sql);
