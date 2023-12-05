@@ -368,7 +368,7 @@ else {
 																						<td>' . $row['club_name'] . '</td>
 																						<td style="text-align: center;">' . $row['club_description'] . '</td>                   
 																						<td style="text-align: center;">
-																							<a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-success">View</a>
+																							<a href="club_application_view.php?application_ID=' . $row['club_id'] . '" class="btn btn-success">View</a>
 																						</td>
 																						</tr>';
 
@@ -611,7 +611,7 @@ else {
                                                                                         echo '
 																					</td>
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
+                                                                                        <a href="club_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>
