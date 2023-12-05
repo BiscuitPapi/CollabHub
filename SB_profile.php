@@ -137,40 +137,55 @@ if (!isset($_SESSION['user_ID'])) {
 				border-radius: 50%;
 				object-fit: cover; /* Maintain image aspect ratio */
 				/* Add any additional styles or adjustments as needed */
-			}
+			}/* Unique modal class */
+.custom-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    z-index: 1;
+}
 
-			/* Unique modal class */
-			.custom-modal {
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-				z-index: 1;
-			}
+/* Modal content */
+.custom-modal .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
 
-			/* Modal content */
-			.custom-modal .modal-content {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background-color: #fff;
-				padding: 20px;
-				text-align: center;
-			}
+/* Loader container */
+.custom-modal .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center both horizontally and vertically */
+    height: 100%; /* Take full height of the modal content */
+}
 
-			/* Loader animation (customize as needed) */
-			.custom-modal .loader {
-				border: 8px solid #f3f3f3; /* Light grey */
-				border-top: 8px solid #3498db; /* Blue */
-				border-radius: 50%;
-				width: 50px;
-				height: 50px;
-				animation: spin 1.5s linear infinite;
-			}
+/* Loader animation (customize as needed) */
+.custom-modal .loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 10px; /* Add margin to separate loader from the message */
+}
+
+/* Loading message */
+.custom-modal #loadingMessage {
+    font-weight: bold;
+    color: #333;
+}
+
 
 			@keyframes spin {
 				0% { transform: rotate(0deg); }
@@ -501,13 +516,16 @@ if (!isset($_SESSION['user_ID'])) {
 											</div>
 										</div>
 										<!--End of First Tab-->
-										<button onclick="showModal()">Show Modal</button>
+										
 
 										<div class="custom-modal" id="myCustomModal">
 											<div class="modal-content">
-												<div class="loader"></div>
+												<center><div class="loader"></div></center>
+												
+												<p id="loadingMessage">Searching for potential members...</p>
 											</div>
 										</div>
+
 
 										<script>
 											function showModal() {
@@ -1156,37 +1174,42 @@ if (!isset($_SESSION['user_ID'])) {
 
 						function getFinalArray() {
 							console.log(addedSkillsArray);
+
 							// Perform an AJAX request to send the array to a PHP file
-							var xhr = new XMLHttpRequest();
-							xhr.open("POST", "assets/php/algorithmicMatching.php");
-							xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-							xhr.send(JSON.stringify({ skillsArray: addedSkillsArray }));
+							closeFindModal();
+							showModal();
 
-							xhr.onload = function () {
-								if (xhr.status === 200) {
-									console.log("Array sent successfully!");
+							// Delay for 5 seconds
+							setTimeout(function () {
+								var xhr = new XMLHttpRequest();
+								xhr.open("POST", "assets/php/algorithmicMatching.php");
+								xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+								xhr.send(JSON.stringify({ skillsArray: addedSkillsArray }));
 
-									try {
-										var response = JSON.parse(xhr.responseText);
-										console.log("Parsed JSON response: ", response);
+								xhr.onload = function () {
+									if (xhr.status === 200) {
+										console.log("Array sent successfully!");
 
-										// Call a function to display the results on the page
-										displayResults(response);
+										try {
+											var response = JSON.parse(xhr.responseText);
+											console.log("Parsed JSON response: ", response);
 
-										var noSubjectsFound = document.getElementById("suggestionContent");
-										
-										noSubjectsFound.style.display = "block";
-										
-									} catch (error) {
-										console.error("Error parsing JSON:", error);
-										console.log("Response content:", xhr.responseText);
+											// Call a function to display the results on the page
+											displayResults(response);
+
+											var noSubjectsFound = document.getElementById("suggestionContent");
+											noSubjectsFound.style.display = "block";
+										} catch (error) {
+											console.error("Error parsing JSON:", error);
+											console.log("Response content:", xhr.responseText);
+											// Handle the error or incorrect response here
+										}
+									} else {
+										console.error("Error sending array");
 										// Handle the error or incorrect response here
 									}
-								} else {
-									console.error("Error sending array");
-									// Handle the error or incorrect response here
-								}
-							};
+								};
+							}, 5000); // 5000 milliseconds = 5 seconds
 						}
 
 

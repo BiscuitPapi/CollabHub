@@ -115,7 +115,7 @@
 								<?php if ($_SESSION['banner'] !== null): ?>
 									<img class="img-fluid banner" src="data:image/jpeg;base64,<?php echo $_SESSION['banner']; ?>" alt="Banner Image">
 								<?php else: ?>
-									<img class="img-fluid" src="assets/php/image.php?picture=banner&user_ID=<?php echo $user_ID; ?>" alt="banner-image" class="banner">
+									<img class="img-fluid" src="https://via.placeholder.com/500x300" alt="banner-image" class="banner">
 								<?php endif; ?>
 							</div>
 
@@ -123,7 +123,7 @@
 								<div class="avatar">
 									<?php if ($_SESSION['picture'] === null): ?>
 										<div>
-											<img src="assets/php/image.php?picture=profile&user_ID=<?php echo $user_ID; ?>" alt="profile-image" class="profile">
+											<img src="https://via.placeholder.com/110x110" alt="profile-image" class="profile">
 										</div>
 									<?php else: ?>
 										<div>

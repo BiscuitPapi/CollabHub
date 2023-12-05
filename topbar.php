@@ -47,9 +47,16 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
                     <span class="user-profile">
-                        <img class="img-circle"
-                            src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"];?> "
-                            alt="profile-image">
+                        <?php if ($_SESSION['picture'] === null): ?>
+                            <div>
+                                <img src="https://via.placeholder.com/110x110" alt="profile-image" class="img-circle">
+                            </div>
+                        <?php else: ?>
+                            <div>
+                                <img src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>" alt="Profile Image"
+                                    class="img-circle">
+                            </div>
+                        <?php endif; ?>
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
@@ -57,13 +64,26 @@
                         <a href="myProfile.php">
                             <div class="media">
                                 <div class="avatar">
-                                    <img class="align-self-start mr-3"
-                                        src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"];?> "
-                                        alt="profile-image">
+                                    <?php if ($_SESSION['picture'] === null): ?>
+                                        <div>
+                                            <img src="https://via.placeholder.com/110x110" alt="profile-image"
+                                                class="align-self-start mr-3">
+                                        </div>
+                                    <?php else: ?>
+                                        <div>
+                                            <img src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>"
+                                                alt="Profile Image" class="align-self-start mr-3">
+                                        </div>
+                                    <?php endif; ?>
+
                                 </div>
                                 <div class="media-body">
-                                    <h6 class="mt-2 user-title"><?php echo $_SESSION["name"];?></h6>
-                                    <p class="user-subtitle"><?php echo $_SESSION["email"];?></p>
+                                    <h6 class="mt-2 user-title">
+                                        <?php echo $_SESSION["name"]; ?>
+                                    </h6>
+                                    <p class="user-subtitle">
+                                        <?php echo $_SESSION["email"]; ?>
+                                    </p>
                                 </div>
                             </div>
                         </a>

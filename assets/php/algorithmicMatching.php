@@ -21,11 +21,11 @@
     // Perform the necessary database operations to find matching users
 
     // For instance, here's a simple SQL query to find users with the skills
-    $query = "SELECT u.user_ID, u.picture, u.user_ID, u.name, u.email, u.matricNum, u.position, b.name as badge_name
+    $query = "SELECT u.user_ID, u.picture, u.name, u.email, u.matricNum, u.position, b.name as badge_name
           FROM User u
           LEFT JOIN Badge b ON u.user_ID = b.user_ID
-          WHERE b.name IN ('" . implode("','", $skillsArray) . "')";
-
+          WHERE b.name IN ('" . implode("','", $skillsArray) . "')
+          AND u.user_ID <> " . $_SESSION['user_ID'];
 
     $result = $connection->query($query);
 
@@ -34,17 +34,19 @@
     if ($result) {
         while ($row = $result->fetch_assoc()) {
             $userID = $row['user_ID'];
-            if (!isset($users[$userID]) ) {
+            if (!isset($users[$userID])) {
+                $imageData = ($row['picture'] !== null) ? base64_encode($row['picture']) : null;
                 $users[$userID] = array(
                     'user_ID' => $row['user_ID'],
                     'name' => $row['name'],
                     'email' => $row['email'],
                     'matricNum' => $row['matricNum'],
-                    'position' => $row['position'],  
-                    'imageData' => base64_encode($row['picture']),     
+                    'position' => $row['position'],
+                    'imageData' => $imageData,
                     'matched_skills' => array()
                 );
             }
+            
 
             // Store the matching skills for each user
             if (!empty($row['badge_name'])) {
