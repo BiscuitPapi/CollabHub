@@ -213,12 +213,12 @@
 														<th scope="row">' . $count . '</th>
 														<td>' . $row['name'] . '</td>
 														<td>
-															<a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
+															<a href="group_application_view.php?application_ID=' . $row['application_ID'] . '" class="btn btn-info">View</a>
 														</td>
 														<td>' . $row['status'] . '</td>
 														<td>';
 														// Check if status is 'pending' to show the buttons
-														if ($row['status'] == 'pending') {
+														if ($row['status'] == 'Pending') {
 															echo '
 															<a href="assets/php/process_approveClubApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-success">Approve</a>
 															<a href="assets/php/process_rejectClubApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-warning">Reject</a>';

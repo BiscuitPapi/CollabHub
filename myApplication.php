@@ -342,8 +342,7 @@ else {
 																	<tbody id ="clubApplicationsTableBody">
                                                                     <?php
 																		include("assets/php/connection.php");
-																		session_start();
-
+																		
 																		// Check if the user is logged in, and if so, get their user_ID
 																		if (isset($_SESSION["user_ID"])) {
 																			$user_ID = $_SESSION["user_ID"];
@@ -366,7 +365,7 @@ else {
 																						<tr>
 																						<th scope="row">' . $count . '</th>
 																						<td>' . $row['club_name'] . '</td>
-																						<td style="text-align: center;">' . $row['club_description'] . '</td>                   
+																						<td style="text-align: center;">' . $row['position_available'] . '</td>                   
 																						<td style="text-align: center;">
 																							<a href="club_application_view.php?application_ID=' . $row['club_id'] . '" class="btn btn-success">View</a>
 																						</td>
@@ -595,9 +594,9 @@ else {
 																				echo'
                                                                                     <tr>
                                                                                     <th scope="row">' . $count . '</th>
-                                                                                    <td style="text-align: center;">' . $row['course_name'] . '</td>
-                                                                                    <td style="text-align: center;">' . $row['project_name'] . '</td>
-                                                                                    <td>';
+                                                                                    <td>' . $row['club_name'] . '</td>
+                                                                                    <td style="text-align: center;">' . $row['position_available'] . '</td>
+                                                                                    <td style="text-align: center;">';
 
                                                                                         if ($row['status'] === 'Approved') {
                                                                                             echo '<span class="badge badge-success"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>';
@@ -611,7 +610,7 @@ else {
                                                                                         echo '
 																					</td>
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="club_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
+                                                                                        <a href="club_application_view.php?application_ID=' . $row['club_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>

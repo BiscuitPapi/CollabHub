@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_ID'])) {
 } else {
 
 	?>
+	<!DOCTYPE html>
 	<html lang="en">
 
 	<head>
@@ -36,25 +37,30 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/app-style.css" rel="stylesheet" />
 		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	</head>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<body class="bg-theme bg-theme9">
+		<!-- start loader -->
+		<div id="pageloader-overlay" class="visible incoming">
+			<div class="loader-wrapper-outer">
+				<div class="loader-wrapper-inner">
+					<div class="loader"></div>
+				</div>
+			</div>
+		</div>
+		<!-- end loader -->
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
 			<?php include_once('sidebar.php'); ?>
 			<?php include_once('topbar.php'); ?>
-	
-			<div class="clearfix"></div>
 
+			<div class="clearfix"></div>
+			<!--Start Content Wrapper-->
 			<div class="content-wrapper">
 				<div class="container-fluid">
-
 					<!--Start Dashboard Content-->
-
 					<div class="card mt-3">
 						<div class="card-content">
 							<div class="row row-group m-0">
@@ -105,124 +111,17 @@ if (!isset($_SESSION['user_ID'])) {
 							</div>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xl-8">
-							<div class="card">
-								<div class="card-header">Site Traffic
-									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<ul class="list-inline">
-										<li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New Visitor
-										</li>
-										<li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old Visitor
-										</li>
-									</ul>
-									<div class="chart-container-1">
-										<canvas id="chart1"></canvas>
-									</div>
-								</div>
-
-								<div class="row m-0 row-group text-center border-top border-light-3">
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">45.87M</h5>
-											<small class="mb-0">Overall Visitor <span> <i class="fa fa-arrow-up"></i>
-													2.43%</span></small>
-										</div>
-									</div>
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">15:48</h5>
-											<small class="mb-0">Visitor Duration <span> <i class="fa fa-arrow-up"></i>
-													12.65%</span></small>
-										</div>
-									</div>
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">245.65</h5>
-											<small class="mb-0">Pages/Visit <span> <i class="fa fa-arrow-up"></i>
-													5.62%</span></small>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-						<div class="col-12 col-lg-4 col-xl-4">
-							<div class="card">
-								<div class="card-header">Weekly sales
-									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="chart-container-2">
-										<canvas id="chart2"></canvas>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table align-items-center">
-										<tbody>
-											<tr>
-												<td><i class="fa fa-circle text-white mr-2"></i> Direct</td>
-												<td>$5856</td>
-												<td>+55%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-1 mr-2"></i>Affiliate</td>
-												<td>$2602</td>
-												<td>+25%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-2 mr-2"></i>E-mail</td>
-												<td>$1802</td>
-												<td>+15%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
-												<td>$1105</td>
-												<td>+5%</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div><!--End Row-->
-
 					<div class="row">
 						<div class="col-12 col-lg-12">
-							<div class="card">
-								<div class="card-header">Recent Order Tables
+							<!-- SWITCH BUTTON -->
+							<div class="row" style="justify-content: center; align-items: center; margin-bottom: 20px;">
+								<button class="btn btn-primary" id="list_1Button"
+									onclick="togglePage('list_1')">StudyHub</button>
+								<button class="btn btn-dark" id="list_2Button" onclick="togglePage('list_2')">Open
+									Application</button>
+							</div>
+							<div class="card" id="list_1">
+								<div class="card-header">StudyHub List
 									<div class="card-action">
 										<div class="dropdown">
 											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
@@ -239,200 +138,220 @@ if (!isset($_SESSION['user_ID'])) {
 										</div>
 									</div>
 								</div>
+
 								<div class="table-responsive">
 									<table class="table align-items-center table-flush table-borderless">
 										<thead>
 											<tr>
-												<th>Product</th>
-												<th>Photo</th>
-												<th>Product ID</th>
-												<th>Amount</th>
-												<th>Date</th>
-												<th>Shipping</th>
+												<th>#</th>
+												<th>StudyHub</th>
+												<th style="text-align: center;">Creator</th>
+												<th style="text-align: center;">Members</th>
+												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td>Iphone 5</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405822</td>
-												<td>$ 1250.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 90%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Earphone GL</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405820</td>
-												<td>$ 1500.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 60%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>HD Hand Camera</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405830</td>
-												<td>$ 1400.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 70%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Clasic Shoes</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405825</td>
-												<td>$ 1200.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 100%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Hand Watch</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405840</td>
-												<td>$ 1800.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 40%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Clasic Shoes</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405825</td>
-												<td>$ 1200.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 100%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
+										<tbody id="yourTableBody">
+											<!-- Table rows will be dynamically added here -->
 										</tbody>
+
 									</table>
+									<div class="col-md-12">
+										<ul class="pagination justify-content-center">
+											<!-- Pagination Links -->
+											<div class="pagination">
+												<!-- Pagination links will be dynamically added here -->
+											</div>
+										</ul>
+									</div>
+
 								</div>
+
+
 							</div>
+
+							<div class="card" id="list_2" style="display:none;">
+								<div class="card-header">Open Application List
+									<div class="card-action">
+										<div class="dropdown">
+											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
+												data-toggle="dropdown">
+												<i class="icon-options"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="javascript:void();">Action</a>
+												<a class="dropdown-item" href="javascript:void();">Another action</a>
+												<a class="dropdown-item" href="javascript:void();">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="javascript:void();">Separated link</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="table-responsive">
+									<table class="table align-items-center table-flush table-borderless">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Club Name</th>
+												<th>Position Available</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody id="yourTableBody2">
+											<!-- Table rows will be dynamically added here -->
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+							</div>
+
+
+
+
 						</div>
 					</div><!--End Row-->
-
 					<!--End Dashboard Content-->
-
-					<!--start overlay-->
-					<div class="overlay toggle-menu"></div>
-					<!--end overlay-->
-
 				</div>
-				<!-- End container-fluid-->
+				<!--End content-wrapper-->
 
-			</div><!--End content-wrapper-->
-			<!--Start Back To Top Button-->
-			<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-			<!--End Back To Top Button-->
 
-			<!--start color switcher-->
-			<div class="right-sidebar">
-				<div class="switcher-icon">
-					<i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-				</div>
-				<div class="right-sidebar-content">
 
-					<p class="mb-0">Gaussion Texture</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme1"></li>
-						<li id="theme2"></li>
-						<li id="theme3"></li>
-						<li id="theme4"></li>
-						<li id="theme5"></li>
-						<li id="theme6"></li>
-					</ul>
-
-					<p class="mb-0">Gradient Background</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme7"></li>
-						<li id="theme8"></li>
-						<li id="theme9"></li>
-						<li id="theme10"></li>
-						<li id="theme11"></li>
-						<li id="theme12"></li>
-						<li id="theme13"></li>
-						<li id="theme14"></li>
-						<li id="theme15"></li>
-					</ul>
-
-				</div>
+				<!--Start footer-->
+				<footer class="footer">
+					<div class="container">
+						<div class="text-center">
+						</div>
+					</div>
+				</footer>
+				<!--End footer-->
 			</div>
-			<!--end color switcher-->
+			<!--End wrapper-->
 
-		</div><!--End wrapper-->
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+			<!-- Bootstrap core JavaScript-->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/popper.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
 
-		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
-		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
-		<!-- loader scripts -->
-		<script src="assets/js/jquery.loading-indicator.js"></script>
-		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<!-- Chart js -->
+			<!-- simplebar js -->
+			<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+			<!-- sidebar-menu js -->
+			<script src="assets/js/sidebar-menu.js"></script>
 
-		<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+			<!-- Custom scripts -->
+			<script src="assets/js/app-script.js"></script>
+			<script src="assets/js/notification.js"></script>
 
-		<!-- Index js -->
-		<script src="assets/js/index.js"></script>
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/notification.js"></script>
-    
-		<script>
-			displayNotifications();
-		</script>					
-		
+			<script>
+				displayNotifications();
+
+				function togglePage(pageId) {
+					// Hide all pages
+					document.getElementById('list_1').style.display = 'none';
+					document.getElementById('list_2').style.display = 'none';
+
+					// Show the selected page
+					document.getElementById(pageId).style.display = 'block';
+
+					// Update button styles based on active page
+					document.getElementById('list_1Button').className = 'btn ' + (pageId === 'list_1' ? 'btn-primary' : 'btn-dark');
+					document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
+				}
+
+
+				$(document).ready(function () {
+					function loadTables(page) {
+						// Fetch data for the first table
+						$.ajax({
+							url: 'assets/php/process_fetchSB.php?page=' + page,
+							type: 'GET',
+							dataType: 'json',
+							success: function (data) {
+								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
+								tableBody.empty(); // Clear existing rows
+
+								for (var i = 0; i < data.length; i++) {
+									var row = data[i];
+									var html = '<tr>' +
+										'<th scope="row">' + (i + 1) + '</th>' +
+										'<td>' + row['studyhub_name'] + '</td>' +
+										'<td style="text-align: center;">' + row['creator_name'] + '</td>' +
+										'<td style="text-align: center;">' +
+										row['member_count'] + // Display the member count
+										'</td>' +
+										'<td style="text-align: center;">' +
+										'<a href="viewStudyHub.php?studyhub_ID=' + row['studyhub_ID'] + '" class="btn btn-success">View</a>' +
+										'</td>' +
+										'</tr>';
+
+									tableBody.append(html);
+								}
+							}
+						});
+
+						// Fetch data for the second table
+						$.ajax({
+							url: 'assets/php/process_fetchOA.php?page=' + page,
+							type: 'GET',
+							dataType: 'json',
+							success: function (data) {
+								console.log(data); // Display the fetched data in the console
+
+								var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+								tableBody2.empty(); // Clear existing rows
+
+								for (var i = 0; i < data.length; i++) {
+									var row = data[i];
+									var html = '<tr>' +
+										'<th scope="row">' + (i + 1) + '</th>' +
+										'<td>' + row['club_name'] + '</td>' +
+										'<td>' + row['position_available'] + '</td>' +
+										'<td>' +
+										'<a href="club_application_view.php?application_ID=' + row['club_id'] + '" class="btn btn-success">View</a>' +
+										'</td>' +
+										// Add other table columns as needed
+										'</tr>';
+
+									tableBody2.append(html);
+								}
+							},
+							error: function (xhr, status, error) {
+								console.error(xhr.responseText); // Log any error response to the console
+							}
+						});
+
+
+
+
+					}
+
+					// Initial table load
+					$(document).ready(function () {
+						loadTables(1);
+
+						// Handle pagination clicks
+						$(document).on('click', '.pagination a', function (e) {
+							e.preventDefault();
+							var page = $(this).text();
+							loadTables(page);
+						});
+					});
+
+
+				});
+
+
+
+			</script>
 
 	</body>
 
 	</html>
-<?php
+
+	<?php
 }
 ?>

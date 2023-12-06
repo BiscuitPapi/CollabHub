@@ -95,7 +95,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
 		<link href="assets/css/app-style.css" rel="stylesheet" />
-		
+
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -104,7 +104,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
-   		
+
 		<style>
 			body {
 				transition: filter 0.3s ease-in-out;
@@ -133,68 +133,79 @@ if (!isset($_SESSION['user_ID'])) {
 				right: 10px;
 				cursor: pointer;
 			}
+
 			.img-circle {
 				border-radius: 50%;
-				object-fit: cover; /* Maintain image aspect ratio */
+				object-fit: cover;
+				/* Maintain image aspect ratio */
 				/* Add any additional styles or adjustments as needed */
-			}/* Unique modal class */
-.custom-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    z-index: 1;
-}
+			}
 
-/* Modal content */
-.custom-modal .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    text-align: center;
-}
+			/* Unique modal class */
+			.custom-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(255, 255, 255, 0.8);
+				/* Semi-transparent white background */
+				z-index: 1;
+			}
 
-/* Loader container */
-.custom-modal .loader-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center both horizontally and vertically */
-    height: 100%; /* Take full height of the modal content */
-}
+			/* Modal content */
+			.custom-modal .modal-content {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #fff;
+				padding: 20px;
+				text-align: center;
+			}
 
-/* Loader animation (customize as needed) */
-.custom-modal .loader {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1.5s linear infinite;
-    margin-bottom: 10px; /* Add margin to separate loader from the message */
-}
+			/* Loader container */
+			.custom-modal .loader-container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				/* Center both horizontally and vertically */
+				height: 100%;
+				/* Take full height of the modal content */
+			}
 
-/* Loading message */
-.custom-modal #loadingMessage {
-    font-weight: bold;
-    color: #333;
-}
+			/* Loader animation (customize as needed) */
+			.custom-modal .loader {
+				border: 8px solid #f3f3f3;
+				/* Light grey */
+				border-top: 8px solid #3498db;
+				/* Blue */
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				animation: spin 1.5s linear infinite;
+				margin-bottom: 10px;
+				/* Add margin to separate loader from the message */
+			}
+
+			/* Loading message */
+			.custom-modal #loadingMessage {
+				font-weight: bold;
+				color: #333;
+			}
 
 
 			@keyframes spin {
-				0% { transform: rotate(0deg); }
-				100% { transform: rotate(360deg); }
+				0% {
+					transform: rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg);
+				}
 			}
-
-			
-
-
 		</style>
 
 	</head>
@@ -217,7 +228,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<?php include_once('topbar.php'); ?>
 
 			<div class="clearfix"></div>
-			
+
 			<div class="content-wrapper">
 				<div class="container-fluid">
 					<!-- New row or section -->
@@ -324,7 +335,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<!--End of Display Members-->
 
 							</div>
-							
+
 							<!--Start of Invitation Content-->
 							<div class="card">
 								<div class="card-body">
@@ -336,7 +347,8 @@ if (!isset($_SESSION['user_ID'])) {
 													<tbody>
 														<tr>
 															<td>Struggling to find the right members for your group?<br>Let
-																us assist you in finding potential group members<br>who match
+																us assist you in finding potential group members<br>who
+																match
 																your preferences!</td>
 														</tr>
 													</tbody>
@@ -348,7 +360,7 @@ if (!isset($_SESSION['user_ID'])) {
 									</div>
 								</div>
 							</div>
-							<!--End of Invitation Content-->		
+							<!--End of Invitation Content-->
 
 						</div>
 						<!--End of First Column-->
@@ -375,8 +387,8 @@ if (!isset($_SESSION['user_ID'])) {
 													class="hidden-xs">Edit</span></a>
 										</li>
 									</ul>
-									
-				
+
+
 									<div class="tab-content p-3">
 										<!--Start of First Tab-->
 										<div class="tab-pane active" id="studysession">
@@ -402,13 +414,13 @@ if (!isset($_SESSION['user_ID'])) {
 
 																$count = 1; // Initialize count variable
 																$hasRows = false; // Initialize $hasRows to false
-
-																
 															
+
+
 																// Check if there are no studysessions or no rows found
 																if (mysqli_num_rows($result) == 0) {
 																	//echo '<tr><td colspan="4">No study session found.</td></tr>';
-																	
+															
 																} else {
 																	while ($row = mysqli_fetch_assoc($result)) {
 
@@ -439,11 +451,11 @@ if (!isset($_SESSION['user_ID'])) {
 																			';
 																			$hasRows = true;
 
-																			
+
 																			$count++; // Increment count for each row
 																		}
 
-																		
+
 																	}
 																}
 
@@ -519,7 +531,7 @@ if (!isset($_SESSION['user_ID'])) {
 																			';
 																			$count++; // Increment count for each row
 																		}
-															
+
 																	}
 																}
 
@@ -544,12 +556,14 @@ if (!isset($_SESSION['user_ID'])) {
 											</div>
 										</div>
 										<!--End of First Tab-->
-										
+
 
 										<div class="custom-modal" id="myCustomModal">
 											<div class="modal-content">
-												<center><div class="loader"></div></center>
-												
+												<center>
+													<div class="loader"></div>
+												</center>
+
 												<p id="loadingMessage">Searching for potential members...</p>
 											</div>
 										</div>
@@ -560,13 +574,13 @@ if (!isset($_SESSION['user_ID'])) {
 												modal.style.display = 'block';
 
 												// Set a timeout to hide the modal after 5 seconds
-												setTimeout(function() {
+												setTimeout(function () {
 													modal.style.display = 'none';
 												}, 5000); // 5000 milliseconds = 5 seconds
 											}
 
 										</script>
-							
+
 										<!--Start of First Tab-->
 										<div class="tab-pane" id="edit">
 											<form>
@@ -675,12 +689,12 @@ if (!isset($_SESSION['user_ID'])) {
 
 								</div>
 							</div>
-							
+
 							<!--Start of Suggestion-->
-							<div class="card profile-card-2" id = "suggestionContent" style="display: none;">
+							<div class="card profile-card-2" id="suggestionContent" style="display: none;">
 								<div class="card-body">
 									<h5 class="mb-3">Suggested Members</h5>
-									<div class="card" > <!-- Moved the ID here -->
+									<div class="card"> <!-- Moved the ID here -->
 										<div class="card-body" id="userDetails">
 											<!-- Your content -->
 										</div>
@@ -695,15 +709,18 @@ if (!isset($_SESSION['user_ID'])) {
 								</div>
 							</div>
 
-							<!--End of Suggestion-->			
+							<!--End of Suggestion-->
 
-							
+
 
 							<!--Start of Suggestion Modal-->
-							<div id="modal-find" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
-								<div class="modal-content" style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 50%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
-      								<span class="close" style="position: absolute; top: 0; right: 0; padding: 10px; cursor: pointer; color: #000;">&times;</span>
-        
+							<div id="modal-find" class="modal"
+								style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
+								<div class="modal-content"
+									style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 50%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
+									<span class="close"
+										style="position: absolute; top: 0; right: 0; padding: 10px; cursor: pointer; color: #000;">&times;</span>
+
 									<!-- Content for your modal goes here -->
 									<center>
 										<h3 style="color: #fff;">Find Members</h3>
@@ -715,23 +732,28 @@ if (!isset($_SESSION['user_ID'])) {
 											<div class="col-md-12">
 												<h5 class="mb-3"></h5>
 												<div class="form-group">
-													<div class="row justify-content-center"> <!-- Center aligning the row -->
-														<input type="text" class="form-control col-lg-4 mr-2" name="addedSkills" id="addedSkills" placeholder="Input skill required">
-														<button onclick="addSkills()" class="btn btn-primary" style="color: white;">Add</button>
+													<div class="row justify-content-center">
+														<!-- Center aligning the row -->
+														<input type="text" class="form-control col-lg-4 mr-2"
+															name="addedSkills" id="addedSkills"
+															placeholder="Input skill required">
+														<button onclick="addSkills()" class="btn btn-primary"
+															style="color: white;">Add</button>
 													</div>
 												</div>
 												<br>
 
 												<div class="form-group">
 													<center id="badgeContainer">
-													
+
 													</center>
-												</div>	
+												</div>
 
 
 
 												<center>
-													<button onclick="getFinalArray()" class="btn btn-success">Search</button>
+													<button onclick="getFinalArray()"
+														class="btn btn-success">Search</button>
 												</center>
 											</div>
 										</div>
@@ -753,7 +775,8 @@ if (!isset($_SESSION['user_ID'])) {
 							<div class="modal fade" id="profileCropModal" tabindex="-1" role="dialog"
 								aria-labelledby="profileCropModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content"  style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
+									<div class="modal-content"
+										style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
 										<div class="modal-header">
 											<h5 class="modal-title" id="profileCropModalLabel">Crop Profile Picture</h5>
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -763,10 +786,11 @@ if (!isset($_SESSION['user_ID'])) {
 										<div
 											class="modal-body text-center d-flex justify-content-center align-items-center">
 											<canvas id="profileCroppedCanvas" width="110" height="110"></canvas>
-											<div class ="cropper-container cropper-bg" touch-action="none" style="width:200px; height:100px;">
+											<div class="cropper-container cropper-bg" touch-action="none"
+												style="width:200px; height:100px;">
 
-											</div>	
-											
+											</div>
+
 										</div>
 
 										<div class="modal-footer justify-content-center">
@@ -783,7 +807,8 @@ if (!isset($_SESSION['user_ID'])) {
 							<div class="modal fade" id="bannerCropModal" tabindex="-1" role="dialog"
 								aria-labelledby="bannerCropModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content"  style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
+									<div class="modal-content"
+										style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
 										<div class="modal-header">
 											<h5 class "modal-title" id="bannerCropModalLabel">Crop Banner</h5>
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -811,7 +836,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 					<script>
 						displayNotifications();
-					
+
 
 						// Function to create notification items with studyHub_ID data and associated details
 						function addNotificationWithStudyHubDetails(studyHubDetails) {
@@ -851,8 +876,8 @@ if (!isset($_SESSION['user_ID'])) {
 							col3.className = 'col-3';
 							col3.innerHTML = `You have been invited to StudyHub ${studyHubDetails.studyhub_name}<br>
 							
-							<a href="javascript:void(0)" class="btn btn-success" onclick="approval(${studyHubDetails.studyhub_ID}, 'Accepted', '${studyHubDetails.invite_ID}')">Accept</a>
-							<a href="javascript:void(0)" class="btn btn-danger" onclick="approval(${studyHubDetails.studyhub_ID}, 'Rejected', '${studyHubDetails.invite_ID}')">Reject</a>`;
+								<a href="javascript:void(0)" class="btn btn-success" onclick="approval(${studyHubDetails.studyhub_ID}, 'Accepted', '${studyHubDetails.invite_ID}')">Accept</a>
+								<a href="javascript:void(0)" class="btn btn-danger" onclick="approval(${studyHubDetails.studyhub_ID}, 'Rejected', '${studyHubDetails.invite_ID}')">Reject</a>`;
 
 							row.appendChild(col2);
 							row.appendChild(col3);
@@ -878,35 +903,35 @@ if (!isset($_SESSION['user_ID'])) {
 									notificationList.innerHTML = ''; // Clear previous content
 
 									if (dataToUse.length === 0) {
-									const existingSpan = document.getElementById('notificationCounter');
-									if (existingSpan) {
-										existingSpan.remove(); // Remove the existing span if it exists
+										const existingSpan = document.getElementById('notificationCounter');
+										if (existingSpan) {
+											existingSpan.remove(); // Remove the existing span if it exists
+										}
+
+										const noInvitationMessage = document.createElement('li');
+										noInvitationMessage.textContent = 'No new invitations yet';
+										noInvitationMessage.style.padding = '10px';
+										notificationList.appendChild(noInvitationMessage);
+									} else {
+										const notificationCount = dataToUse.length;
+
+										let newSpan = document.getElementById('notificationCounter');
+										if (!newSpan) {
+											newSpan = document.createElement('span');
+											newSpan.className = 'position-absolute top-0 end-0 badge rounded-circle bg-danger';
+											newSpan.style.fontSize = '10px';
+											newSpan.id = 'notificationCounter';
+										}
+
+										newSpan.textContent = notificationCount;
+
+										const bellIcon = document.querySelector('.fa-bell-o');
+										bellIcon.appendChild(newSpan);
+
+										dataToUse.forEach(studyHubDetail => {
+											addNotificationWithStudyHubDetails(studyHubDetail);
+										});
 									}
-
-									const noInvitationMessage = document.createElement('li');
-									noInvitationMessage.textContent = 'No new invitations yet';
-									noInvitationMessage.style.padding = '10px';
-									notificationList.appendChild(noInvitationMessage);
-								} else {
-									const notificationCount = dataToUse.length;
-
-									let newSpan = document.getElementById('notificationCounter');
-									if (!newSpan) {
-										newSpan = document.createElement('span');
-										newSpan.className = 'position-absolute top-0 end-0 badge rounded-circle bg-danger';
-										newSpan.style.fontSize = '10px';
-										newSpan.id = 'notificationCounter';
-									}
-
-									newSpan.textContent = notificationCount;
-
-									const bellIcon = document.querySelector('.fa-bell-o');
-									bellIcon.appendChild(newSpan);
-
-									dataToUse.forEach(studyHubDetail => {
-										addNotificationWithStudyHubDetails(studyHubDetail);
-									});
-								}
 
 								})
 								.catch(error => console.error('Error:', error));
@@ -923,24 +948,24 @@ if (!isset($_SESSION['user_ID'])) {
 							} else {
 								answerText = answerText.slice(0, -2);
 							}
-							if (confirm("Are you sure you want to " + answerText  +" this application?")) {
+							if (confirm("Are you sure you want to " + answerText + " this application?")) {
 								$.ajax({
 									url: 'assets/php/process_invitationResponse.php',
 									method: 'POST',
 									data: { studyHub_ID: studyHub_ID, status: answer },
-									success: function(response) {
+									success: function (response) {
 										// Handle the response from the PHP script
 										console.log(response);
 										if (answer == "Rejected")
 											alert("Invitation has been rejected!");
 										else
 											alert("Invitation has been accepted!");
-										
+
 										// Display updated notifications
-										displayNotifications(invite_ID);	
+										displayNotifications(invite_ID);
 										<?php $_SESSION['count'] = 1; ?>
 									},
-									error: function(xhr, status, error) {
+									error: function (xhr, status, error) {
 										// Handle the error
 										console.log(error);
 									}
@@ -949,7 +974,7 @@ if (!isset($_SESSION['user_ID'])) {
 						}
 
 
-						
+
 						// Get the "Find" span element
 						var findSpan = document.querySelector(".clickable-find");
 
@@ -957,7 +982,7 @@ if (!isset($_SESSION['user_ID'])) {
 						var findModal = document.getElementById("modal-find");
 						var findModalCloseButton = findModal.querySelector(".close");
 						var findModalContent = findModal.querySelector(".modal-content");
-						
+
 						// Function to display the add modal
 						function showFindModal() {
 							findModal.style.display = "block";
@@ -975,14 +1000,14 @@ if (!isset($_SESSION['user_ID'])) {
 						findModalCloseButton.addEventListener("click", closeFindModal);
 
 						// Close the add modal if the background is clicked
-						window.addEventListener("click", function(event) {
+						window.addEventListener("click", function (event) {
 							if (event.target === findModal) {
 								closeFindModal();
 							}
 						});
 
 						// Prevent clicks inside the add modal content from closing the modal
-						findModalContent.addEventListener("click", function(event) {
+						findModalContent.addEventListener("click", function (event) {
 							event.stopPropagation();
 						});
 
@@ -1242,58 +1267,58 @@ if (!isset($_SESSION['user_ID'])) {
 
 						function displayResults(data) {
 							var contentContainer = document.getElementById('userDetails'); // Assuming 'userDetails' is the ID of the container div
-    						contentContainer.innerHTML = '';
+							contentContainer.innerHTML = '';
 							if (data && data.length > 0) {
 								data.forEach(function (user) {
 									var skillsList = user.matched_skills.join(', '); // Joined matched skills into a string
 									var matchPercentage = user.match_percentage.toFixed(2); // Limiting to two decimal places
 
 									var userContent = `
-									<hr>
+										<hr>
 									
 
-									<div class="row">
-										<div class ="row align-items-start">							
-											<div class="col-lg-2">
-												${user.imageData !== null && user.imageData !== '' ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">` : `<img src="https://via.placeholder.com/110x110">`}
+										<div class="row">
+											<div class ="row align-items-start">							
+												<div class="col-lg-2">
+													${user.imageData !== null && user.imageData !== '' ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">` : `<img src="https://via.placeholder.com/110x110">`}
 													
+												</div>
+											</div>
+											<div class="col-lg-4 align-items-center">
+												<h6>Name</h6>
+												<p>${user.name}</p>
+												<hr>
+												<h6>Email</h6>
+												<p>${user.email}</p>
+											</div>
+
+											<div class="col-lg-4 align-items-center">
+												<h6>Skills Matched</h6>
+												<p>${skillsList}</p>
+												<hr>
+												<h6>Accuracy Percentage</h6>
+												<p>${matchPercentage}%</p>
+											</div>
+
+											<div class="col-lg-2 d-flex align-items-center justify-content-center">
+												<button class="btn btn-success" onclick="sendInvitation('${user.user_ID}')">
+													Invite
+												</button>
+
 											</div>
 										</div>
-										<div class="col-lg-4 align-items-center">
-											<h6>Name</h6>
-											<p>${user.name}</p>
-											<hr>
-											<h6>Email</h6>
-											<p>${user.email}</p>
-										</div>
-
-										<div class="col-lg-4 align-items-center">
-											<h6>Skills Matched</h6>
-											<p>${skillsList}</p>
-											<hr>
-											<h6>Accuracy Percentage</h6>
-											<p>${matchPercentage}%</p>
-										</div>
-
-										<div class="col-lg-2 d-flex align-items-center justify-content-center">
-											<button class="btn btn-success" onclick="sendInvitation('${user.user_ID}')">
-												Invite
-											</button>
-
-										</div>
-									</div>
-								`;
+									`;
 									contentContainer.insertAdjacentHTML('beforeend', userContent);
 								});
 							} else {
 								var noResultsContent = `
-									<p>No matching users found.</p>
-								`;
+										<p>No matching users found.</p>
+									`;
 								contentContainer.innerHTML = noResultsContent;
 							}
 						}
 
-						function sendInvitation(user_ID){
+						function sendInvitation(user_ID) {
 							var studyHub_ID = <?php echo $studyhub_ID; ?>;
 
 							$.ajax({
@@ -1379,7 +1404,7 @@ if (!isset($_SESSION['user_ID'])) {
 				</div>
 				<!--End wrapper-->
 
-			
+
 				<!-- Bootstrap core JavaScript-->
 				<script src="assets/js/jquery.min.js"></script>
 				<script src="assets/js/popper.min.js"></script>

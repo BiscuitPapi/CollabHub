@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1) Insert into the review table
     $insertReviewQuery = "INSERT INTO review (dateCreated, comments, stars) VALUES (CURRENT_DATE(), ?, ?)";
+
     $stmt = $connection->prepare($insertReviewQuery);
     $stmt->bind_param("ss", $comments, $stars);
     $stmt->execute();
