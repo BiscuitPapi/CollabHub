@@ -49,12 +49,12 @@
                     <span class="user-profile">
                         <?php if ($_SESSION['picture'] === null): ?>
                             <div>
-                                <img src="https://via.placeholder.com/110x110" alt="profile-image" class="img-circle">
+                                <img src="https://via.placeholder.com/110x110" alt="profile-image" class="img-circle" id = "smallProfilePicture_1">
                             </div>
                         <?php else: ?>
                             <div>
                                 <img src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>" alt="Profile Image"
-                                    class="img-circle">
+                                    class="img-circle" id = "smallProfilePicture_1">
                             </div>
                         <?php endif; ?>
                     </span>
@@ -67,12 +67,12 @@
                                     <?php if ($_SESSION['picture'] === null): ?>
                                         <div>
                                             <img src="https://via.placeholder.com/110x110" alt="profile-image"
-                                                class="align-self-start mr-3">
+                                                class="align-self-start mr-3" id = "smallProfilePicture_2">
                                         </div>
                                     <?php else: ?>
                                         <div>
                                             <img src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>"
-                                                alt="Profile Image" class="align-self-start mr-3">
+                                                alt="Profile Image" class="align-self-start mr-3" id = "smallProfilePicture_2">
                                         </div>
                                     <?php endif; ?>
 

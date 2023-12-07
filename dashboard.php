@@ -38,6 +38,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+		
 	</head>
 
 	<body class="bg-theme bg-theme9">
@@ -66,23 +67,23 @@ if (!isset($_SESSION['user_ID'])) {
 							<div class="row row-group m-0">
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">9526 <span class="float-right"><i
-													class="fa fa-shopping-cart"></i></span></h5>
+										<h5 class="text-white mb-0">10 <span class="float-right"><i
+													class="zmdi zmdi-account-o"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Total Orders <span class="float-right">+4.2%
+										<p class="mb-0 text-white small-font">New Users<span class="float-right">+4.2%
 												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">8323 <span class="float-right"><i
-													class="fa fa-usd"></i></span></h5>
+										<h5 class="text-white mb-0">5 <span class="float-right"><i
+													class="zmdi zmdi-assignment"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Total Revenue <span class="float-right">+1.2%
+										<p class="mb-0 text-white small-font">Open Applications<span class="float-right">+1.2%
 												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
@@ -93,14 +94,14 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Visitors <span class="float-right">+5.2% <i
+										<p class="mb-0 text-white small-font">StudyHub<span class="float-right">+5.2% <i
 													class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
 										<h5 class="text-white mb-0">5630 <span class="float-right"><i
-													class="fa fa-envira"></i></span></h5>
+													class="zmdi zmdi-help-outline"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>

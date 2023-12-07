@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_ID'])) {
 } else {
 
 	?>
+	<!DOCTYPE html>
 	<html lang="en">
 
 	<head>
@@ -16,7 +17,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>Dashboard</title>
+		<title>Edit Profile</title>
 		<!-- loader-->
 		<link href="assets/css/pace.min.css" rel="stylesheet" />
 		<script src="assets/js/pace.min.js"></script>
@@ -34,405 +35,571 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
 		<link href="assets/css/app-style.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+
+		<style>
+			.badge-container {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 5px;
+			}
+
+			.badge-wrapper {
+				display: inline-block;
+			}
+
+			.delete-button {
+				color: #ff0000;
+				font-weight: bold;
+				font-size: 18px;
+				/* Adjust the font size to make the X button bigger */
+				margin-left: 5px;
+				/* Add some spacing between the input field and the X button */
+				padding: 4px 8px;
+				text-decoration: none;
+				margin-left: 5px;
+				/* Add some spacing between the input field and the X button */
+				margin-right: -10px;
+				/* Move the X button towards the right edge of the badge */
+			}
+
+			.badge-pill {
+				display: flex;
+				align-items: center;
+			}
+
+			.badge-input {
+				width: 60%;
+				/* Adjust the width as per your preference */
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			.badge-name {
+				margin-right: 5px;
+				/* Add some spacing between the badge name and input field */
+			}08
+		</style>
 
 	</head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<body class="bg-theme bg-theme9">
+		<!-- start loader -->
+		<div id="pageloader-overlay" class="visible incoming">
+			<div class="loader-wrapper-outer">
+				<div class="loader-wrapper-inner">
+					<div class="loader"></div>
+				</div>
+			</div>
+		</div>
+		<!-- end loader -->
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
+
 			<?php include_once('sidebar.php'); ?>
 			<?php include_once('topbar.php'); ?>
-	
+
 			<div class="clearfix"></div>
 
 			<div class="content-wrapper">
 				<div class="container-fluid">
+					<div class="row">
+						<center>
+							<div class="col-1">
+								<div class="row">
+									<a href="javascript:void();" data-toggle="tooltip" data-placement="top"
+										title="Personal Information" onclick="toggle('about');">
+										<div class="card">
+											<div class="card-body">
+												<center>
+													<i class="zmdi zmdi-account"></i><span></span>
+												</center>
+											</div>
+										</div>
+									</a>
+								</div>
 
-					<!--Start Dashboard Content-->
+								<div class="row">
+									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Badge"
+										onclick="toggle('addBadge');">
+										<div class="card">
+											<div class="card-body">
+												<center>
+													<i class="zmdi zmdi-badge-check"></i><span></span>
+												</center>
+											</div>
+										</div>
+									</a>
+								</div>
 
-					<div class="card mt-3">
-						<div class="card-content">
-							<div class="row row-group m-0">
-								<div class="col-12 col-lg-6 col-xl-3 border-light">
-									<div class="card-body">
-										<h5 class="text-white mb-0">9526 <span class="float-right"><i
-													class="fa fa-shopping-cart"></i></span></h5>
-										<div class="progress my-3" style="height:3px;">
-											<div class="progress-bar" style="width:55%"></div>
+								<div class="row">
+									<a href="javascript:void();" data-toggle="tooltip" data-placement="top"
+										title="Experience" onclick="toggle('experience');">
+										<div class="card">
+											<div class="card-body">
+												<center>
+													<i class="zmdi zmdi-account-box-mail"></i><span></span>
+												</center>
+											</div>
 										</div>
-										<p class="mb-0 text-white small-font">Total Orders <span class="float-right">+4.2%
-												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
-									</div>
+									</a>
 								</div>
-								<div class="col-12 col-lg-6 col-xl-3 border-light">
-									<div class="card-body">
-										<h5 class="text-white mb-0">8323 <span class="float-right"><i
-													class="fa fa-usd"></i></span></h5>
-										<div class="progress my-3" style="height:3px;">
-											<div class="progress-bar" style="width:55%"></div>
+
+								<div class="row">
+									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Pictures"
+										onclick="toggle('pictureBanner');">
+										<div class="card">
+											<div class="card-body">
+												<center>
+													<i class="zmdi zmdi-face"></i><span></span>
+												</center>
+											</div>
 										</div>
-										<p class="mb-0 text-white small-font">Total Revenue <span class="float-right">+1.2%
-												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
-									</div>
+									</a>
 								</div>
-								<div class="col-12 col-lg-6 col-xl-3 border-light">
-									<div class="card-body">
-										<h5 class="text-white mb-0">6200 <span class="float-right"><i
-													class="fa fa-eye"></i></span></h5>
-										<div class="progress my-3" style="height:3px;">
-											<div class="progress-bar" style="width:55%"></div>
+
+							</div>
+						</center>
+
+
+						<!-- New row or section -->
+						<div class="col-10">
+							<div class="card">
+								<div class="card-body">
+									<!--- PERSONAL INFORMATION TAB -->
+									<div class="tab-pane" id="about">
+										<div class="row">
+											<div class="col-md-12">
+												<h5 class="mb-3">Personal Information</h5>
+												<div class="form-group">
+													<label for="input-0">About</label>
+													<textarea name="newAbout" id="newAbout" class="form-control"
+														rows="10"><?php echo $_SESSION['about']; ?></textarea>
+												</div>
+
+												<div class="form-group">
+													<label for="input-1">Position</label>
+													<div class="position-relative has-icon-right">
+														<input type="text" id="position" name="position"
+															class="form-control input-shadow"
+															value="<?php echo $_SESSION["position"]; ?>" required>
+													</div>
+												</div>
+
+												<!-- Matric Number -->
+												<div class="form-group">
+													<label for="input-1">Matric Number</label>
+													<div class="position-relative has-icon-right">
+														<input type="text" id="matricNum" name="matricNum"
+															class="form-control input-shadow"
+															value="<?php echo $_SESSION["matricNum"]; ?>" required>
+													</div>
+												</div>
+
+												<!-- Mobile Number -->
+												<div class="form-group">
+													<label for="input-1">Mobile Number</label>
+													<div class="position-relative has-icon-right">
+														<input type="text" id="mobile" name="mobile"
+															class="form-control input-shadow"
+															value="<?php echo $_SESSION["mobile"]; ?>" required>
+													</div>
+												</div>
+
+
+												<br>
+												<button onclick="updateProfile()" class="btn btn-primary">Save
+													Changes</button>
+											</div>
 										</div>
-										<p class="mb-0 text-white small-font">Visitors <span class="float-right">+5.2% <i
-													class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
-								</div>
-								<div class="col-12 col-lg-6 col-xl-3 border-light">
-									<div class="card-body">
-										<h5 class="text-white mb-0">5630 <span class="float-right"><i
-													class="fa fa-envira"></i></span></h5>
-										<div class="progress my-3" style="height:3px;">
-											<div class="progress-bar" style="width:55%"></div>
+									<!--- BADGE TAB -->
+									<div class="tab-content p-3" id="badge" style="display:none;">
+										<ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+											<li class="nav-item">
+												<a href="javascript:void();" data-target="#addBadge" data-toggle="pill"
+													class="nav-link active"><i class="zmdi zmdi-case-check"></i> <span
+														class="hidden-xs">Add Badge</span></a>
+											</li>
+											<li class="nav-item">
+												<a href="javascript:void();" data-target="#editBadge" data-toggle="pill"
+													class="nav-link "><i class="zmdi zmdi-brush"></i> <span
+														class="hidden-xs">Edit Badge</span></a>
+											</li>
+										</ul>
+
+										<!--- EDIT BADGES -->
+										<div class="tab-pane" id="editBadge">
+											<div class="row" style="overflow-y: scroll; max-height: 600px;">
+												<div class="card-body border-top border-light">
+
+													<?php
+													include("assets/php/connection.php");
+
+													$badgeTypes = array(
+														'Technical Skills' => 'Technical Skills',
+														'Soft Skills' => 'Soft Skills',
+														'Others' => 'Others'
+													);
+
+													echo "<div class='media align-items-center'>";
+													echo "<div class='progress-wrapper'>";
+
+													foreach ($badgeTypes as $key => $type) {
+														$sql = "SELECT * FROM badge WHERE type = '$type' AND user_ID = '{$_SESSION['user_ID']}'";
+
+														$result = mysqli_query($connection, $sql);
+
+														echo "<h6>$key</h6>";
+
+														if (mysqli_num_rows($result) > 0) {
+															echo "<div class='badge-container'>";
+															while ($row = mysqli_fetch_assoc($result)) {
+																echo "<div class='badge-wrapper'>";
+
+																echo "<input type='text' class='form-control badge-input' style='width: 80%' id='badge_" . $row['badge_ID'] . "' value='" . $row['name'] . "'>";
+																echo "<a href='' class='delete-button' onclick='deleteBadge(" . $row['badge_ID'] . ")'>&times;</a>";
+																echo "</div>";
+															}
+															echo "</div>";
+														} else {
+															echo "No $key badges found.";
+														}
+
+														echo "<br><hr>";
+													}
+
+													echo "<button class='btn btn-primary' onclick='saveChanges()'>Save Changes</button>";
+													echo "</div>";
+													echo "</div>";
+													?>
+
+
+
+												</div>
+											</div>
 										</div>
-										<p class="mb-0 text-white small-font">Messages <span class="float-right">+2.2% <i
-													class="zmdi zmdi-long-arrow-up"></i></span></p>
+
+										<!--- ADD BADGE -->
+										<div class="tab-pane active" id="addBadge">
+											<div class="row">
+												<div class="col-md-12">
+													<h5 class="mb-3"></h5>
+													<div class="form-group">
+														<label for="input-1">Name</label>
+														<input type="text" class="form-control" name="addedName"
+															id="addedName" placeholder="" required>
+													</div>
+
+													<div class="form-group">
+														<label for="input-1">Type</label>
+														<select class="form-control" name="addedType" id="addedType">
+															<option value="Technical Skills">Technical Skills</option>
+															<option value="Soft Skills">Soft Skills</option>
+															<option value="Others">Others</option>
+														</select>
+													</div>
+													<br>
+													<button onclick="addNewBadge()" class="btn btn-success">Add
+														Badge</button>
+												</div>
+											</div>
+										</div>
+
 									</div>
+
+									<!--- EXPERIENCE TAB -->
+									<div class="tab-content p-3" id="experience" style="display:none;">
+										<ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+											<li class="nav-item">
+												<a href="javascript:void();" data-target="#editExperience"
+													data-toggle="pill" class="nav-link active"><i
+														class="zmdi zmdi-account-box-mail"></i> <span class="hidden-xs">Edit
+														Experience</span></a>
+											</li>
+											<li class="nav-item">
+												<a href="javascript:void();" data-target="#addExperience" data-toggle="pill"
+													class="nav-link"><i class="zmdi zmdi-assignment-o"></i> <span
+														class="hidden-xs">Add Experience</span></a>
+											</li>
+										</ul>
+										<br>
+										<div class="tab-pane" id="addExperience">
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="card">
+														<div class="card-body">
+															<div class="card-title">Add Experience</div>
+															<hr>
+
+															<!----  Form  ---->
+															<form method="POST"
+																action="assets/php/process_addExperience.php"
+																id="experienceForm" onsubmit="return validateDates()">
+																<!----  Type  ---->
+																<div class="form-group">
+																	<label for="input-1">Type</label>
+																	<div class="position-relative has-icon-right">
+																		<select class="form-control" id="input_1"
+																			name="input_1">
+																			<option value="Part-time">Part-time job</option>
+																			<option value="Full-time">Full-time job</option>
+																			<option value="Club">Club</option>
+																			<option value="Association">Association</option>
+																		</select>
+																	</div>
+																</div>
+
+
+																<div class="form-group">
+																	<label for="input-1">COMPANY/CLUB/ASSOCATIATION</label>
+																	<div class="position-relative has-icon-right">
+																		<input type="text" id="input_2" name="input_2"
+																			class="form-control input-shadow"
+																			placeholder="Enter Organization" required>
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label for="input-3">Position</label>
+																	<input type="text" class="form-control" name="input_3"
+																		id="input_3" placeholder="Enter Position" required>
+																</div>
+
+																<div class="form-group">
+																	<label for="input-4">Start Date</label>
+																	<input type="date" class="form-control" name="input_4"
+																		id="input_4" required>
+																</div>
+
+																<div class="form-group">
+																	<label for="input-5">End Date</label>
+																	<input type="date" class="form-control" name="input_5"
+																		id="input_5" required>
+																</div>
+
+																<div class="form-group">
+																	<label for="input-6">Description</label>
+																	<textarea id="input_6" name="input_6"
+																		class="form-control" rows="10"
+																		placeholder="Enter Description" required></textarea>
+																</div>
+
+																<button type="submit" value="Submit"
+																	class="btn btn-light btn-block btn-success">Add
+																	Experience</button>
+															</form>
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!--- EDIT EXPERIENCE -->
+										<div class="tab-pane active" id="editExperience">
+											<div class="row" style="overflow-y: scroll; max-height: 600px;">
+												<?php
+												include("assets/php/connection.php");
+												$results_per_page = 2; // Number of rows to display per page
+												$sql = "SELECT * FROM experience WHERE user_ID = '{$_SESSION['user_ID']}'";
+												$result = mysqli_query($connection, $sql);
+
+												if (mysqli_num_rows($result) > 0) {
+													while ($row = mysqli_fetch_assoc($result)) {
+														?>
+														<div class="col-md-12">
+															<h5 style="display:">
+																<?php echo $row['position']; ?>
+															</h5>
+															<?php echo $row['type'] . " - " . $row['groupName']; ?>
+															<?php echo "<br>"; ?>
+															<?php echo $row['duration']; ?>
+															<?php echo "<br><br>"; ?>
+
+															<a href="editExperience.php?exp_ID=<?php echo $row['exp_ID']; ?>"
+																class="btn btn-primary">Edit</a>
+															<?php echo "<br><hr>"; ?>
+														</div>
+														<?php
+													}
+												} else {
+													echo "No experiences found.";
+												}
+												?>
+											</div>
+										</div>
+
+
+									</div>
+
+									<div class="tab-content p-3" id="pictureBanner" style="display:none;">
+										<div class="tab-pane active" id="picture">
+											<div class="row">
+												<div class="col-md-12">
+													<h5 class="mb-3">Pictures</h5>
+													<div class="form-group">
+														<label for="input-1">Profile Picture</label>
+														<form id="profilePictureForm" enctype="multipart/form-data"
+															action="assets/php/process_editProfilePicture.php"
+															method="post">
+															<input type="file" name="profile_picture" id="profile_picture"
+																style="display: none">
+															<button type="button" id="chooseProfileFileButton"
+																class="btn btn-primary">Choose Profile Picture</button>
+															<input type="button" id="cropAndUploadProfile"
+																class="btn btn-success" value="Crop and Upload"
+																style="display: none">
+														</form>
+													</div>
+
+													<div class="form-group">
+														<label for="input-2">Banner</label>
+														<form id="bannerForm" enctype="multipart/form-data"
+															action="assets/php/process_editBanner.php" method="post">
+															<input type="file" name="banner_picture" id="banner_picture"
+																style="display: none">
+															<button type="button" id="chooseBannerFileButton"
+																class="btn btn-primary">Choose Banner</button>
+															<input type="button" id="cropAndUploadBanner"
+																class="btn btn-success" value="Crop and Upload"
+																style="display: none">
+														</form>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="crop-container">
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
+										<!-- Crop Modal for Profile Picture -->
+										<div class="modal fade" id="profileCropModal" tabindex="-1" role="dialog"
+											aria-labelledby="profileCropModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="profileCropModalLabel">Crop Profile
+															Picture</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div
+														class="modal-body text-center d-flex justify-content-center align-items-center">
+														<canvas id="profileCroppedCanvas" width="110" height="110"></canvas>
+													</div>
+
+													<div class="modal-footer justify-content-center">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary"
+															id="confirmProfileCrop">Confirm Crop</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Crop Modal for Banner -->
+										<div class="modal fade" id="bannerCropModal" tabindex="-1" role="dialog"
+											aria-labelledby="bannerCropModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class "modal-title" id="bannerCropModalLabel">Crop Banner</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div
+														class="modal-body text-center d-flex justify-content-center align-items-center">
+														<canvas id="bannerCroppedCanvas" width="800" height="500"></canvas>
+													</div>
+
+													<div class="modal-footer justify-content-center">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary"
+															id="confirmBannerCrop">Confirm Crop</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+
 								</div>
 							</div>
 						</div>
+
+
+
+
+
 					</div>
 
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xl-8">
-							<div class="card">
-								<div class="card-header">Site Traffic
-									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<ul class="list-inline">
-										<li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New Visitor
-										</li>
-										<li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old Visitor
-										</li>
-									</ul>
-									<div class="chart-container-1">
-										<canvas id="chart1"></canvas>
-									</div>
-								</div>
-
-								<div class="row m-0 row-group text-center border-top border-light-3">
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">45.87M</h5>
-											<small class="mb-0">Overall Visitor <span> <i class="fa fa-arrow-up"></i>
-													2.43%</span></small>
-										</div>
-									</div>
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">15:48</h5>
-											<small class="mb-0">Visitor Duration <span> <i class="fa fa-arrow-up"></i>
-													12.65%</span></small>
-										</div>
-									</div>
-									<div class="col-12 col-lg-4">
-										<div class="p-3">
-											<h5 class="mb-0">245.65</h5>
-											<small class="mb-0">Pages/Visit <span> <i class="fa fa-arrow-up"></i>
-													5.62%</span></small>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-						<div class="col-12 col-lg-4 col-xl-4">
-							<div class="card">
-								<div class="card-header">Weekly sales
-									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="chart-container-2">
-										<canvas id="chart2"></canvas>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table align-items-center">
-										<tbody>
-											<tr>
-												<td><i class="fa fa-circle text-white mr-2"></i> Direct</td>
-												<td>$5856</td>
-												<td>+55%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-1 mr-2"></i>Affiliate</td>
-												<td>$2602</td>
-												<td>+25%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-2 mr-2"></i>E-mail</td>
-												<td>$1802</td>
-												<td>+15%</td>
-											</tr>
-											<tr>
-												<td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
-												<td>$1105</td>
-												<td>+5%</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div><!--End Row-->
-
-					<div class="row">
-						<div class="col-12 col-lg-12">
-							<div class="card">
-								<div class="card-header">Recent Order Tables
-									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table align-items-center table-flush table-borderless">
-										<thead>
-											<tr>
-												<th>Product</th>
-												<th>Photo</th>
-												<th>Product ID</th>
-												<th>Amount</th>
-												<th>Date</th>
-												<th>Shipping</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Iphone 5</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405822</td>
-												<td>$ 1250.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 90%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Earphone GL</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405820</td>
-												<td>$ 1500.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 60%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>HD Hand Camera</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405830</td>
-												<td>$ 1400.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 70%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Clasic Shoes</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405825</td>
-												<td>$ 1200.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 100%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Hand Watch</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405840</td>
-												<td>$ 1800.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 40%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<td>Clasic Shoes</td>
-												<td><img src="https://via.placeholder.com/110x110" class="product-img"
-														alt="product img"></td>
-												<td>#9405825</td>
-												<td>$ 1200.00</td>
-												<td>03 Aug 2017</td>
-												<td>
-													<div class="progress shadow" style="height: 3px;">
-														<div class="progress-bar" role="progressbar" style="width: 100%">
-														</div>
-													</div>
-												</td>
-											</tr>
-
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div><!--End Row-->
-
-					<!--End Dashboard Content-->
-
-					<!--start overlay-->
-					<div class="overlay toggle-menu"></div>
-					<!--end overlay-->
-
 				</div>
-				<!-- End container-fluid-->
 
-			</div><!--End content-wrapper-->
-			<!--Start Back To Top Button-->
-			<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-			<!--End Back To Top Button-->
 
-			<!--start color switcher-->
-			<div class="right-sidebar">
-				<div class="switcher-icon">
-					<i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-				</div>
-				<div class="right-sidebar-content">
+				<!--Start footer-->
+				<footer class="footer">
+					<div class="container">
+						<div class="text-center">
 
-					<p class="mb-0">Gaussion Texture</p>
-					<hr>
 
-					<ul class="switcher">
-						<li id="theme1"></li>
-						<li id="theme2"></li>
-						<li id="theme3"></li>
-						<li id="theme4"></li>
-						<li id="theme5"></li>
-						<li id="theme6"></li>
-					</ul>
+						</div>
+					</div>
+				</footer>
+				<!--End footer-->
 
-					<p class="mb-0">Gradient Background</p>
-					<hr>
 
-					<ul class="switcher">
-						<li id="theme7"></li>
-						<li id="theme8"></li>
-						<li id="theme9"></li>
-						<li id="theme10"></li>
-						<li id="theme11"></li>
-						<li id="theme12"></li>
-						<li id="theme13"></li>
-						<li id="theme14"></li>
-						<li id="theme15"></li>
-					</ul>
-
-				</div>
 			</div>
-			<!--end color switcher-->
+			<!--End wrapper-->
 
-		</div><!--End wrapper-->
+			<script>
+				// Enable Bootstrap tooltips
+				$(function () {
+					$('[data-toggle="tooltip"]').tooltip()
+				});
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+			</script>
+			<!-- Bootstrap core JavaScript-->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/popper.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
 
-		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
-		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
-		<!-- loader scripts -->
-		<script src="assets/js/jquery.loading-indicator.js"></script>
-		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<!-- Chart js -->
+			<!-- simplebar js -->
+			<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+			<!-- sidebar-menu js -->
+			<script src="assets/js/sidebar-menu.js"></script>
 
-		<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+			<!-- Custom scripts -->
+			<script src="assets/js/app-script.js"></script>
+			<script src="assets/js/notification.js"></script>
+			<script src="assets/js/editProfile_2.js"></script>
+			<script src="assets/js/editPictures.js"></script>
 
-		<!-- Index js -->
-		<script src="assets/js/index.js"></script>
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/notification.js"></script>
-    
-		<script>
-			displayNotifications();
-		</script>					
-		
-
+			<script>
+				displayNotifications();
+			</script>
 	</body>
 
 	</html>
-<?php
+
+	<?php
 }
 ?>

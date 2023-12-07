@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Retrieve the form data
     $application_ID = $_GET['application_ID'];
     $applicant_ID = $_GET['applicant_ID'];
-    $status = "approved";
+    $status = "Approved";
 
     // Prepare SQL
     $sql = "UPDATE `group_applicant_status` SET `status`=? WHERE application_ID = ? AND applicant_ID = ?";    

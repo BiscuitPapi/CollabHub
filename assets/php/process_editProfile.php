@@ -1,4 +1,8 @@
 <?php
+// At the beginning of your PHP script
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include("connection.php");
 // Start the session to access the user_ID value
 session_start();
@@ -11,13 +15,19 @@ if (isset($_SESSION["user_ID"])) {
     // Get the user ID from the session
     $userID = $_SESSION["user_ID"];
 
-    // Check if the matricNum, mobile, position, and about values were posted
-    if (isset($_POST['matricNum']) && isset($_POST['mobile']) && isset($_POST['position']) && isset($_POST['about'])) {
-        // Retrieve the matricNum, mobile, position, and about values
-        $newMatricNum = $_POST['matricNum'];
-        $newMobile = $_POST['mobile'];
-        $newPosition = $_POST['position'];
-        $newAbout = $_POST['about'];
+    // Read JSON data from the request body
+    $jsonData = file_get_contents("php://input");
+
+    // Decode the JSON data
+    $data = json_decode($jsonData);
+
+    // Check if the required data is present
+    if (isset($data->matricNum) && isset($data->mobile) && isset($data->position) && isset($data->about)) {
+        // Retrieve the data
+        $newMatricNum = $data->matricNum;
+        $newMobile = $data->mobile;
+        $newPosition = $data->position;
+        $newAbout = $data->about;
 
         // Prepare the SQL statement
         $stmt = $connection->prepare("UPDATE user SET matricNum = ?, mobile = ?, position = ?, about = ? WHERE user_ID = ?");
