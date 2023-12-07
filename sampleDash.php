@@ -83,7 +83,7 @@ if (!isset($_SESSION['user_ID'])) {
 			.badge-name {
 				margin-right: 5px;
 				/* Add some spacing between the badge name and input field */
-			}08
+			}
 		</style>
 
 	</head>

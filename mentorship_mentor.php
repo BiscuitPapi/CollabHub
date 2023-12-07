@@ -469,8 +469,8 @@
 																						<td style="text-align: center;">' . $row['dateCreated'] . '</td>
 																						<td style="text-align: center;">' . $row_2['rating'] . '</td>
 																						<td style="text-align: center;">
-																							<a href="" class="btn btn-success" onclick="approval(' . $row['mt_ID'] . ', \'Approved\')">Approve</a>
-																							<a href="" class="btn btn-danger" onclick="approval(' . $row['mt_ID'] . ', \'Rejected\')">Reject</a>
+																							<a href="" class="btn btn-success" onclick="approvalMM(' . $row['mt_ID'] . ', \'Approved\')">Approve</a>
+																							<a href="" class="btn btn-danger" onclick="approvalMM(' . $row['mt_ID'] . ', \'Rejected\')">Reject</a>
 
 																						</td>
 																					</tr>
@@ -511,7 +511,7 @@
 			<!--End content-wrapper-->
 			
 			<script>
-				function approval(mt_ID, answer) {
+				function approvalMM(mt_ID, answer) {
 					var answerText = answer.toLowerCase();
 					if (answerText === "rejected") {
 						answerText = answerText.slice(0, -2);
