@@ -19,7 +19,7 @@ if ($data !== null && isset($data->name) && isset($data->email) && isset($data->
     $matricNum = mysqli_real_escape_string($connection, $data->matricNum);
     $year = mysqli_real_escape_string($connection, $data->year);
     $department = mysqli_real_escape_string($connection, $data->department);
-    $password = $data->password;
+    $password = password_hash($data->password, PASSWORD_DEFAULT); // Hash the password
 
     mysqli_query($connection, "INSERT INTO user(name,password,email,mobile, matricNum, year, department) VALUES('$name','$password','$email','$mobile','$matricNum','$year','$department')");
 } else {
