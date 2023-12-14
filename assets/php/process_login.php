@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["year"] = $res['year'];
             $_SESSION["hobbies"] = $res['hobbies'];
             $_SESSION["position"] = $res['position'];
+            $_SESSION["rating"] = $res['rating'];
 
             // Store the banner picture properly as a base64-encoded string
             $bannerPicture = $res['banner_picture'];
