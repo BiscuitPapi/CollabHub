@@ -1,38 +1,25 @@
 <?php
+$input_text = "I recently started a new job, and although the workload is heavy, the supportive team and interesting projects make it an enjoyable and fulfilling experience.";
+$escaped_text = urlencode($input_text);
+$flask_app_url = 'http://127.0.0.1:5000';
+$url = "{$flask_app_url}/?text={$escaped_text}";
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-include("assets/php/connection.php");
+$response = file_get_contents($url);
 
-session_start();
+if ($response !== false) {
+    // Attempt to decode the response as JSON
+    $jsonResponse = json_decode($response, true);
 
-$sql = "SELECT review_ID, reviewer FROM feedback WHERE reviewee = '{$_SESSION["user_ID"]}'";
-$result = mysqli_query($connection, $sql);
+    if ($jsonResponse !== null && isset($jsonResponse['positive_percent'])) {
+        // Extract the positive percentage from the JSON response
+        $positivePercentage = $jsonResponse['positive_percent'];
 
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $review_id = $row['review_ID'];
-        $reviewer = $row['reviewer'];
-
-
-        // Get reviewer's name from user table
-        $sql_user = "SELECT name FROM user WHERE user_ID = '$reviewer'";
-        $result_user = mysqli_query($connection, $sql_user);
-        $row_user = mysqli_fetch_assoc($result_user);
-        $reviewer_name = $row_user['name'];
-        
-        $review_sql = "SELECT comments, stars FROM review WHERE review_ID = '$review_id'";
-        echo $review_id;
-        $review_result = mysqli_query($connection, $review_sql);
-        if (mysqli_num_rows($review_result) > 0) {
-            while ($review_row = mysqli_fetch_assoc($review_result)) {
-                echo " okay"; // Should show if there are rows
-            }
-        } else {
-            echo "No rows found.";
-        }
+        // Print the positive percentage
+        echo "Positive: {$positivePercentage}%";
+    } else {
+        echo "Error decoding JSON or missing positive percentage.";
     }
 } else {
-    echo "No reviews found.";
+    echo "Error making HTTP request.";
 }
 ?>

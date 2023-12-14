@@ -85,7 +85,7 @@ function submitReview() {
         if (xhr.status === 200) {
           console.log(xhr.responseText);
           alert("You have successfully submitted a review!");
-          //window.location.href = "login.php";
+          window.location.href = "peerReview.php";
         } else {
           console.error("Error:" + xhr.statusText);
           alert("Error  submitting the review. Please, try again.");

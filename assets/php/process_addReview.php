@@ -20,10 +20,27 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
     $stars = mysqli_real_escape_string($connection, $data->stars);
     $comment = mysqli_real_escape_string($connection, $data->comment);
 
+    // Escape the comment for the command line
+    $escapedComment = escapeshellarg($comment);
+
+    // Call the Python script and capture the output
+    $output = shell_exec("sentiment_analysis.py $escapedComment");
+
+    // Decode the JSON output
+    $result = json_decode($output, true);
+
+    // Extract positive and negative percentages
+    $positivePercent = $result["positive_percent"];
+    $negativePercent = $result["negative_percent"];
+
+    $formattedPositivePercent = number_format($positivePercent, 2);
+    $formattedNegativePercent = number_format($negativePercent, 2);
+
+
     // 1) Insert into the review table
-    $insertReviewQuery = "INSERT INTO review (dateCreated, comments, stars) VALUES (CURRENT_DATE(), ?, ?)";
+    $insertReviewQuery = "INSERT INTO review (dateCreated, comments, stars, positivity, negativity) VALUES (CURRENT_DATE(), ?, ?, ?, ?)";
     $stmt = $connection->prepare($insertReviewQuery);
-    $stmt->bind_param("ss", $comment, $stars);
+    $stmt->bind_param("ssdd", $comment, $stars, $formattedPositivePercent,$formattedNegativePercent);
     $stmt->execute();
 
     // Check for errors
@@ -97,7 +114,7 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
     }
 
     $averageStars = $reviewCount > 0 ? number_format($totalStars / $reviewCount, 2) : 0;
-        
+
     $updateRatingQuery = "UPDATE user SET rating = ? WHERE user_ID = ?";
     $stmt = $connection->prepare($updateRatingQuery);
     $stmt->bind_param("di", $averageStars, $reviewee_ID);
