@@ -383,7 +383,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	<p>
 																		<?php echo $comments; ?>
 																	</p>
-																	
+																	<hr>
 																</div>
 																<?php
 																echo "<br><br>";
