@@ -49,13 +49,18 @@ function updateProfile() {
     var newMobileValue = document.getElementById("mobile").value;
     var newPositionValue = document.getElementById("position").value;
     var newAboutValue = document.getElementById("newAbout").value;
+    var newYearValue = document.getElementById("year").value;
+    var newDepartmentValue = document.getElementById("department").value;
 
     // Create an object with the data to be sent
     var data = {
         matricNum: newMatricNumValue,
         mobile: newMobileValue,
         position: newPositionValue,
-        about: newAboutValue
+        about: newAboutValue,
+        year: newYearValue,
+        department: newDepartmentValue
+
     };
 
     var xhr = new XMLHttpRequest();
@@ -114,6 +119,61 @@ function addNewBadge() {
     alert("A new badge has been added!");
     // Reload the current page
     location.reload();
+}
 
+function deleteBadge(badgeID) {
+    $.ajax({
+        url: 'assets/php/process_deleteBadge.php',
+        method: 'POST',
+        data: { badgeID: badgeID },
+        success: function(response) {
+            // Handle the response from the PHP script
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            // Handle the error
+            console.log(error);
+        }
+    });		
+    alert("The badge has been deleted!");
+}
 
+function saveChanges() {
+    var badges = document.getElementsByClassName("badge-input");
+                                              
+    for (var i = 0; i < badges.length; i++) {
+        var badge_ID = badges[i].id.split("_")[1];
+        var badgeName = badges[i].value;										
+        updateBadgeName(badge_ID, badgeName);
+    }
+                                              
+    alert("Changes saved successfully!");
+}
+
+function updateBadgeName(badge_ID, badgeName) {
+    $.ajax({
+        url: 'assets/php/process_updateBadge.php',
+        method: 'POST',
+        data: { badge_ID: badge_ID, badgeName: badgeName },
+        success: function(response) {
+        // Handle the response from the PHP script
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            // Handle the error
+            console.log(error);
+        }
+    });
+}
+
+function validateDates() {
+    var startDate = new Date(document.getElementById("input_4").value);
+    var endDate = new Date(document.getElementById("input_5").value);
+
+    if (startDate > endDate) {
+        alert("Start date cannot be greater than end date.");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
 }

@@ -1,51 +1,52 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include("connection.php");
 
+// Read JSON data from the request body
+$jsonData = file_get_contents("php://input");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$name = $_POST["name"];
-	$email = $_POST["email"];
-	$password = $_POST["password"];
-	$matricNum = $_POST["matricNum"];
-	$mobile = $_POST["mobile"];
-	
-	// prepare SQL query
-	$sql = "SELECT * FROM user WHERE email = '$email'";
+// Decode the JSON data
+$data = json_decode($jsonData);
 
-	// execute query
-	$result = mysqli_query($connection, $sql);
+// Check if the required data is present
+if ($data !== null && isset($data->name) && isset($data->email) && isset($data->mobile) && isset($data->matricNum) && isset($data->year) && isset($data->department) && isset($data->password)) {
+    // Sanitize data
+    $name = mysqli_real_escape_string($connection, $data->name);
+    $email = mysqli_real_escape_string($connection, $data->email);
+    $mobile = mysqli_real_escape_string($connection, $data->mobile);
+    $matricNum = mysqli_real_escape_string($connection, $data->matricNum);
+    $year = mysqli_real_escape_string($connection, $data->year);
+    $department = mysqli_real_escape_string($connection, $data->department);
+    $password = $data->password;
 
-	// check if email exists
-	if (mysqli_num_rows($result) > 0) {
-
-		header("Location: ../../register.html");
-	} else {
-		mysqli_query($connection, "INSERT INTO user(name,password,email,mobile, matricNum) VALUES('$name','$password','$email','$mobile','$matricNum')");
-		
-		
-		$sql = "SELECT * FROM user ORDER BY user_ID DESC LIMIT 1";
-
-		// execute the query
-		$result = mysqli_query($connection, $sql);
-		session_start();
-		// check if the query returned any rows
-		if (mysqli_num_rows($result) > 0) {
-		  // email and password are correct
-			$res = $result->fetch_assoc();
-			$_SESSION['user_ID'] = $res['user_ID'];
-			$_SESSION['name'] = $res['name'];
-			$_SESSION["email"] = $res['email'];
-			$_SESSION["password"] = $res['password'];
-			$_SESSION["mobile"] = $res['mobile'];
-			$_SESSION["matricNum"] = $res['matricNum'];
-			$_SESSION["about"] = $res['about'];
-			$_SESSION["hobbies"] = $res['hobbies'];
-			$_SESSION["position"] = $res['position'];
-			
-			
-			header("Location: ../../myProfile.php");
-		} 
-
-	}
+    mysqli_query($connection, "INSERT INTO user(name,password,email,mobile, matricNum, year, department) VALUES('$name','$password','$email','$mobile','$matricNum','$year','$department')");
+} else {
+    // Display the missing fields
+    echo "Missing fields: ";
+    $missingFields = [];
+    if (!isset($data->name)) {
+        $missingFields[] = "name";
+    }
+    if (!isset($data->email)) {
+        $missingFields[] = "email";
+    }
+    if (!isset($data->mobile)) {
+        $missingFields[] = "mobile";
+    }
+    if (!isset($data->matricNum)) {
+        $missingFields[] = "matricNum";
+    }
+    if (!isset($data->year)) {
+        $missingFields[] = "year";
+    }
+    if (!isset($data->department)) {
+        $missingFields[] = "department";
+    }
+    if (!isset($data->password)) {
+        $missingFields[] = "password";
+    }
+    echo implode(", ", $missingFields);
 }
 ?>

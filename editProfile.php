@@ -206,6 +206,61 @@ if (!isset($_SESSION['user_ID'])) {
 															value="<?php echo $_SESSION["matricNum"]; ?>" required>
 													</div>
 												</div>
+												<div class="row">
+													<div class="col">
+														<!-- Year -->
+														<div class="form-group">
+															<label for="year">Year</label>
+															<div class="position-relative has-icon-right">
+																<select id="year" name="year"
+																	class="form-control input-shadow" required>
+																	<?php
+																	$selectedYear = $_SESSION["year"] ?? ''; // Get the selected year from session variable
+																
+																	$yearOptions = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+
+																	foreach ($yearOptions as $year) {
+																		$selected = ($selectedYear == $year) ? 'selected' : '';
+																		echo "<option value='$year' $selected>$year</option>";
+																	}
+																	?>
+																</select>
+															</div>
+														</div>
+
+													</div>
+
+
+													<div class="col">
+														<!-- Department -->
+														<div class="form-group">
+															<label for="input-1">Department</label>
+															<div class="position-relative has-icon-right">
+																<select id="department" name="department"
+																	class="form-control input-shadow" required>
+																	<?php
+																	$departments = [
+																		"Computer System & Network",
+																		"Artificial Intelligence",
+																		"Information Systems",
+																		"Software Engineering",
+																		"Multimedia Computing",
+																		"Data Science"
+																	];
+
+																	foreach ($departments as $department) {
+																		$selected = ($_SESSION["department"] == $department) ? 'selected' : '';
+																		echo "<option value='$department' $selected>$department</option>";
+																	}
+																	?>
+																</select>
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+
 
 												<!-- Mobile Number -->
 												<div class="form-group">
@@ -219,7 +274,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 												<br>
-												<button onclick="updateProfile()" class="btn btn-primary">Save
+												<button id = "submit-button" onclick="updateProfile()" class="btn btn-primary">Save
 													Changes</button>
 											</div>
 										</div>
@@ -594,7 +649,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/notification.js"></script>
-			<script src="assets/js/editProfile_2.js"></script>
+			<script src="assets/js/editProfile.js"></script>
 			<script src="assets/js/editPictures.js"></script>
 
 			<script>

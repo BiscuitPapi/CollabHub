@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-		
+
 	</head>
 
 	<body class="bg-theme bg-theme9">
@@ -83,13 +83,14 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Open Applications<span class="float-right">+1.2%
+										<p class="mb-0 text-white small-font">Open Applications<span
+												class="float-right">+1.2%
 												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">6200 <span class="float-right"><i
+										<h5 class="text-white mb-0">20 <span class="float-right"><i
 													class="fa fa-eye"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
@@ -100,7 +101,7 @@ if (!isset($_SESSION['user_ID'])) {
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">5630 <span class="float-right"><i
+										<h5 class="text-white mb-0">102 <span class="float-right"><i
 													class="zmdi zmdi-help-outline"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
@@ -147,7 +148,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<th>#</th>
 												<th>StudyHub</th>
 												<th style="text-align: center;">Creator</th>
-												<th style="text-align: center;">Members</th>
+												<th style="text-align: center;">No. of Members</th>
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
@@ -246,106 +247,14 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/notification.js"></script>
-
+			<script src="assets/js/studyHub.js"></script>
 			<script>
 				displayNotifications();
 
-				function togglePage(pageId) {
-					// Hide all pages
-					document.getElementById('list_1').style.display = 'none';
-					document.getElementById('list_2').style.display = 'none';
-
-					// Show the selected page
-					document.getElementById(pageId).style.display = 'block';
-
-					// Update button styles based on active page
-					document.getElementById('list_1Button').className = 'btn ' + (pageId === 'list_1' ? 'btn-primary' : 'btn-dark');
-					document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
-				}
+				
 
 
-				$(document).ready(function () {
-					function loadTables(page) {
-						// Fetch data for the first table
-						$.ajax({
-							url: 'assets/php/process_fetchSB.php?page=' + page,
-							type: 'GET',
-							dataType: 'json',
-							success: function (data) {
-								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
-								tableBody.empty(); // Clear existing rows
-
-								for (var i = 0; i < data.length; i++) {
-									var row = data[i];
-									var html = '<tr>' +
-										'<th scope="row">' + (i + 1) + '</th>' +
-										'<td>' + row['studyhub_name'] + '</td>' +
-										'<td style="text-align: center;">' + row['creator_name'] + '</td>' +
-										'<td style="text-align: center;">' +
-										row['member_count'] + // Display the member count
-										'</td>' +
-										'<td style="text-align: center;">' +
-										'<a href="viewStudyHub.php?studyhub_ID=' + row['studyhub_ID'] + '" class="btn btn-success">View</a>' +
-										'</td>' +
-										'</tr>';
-
-									tableBody.append(html);
-								}
-							}
-						});
-
-						// Fetch data for the second table
-						$.ajax({
-							url: 'assets/php/process_fetchOA.php?page=' + page,
-							type: 'GET',
-							dataType: 'json',
-							success: function (data) {
-								console.log(data); // Display the fetched data in the console
-
-								var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
-								tableBody2.empty(); // Clear existing rows
-
-								for (var i = 0; i < data.length; i++) {
-									var row = data[i];
-									var html = '<tr>' +
-										'<th scope="row">' + (i + 1) + '</th>' +
-										'<td>' + row['club_name'] + '</td>' +
-										'<td>' + row['position_available'] + '</td>' +
-										'<td>' +
-										'<a href="club_application_view.php?application_ID=' + row['club_id'] + '" class="btn btn-success">View</a>' +
-										'</td>' +
-										// Add other table columns as needed
-										'</tr>';
-
-									tableBody2.append(html);
-								}
-							},
-							error: function (xhr, status, error) {
-								console.error(xhr.responseText); // Log any error response to the console
-							}
-						});
-
-
-
-
-					}
-
-					// Initial table load
-					$(document).ready(function () {
-						loadTables(1);
-
-						// Handle pagination clicks
-						$(document).on('click', '.pagination a', function (e) {
-							e.preventDefault();
-							var page = $(this).text();
-							loadTables(page);
-						});
-					});
-
-
-				});
-
-
+				
 
 			</script>
 

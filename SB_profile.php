@@ -297,8 +297,13 @@ if (!isset($_SESSION['user_ID'])) {
 								
 										while ($studyhub_member = mysqli_fetch_assoc($result)) {
 											$name = $studyhub_member['name'];
-											$user_picture = base64_encode($studyhub_member['picture']); // Assuming 'picture' is the correct BLOB column
-								
+											if (!empty($studyhub_member['picture'])) {
+												$user_picture = base64_encode($studyhub_member['picture']);
+											} else {
+												// Handle the case when 'picture' is null or empty
+												$user_picture = "https://via.placeholder.com/110x110";  // Or any default value you prefer
+											}
+											
 											// Display only up to 4 members
 											if ($counter < 4) {
 												?>

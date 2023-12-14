@@ -22,9 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["mobile"] = $res['mobile'];
         $_SESSION["matricNum"] = $res['matricNum'];
         $_SESSION["about"] = $res['about'];
+        $_SESSION["department"] = $res['department'];
+        $_SESSION["year"] = $res['year'];
         $_SESSION["hobbies"] = $res['hobbies'];
         $_SESSION["position"] = $res['position'];
-        //$_SESSION['picture'] = $res['picture'];
 
         // Store the banner picture properly as a base64-encoded string
         $bannerPicture = $res['banner_picture'];
