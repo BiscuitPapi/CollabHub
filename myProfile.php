@@ -351,13 +351,15 @@ if (!isset($_SESSION['user_ID'])) {
 														$row_user = mysqli_fetch_assoc($result_user);
 														$reviewer_name = $row_user['name'];
 
-														$review_sql = "SELECT comments, stars FROM review WHERE review_ID = '$review_id'";
+														$review_sql = "SELECT positivity, negativity, comments, stars FROM review WHERE review_ID = '$review_id'";
 
 														$review_result = mysqli_query($connection, $review_sql);
 														if (mysqli_num_rows($review_result) > 0) {
 															while ($review_row = mysqli_fetch_assoc($review_result)) {
 																$comments = $review_row['comments'];
 																$stars = $review_row['stars'];
+																$positivity = $review_row['positivity'];
+																$negativity = $review_row['negativity'];
 
 																?>
 																<div class="col-md-12">
@@ -383,6 +385,9 @@ if (!isset($_SESSION['user_ID'])) {
 																	<p>
 																		<?php echo $comments; ?>
 																	</p>
+																	<span class="badge badge-success"><?php echo $positivity; ?>% positive</span>
+                           											<span class="badge badge-danger"><?php echo $negativity; ?>% negative</span>		
+																		
 																	<hr>
 																</div>
 																<?php
