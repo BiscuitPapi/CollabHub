@@ -23,7 +23,7 @@
 			if (mysqli_num_rows($result) > 0) {
 
 				$studysession = mysqli_fetch_assoc($result);
-				$studyhub_ID = $_POST['studyhub_ID'];
+				$studyhub_ID = $studysession['studyhub_id'];
 				$studysession_name = $studysession['studysession_name'];
 				$studysession_date = $studysession['studysession_date'];
 				$studysession_time = $studysession['studysession_time'];
