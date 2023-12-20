@@ -294,8 +294,25 @@ if (!isset($_SESSION['user_ID'])) {
 										<!-- REVIEW -->
 										<div class="tab-pane" id="review">
 											<div class="row">
-												<div class="col-4">
-													<h5>Overall Rating: <?php echo number_format($_SESSION["rating"], 2);?></h5>
+												<div class="col-8">
+													<?php
+														$user_ID = $_SESSION["user_ID"];
+
+														$sql = "SELECT COUNT(*) AS count FROM feedback WHERE reviewee = '$user_ID' AND review_ID IS NOT NULL;";
+														$result = mysqli_query($connection, $sql);
+
+														if ($result) {
+															$row = mysqli_fetch_assoc($result);
+															$count = $row['count'];
+
+															echo '<h5>Peer Reviews (' . $count . ')</h5>';
+														} else {
+															echo "Error: " . mysqli_error($connection);
+														}
+													?>
+													<h1>
+														<?php echo number_format($_SESSION["rating"], 2); ?>
+													</h1>
 													</h5>
 													<div class="star-rating">
 														<?php
@@ -308,25 +325,74 @@ if (!isset($_SESSION['user_ID'])) {
 														}
 														?>
 
-														
-													</div>
-													<?php 
-														$user_ID = $_SESSION["user_ID"];
 
-														$sql = "SELECT COUNT(*) AS count FROM feedback WHERE reviewee = '$user_ID'";
-														$result = mysqli_query($connection, $sql);
-														
-														if ($result) {
-															$row = mysqli_fetch_assoc($result);
-															$count = $row['count'];
-														
-															echo  $count . " Reviews";
-														} else {
-															echo "Error: " . mysqli_error($connection);
+													</div>
+													
+													All reviews come from verified students
+
+												</div>
+												<div class="col-4">
+													<?php
+													ini_set('display_errors', 1);
+													ini_set('display_startup_errors', 1);
+													error_reporting(E_ALL);
+
+													$sql = "SELECT review_ID FROM feedback WHERE reviewee = '{$_SESSION["user_ID"]}' AND review_ID IS NOT NULL;";
+													$result = mysqli_query($connection, $sql);
+
+													if ($result) {
+														$totalReview = 0;
+														$totalStars = array(0, 0, 0, 0, 0, 0); // Array to store counts for each star rating (0 to 5)
+												
+														if (mysqli_num_rows($result) > 0) {
+															while ($row = mysqli_fetch_assoc($result)) {
+																$review_ID = $row['review_ID'];
+																$sql_2 = "SELECT stars FROM review WHERE review_ID = '$review_ID';";
+																$result_2 = mysqli_query($connection, $sql_2);
+
+																if ($result_2) {
+																	while ($row_2 = mysqli_fetch_assoc($result_2)) {
+																		$stars = $row_2['stars'];
+
+																		// Increment the corresponding star count
+																		$totalStars[$stars]++;
+																		$totalReview++;
+																	}
+																	mysqli_free_result($result_2);
+																} else {
+																	echo "Error: " . mysqli_error($connection);
+																}
+															}
 														}
+
+														mysqli_free_result($result);
+// Output the HTML with dynamic percentages and progress bars
+for ($i = 5; $i >= 0; $i--) {
+    $percentage = ($totalReview > 0) ? round(($totalStars[$i] / $totalReview) * 100) : 0;
+    echo '<div class="media align-items-center">
+            <span class="mr-3">' . $i . ' stars</span>
+            <div class="media-body text-left ml-3">
+                <div class="progress-wrapper">
+                    <div class="progress" style="height: 5px; width: 180px;">
+                        <div class="progress-bar" style="width:' . $percentage . '%"></div>
+                    </div>
+                </div>
+            </div>
+            <span>' . $percentage . '%</span>
+          </div>
+         ';
+}
+
+
+
+
+													} else {
+														echo "Error: " . mysqli_error($connection);
+													}
 													?>
 												</div>
-												
+
+
 											</div>
 											<hr>
 											<div class="row">
@@ -385,9 +451,13 @@ if (!isset($_SESSION['user_ID'])) {
 																	<p>
 																		<?php echo $comments; ?>
 																	</p>
-																	<span class="badge badge-success"><?php echo $positivity; ?>% positive</span>
-                           											<span class="badge badge-danger"><?php echo $negativity; ?>% negative</span>		
-																		
+																	<span class="badge badge-success">
+																		<?php echo $positivity; ?>% positive
+																	</span>
+																	<span class="badge badge-danger">
+																		<?php echo $negativity; ?>% negative
+																	</span>
+
 																	<hr>
 																</div>
 																<?php
@@ -486,8 +556,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<script src="assets/js/app-script.js"></script>
 		<script src="assets/js/notification.js"></script>
 
-		<script>
-			displayNotifications();
+		<script>			displayNotifications();
 		</script>
 
 	</body>

@@ -1,30 +1,43 @@
 <?php
-//$input_text = "I recently started a new job, and although the workload is heavy, the supportive team and interesting projects make it an enjoyable and fulfilling experience.";
-$input_text = "The support team was helpful in resolving my issues efficiently.";
-$escaped_text = urlencode($input_text);
-$flask_app_url = 'http://127.0.0.1:5000';
-$url = "{$flask_app_url}/?text={$escaped_text}";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$response = file_get_contents($url);
+session_start();
+include("assets/php/connection.php");
+$sql = "SELECT review_ID FROM feedback WHERE reviewee = '{$_SESSION["user_ID"]}' AND review_ID IS NOT NULL;";
+$result = mysqli_query($connection, $sql);
 
-if ($response !== false) {
-    // Attempt to decode the response as JSON
-    $jsonResponse = json_decode($response, true);
+if ($result) {
+    $totalReview = 0;
+    $totalStars = array(0, 0, 0, 0, 0, 0); // Array to store counts for each star rating (0 to 5)
 
-    if ($jsonResponse !== null && isset($jsonResponse['sentiment_label']) && isset($jsonResponse['sentiment_score'])) {
-        // Extract sentiment label and score from the JSON response
-        $sentimentLabel = $jsonResponse['sentiment_label'];
-        $sentimentScore = $jsonResponse['sentiment_score'];
-        $positivePercentage = $jsonResponse['positive_percent'];
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $review_ID = $row['review_ID'];
+            $sql_2 = "SELECT stars FROM review WHERE review_ID = '$review_ID';";
+            $result_2 = mysqli_query($connection, $sql_2);
 
-        // Print the results
-        echo "Sentiment Label: {$sentimentLabel}\n";
-        echo "Sentiment Score: {$sentimentScore}\n";
-        echo "Positive: {$positivePercentage}%\n";
-    } else {
-        echo "Error decoding JSON or missing sentiment label or score.";
+            if ($result_2) {
+                while ($row_2 = mysqli_fetch_assoc($result_2)) {
+                    $stars = $row_2['stars'];
+
+                    // Increment the corresponding star count
+                    $totalStars[$stars]++;
+
+                    $totalReview++;
+                }
+                mysqli_free_result($result_2);
+            } else {
+                echo "Error: " . mysqli_error($connection);
+            }
+        }
     }
+
+    mysqli_free_result($result);
 } else {
-    echo "Error making HTTP request.";
+    echo "Error: " . mysqli_error($connection);
 }
+
+
 ?>
