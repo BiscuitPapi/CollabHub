@@ -1,24 +1,34 @@
 from flask import Flask, request, jsonify
-import subprocess
+from transformers import pipeline
 
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def analyze_sentiment():
     input_text = request.args.get('text', '')
-    escaped_text = input_text.replace("'", "\\'")
 
-    python_script_path = '/Applications/XAMPP/xamppfiles/htdocs/FYP/Project/sentiment_analysis.py'
-    command = f"python3 {python_script_path} '{escaped_text}'"
+    # Load the sentiment analysis pipeline with BERT
+    sentiment_analysis_bert = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 
     try:
-        output = subprocess.check_output(command, shell=True, text=True)
-        positive_percentage = float(output)
+        # Perform sentiment analysis
+        result_bert = sentiment_analysis_bert(input_text)
 
-        # Return a JSON response
-        return jsonify({'positive_percent': positive_percentage})
+        # Extract the sentiment label and score
+        sentiment_label = result_bert[0]['label']
+        sentiment_score = result_bert[0]['score']
 
-    except subprocess.CalledProcessError as e:
+        # Convert score to percentage
+        positive_percent = sentiment_score * 100
+
+        # Return a JSON response with label and score
+        return jsonify({
+            'sentiment_label': sentiment_label,
+            'sentiment_score': sentiment_score,
+            'positive_percent': positive_percent
+        })
+
+    except Exception as e:
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':

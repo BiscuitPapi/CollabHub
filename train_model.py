@@ -1,37 +1,30 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-import joblib  # To save the trained model
+# Import necessary libraries
+from transformers import pipeline
+import sys
 
-# Load your dataset
-df = pd.read_csv('csv/feedback_dataset.csv')
+def analyze_sentiment(text):
+    # Load the sentiment analysis pipeline with BERT
+    sentiment_analysis_bert = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 
-# Convert categorical variables (like skill_id) to numerical values using one-hot encoding
-df = pd.get_dummies(df, columns=['skill_id'], prefix='skill')
+    # Perform sentiment analysis
+    result_bert = sentiment_analysis_bert(text)
 
-# Separate features (X) and target variable (y)
-X = df.drop('feedback', axis=1)
-y = df['feedback']
+    # Extract the sentiment label and score
+    sentiment_label = result_bert[0]['label']
+    sentiment_score = result_bert[0]['score']
 
-# Split the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Print the results
+    print(f"Sentiment Label: {sentiment_label}")
+    print(f"Sentiment Score: {sentiment_score}")
 
-# Initialize the model
-model = LinearRegression()
+if __name__ == "__main__":
+    # Check if command-line argument is provided
+    if len(sys.argv) != 2:
+        print("Usage: python sentiment_analysis_script.py 'Your text goes here.'")
+        sys.exit(1)
 
-# Train the model
-model.fit(X_train, y_train)
+    # Get text from command-line argument
+    text_to_analyze = sys.argv[1]
 
-# Make predictions on the test set
-y_pred = model.predict(X_test)
-
-# Evaluate the model on the test set
-mse = mean_squared_error(y_test, y_pred)
-print(f'Mean Squared Error on Test Set: {mse}')
-
-# Print the coefficients (weights) associated with each feature
-print('Coefficients:', model.coef_)
-
-# Save the trained model
-joblib.dump(model, 'dynamic_weights_model.joblib')
+    # Run sentiment analysis
+    analyze_sentiment(text_to_analyze)

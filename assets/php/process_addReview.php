@@ -14,10 +14,9 @@ $jsonData = file_get_contents("php://input");
 // Decode the JSON data
 $data = json_decode($jsonData);
 
-if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && isset($data->stars) && isset($data->comment)) {
+if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && isset($data->comment)) {
     $reviewee_ID = mysqli_real_escape_string($connection, $data->reviewee);
     $feedback_ID = mysqli_real_escape_string($connection, $data->feedback_ID);
-    $stars = mysqli_real_escape_string($connection, $data->stars);
     $comment = mysqli_real_escape_string($connection, $data->comment);
 
     $escaped_text = urlencode($comment);
@@ -30,8 +29,19 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
         // Attempt to decode the response as JSON
         $jsonResponse = json_decode($response, true);
 
-        if ($jsonResponse !== null && isset($jsonResponse['positive_percent'])) {
-            // Extract the positive percentage from the JSON response
+        if ($jsonResponse !== null && isset($jsonResponse['sentiment_label']) && isset($jsonResponse['sentiment_score'])) {
+
+            $sentimentLabel = $jsonResponse['sentiment_label'];
+
+            // Use preg_match to extract the numeric part
+            if (preg_match('/(\d+)/', $sentimentLabel, $matches)) {
+                $numericValue = $matches[1];
+                // $numericValue now contains the extracted numeric part
+            } else {
+                // Handle the case where no numeric value is found
+                echo "Numeric value not found";
+            }
+            $sentimentScore = $jsonResponse['sentiment_score'];
             $positivePercentage = $jsonResponse['positive_percent'];
 
         } else {
@@ -40,10 +50,6 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
     } else {
         echo "Error making HTTP request.";
     }
-
-
-    // Decode the JSON output
-    $result = json_decode($output, true);
 
     // Extract positive and negative percentages
     $positivePercent = $positivePercentage;
@@ -57,9 +63,9 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
     // 1) Insert into the review table
     $insertReviewQuery = "INSERT INTO review (dateCreated, comments, stars, positivity, negativity) VALUES (CURRENT_DATE(), ?, ?, ?, ?)";
     $stmt = $connection->prepare($insertReviewQuery);
-    $stmt->bind_param("ssdd", $comment, $stars, $formattedPositivePercent, $formattedNegativePercent);
+    $stmt->bind_param("ssdd", $comment, $numericValue, $formattedPositivePercent, $formattedNegativePercent);
     $stmt->execute();
-
+    echo $numericValue;
     // Check for errors
     if ($stmt->error) {
         // Handle the error
@@ -78,7 +84,6 @@ if ($data !== null && isset($data->reviewee) && isset($data->feedback_ID) && iss
 
     $row = mysqli_fetch_assoc($latestReviewIDResult);
     $review_ID = $row['review_ID'];
-    echo $review_ID;
 
     // 3) Update the feedback table with the review_ID
     $updateFeedbackQuery = "UPDATE feedback SET review_ID = ? WHERE feedback_ID = ?";

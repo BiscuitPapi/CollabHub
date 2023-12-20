@@ -35,6 +35,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
 		<link href="assets/css/app-style.css" rel="stylesheet" />
+		<link href="assets/css/loader.css" rel="stylesheet" type="text/css" />
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 		<style>
@@ -199,30 +200,13 @@ if (!isset($_SESSION['user_ID'])) {
 																				$row2 = mysqli_fetch_assoc($userResult);
 
 																				// Display the user's name as the option and use their user_ID as the value
-																				echo '<option value="' . $row2['user_ID'] ."&".$row['feedback_ID']. '">' . $row2['name'] . '</option>';
+																				echo '<option value="' . $row2['user_ID'] . "&" . $row['feedback_ID'] . '">' . $row2['name'] . '</option>';
 																			}
 
 																			// Close the database connection
 																			mysqli_close($connection);
 																			?>
 																		</select>
-																	</div>
-																</div>
-
-
-
-																<div class="form-group">
-																	<label for="input-2">Stars</label>
-																	<div class="position-relative has-icon-right">
-																		<div class="star-rating">
-																			<span class="fa fa-star"></span>
-																			<span class="fa fa-star"></span>
-																			<span class="fa fa-star"></span>
-																			<span class="fa fa-star"></span>
-																			<span class="fa fa-star"></span>
-																		</div>
-																		<input type="hidden" id="input_2" name="input_2"
-																			class="form-control input-shadow" required>
 																	</div>
 																</div>
 
@@ -234,10 +218,19 @@ if (!isset($_SESSION['user_ID'])) {
 																		required></textarea>
 																</div>
 
-																<button
-																	class="btn btn-success" onclick = "submitReview()">Submit</button>
+																<button class="btn btn-success"
+																	onclick="submitReview()">Submit</button>
 															</div>
 
+															<div class="custom-modal" id="myCustomModal">
+																<div class="modal-content">
+																	<center>
+																		<div class="loader"></div>
+																	</center>
+
+																	<p id="loadingMessage">Processing feedback and crafting stars. Hang tight...</p>
+																</div>
+															</div>
 
 														</div>
 													</div>
@@ -287,7 +280,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/notification.js"></script>
-			<script src="assets/js/review.js"></script>
+			<script src="assets/js/review-1.js"></script>
 
 			<script>
 				displayNotifications();
