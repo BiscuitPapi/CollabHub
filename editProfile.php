@@ -274,11 +274,14 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 												<br>
-												<button id = "submit-button" onclick="updateProfile()" class="btn btn-primary">Save
+												<button id="submit-button" onclick="updateProfile()"
+													class="btn btn-primary">Save
 													Changes</button>
 											</div>
 										</div>
 									</div>
+
+
 									<!--- BADGE TAB -->
 									<div class="tab-content p-3" id="badge" style="display:none;">
 										<ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
@@ -649,7 +652,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/notification.js"></script>
-			<script src="assets/js/editProfile.js"></script>
+			<script src="assets/js/eP.js"></script>
 			<script src="assets/js/editPictures.js"></script>
 
 			<script>

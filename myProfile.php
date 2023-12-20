@@ -147,13 +147,20 @@ if (!isset($_SESSION['user_ID'])) {
 										<?php echo $position; ?>
 									</p>
 									<div class="icon-block">
-										<a href="javascript:void();"> <i
-												class="fa fa-facebook bg-facebook text-white"></i></a>
-										<a href="javascript:void();"> <i
-												class="fa fa-twitter bg-twitter text-white"></i></a>
-										<a href="javascript:void();"> <i
-												class="fa fa-google-plus bg-google-plus text-white"></i></a>
+										<?php
+										$wa_link = "https://wa.me/" . $_SESSION["phone"];
+										$email_link = "mailto:" . $_SESSION["email"];
+										?>
+										<a href="<?php echo $wa_link; ?>" target="_blank" title="Text me on WhatsApp">
+											<i class="fa fa-whatsapp bg-whatsapp text-white"></i>
+										</a>
+										<a href="<?php echo $email_link; ?>" target="_blank" title="Email me">
+											<i class="fa fa-google-plus bg-google-plus text-white"></i>
+										</a>
 									</div>
+
+
+
 								</div>
 
 								<div class="card-body border-top border-light">
@@ -296,19 +303,19 @@ if (!isset($_SESSION['user_ID'])) {
 											<div class="row">
 												<div class="col-8">
 													<?php
-														$user_ID = $_SESSION["user_ID"];
+													$user_ID = $_SESSION["user_ID"];
 
-														$sql = "SELECT COUNT(*) AS count FROM feedback WHERE reviewee = '$user_ID' AND review_ID IS NOT NULL;";
-														$result = mysqli_query($connection, $sql);
+													$sql = "SELECT COUNT(*) AS count FROM feedback WHERE reviewee = '$user_ID' AND review_ID IS NOT NULL;";
+													$result = mysqli_query($connection, $sql);
 
-														if ($result) {
-															$row = mysqli_fetch_assoc($result);
-															$count = $row['count'];
+													if ($result) {
+														$row = mysqli_fetch_assoc($result);
+														$count = $row['count'];
 
-															echo '<h5>Peer Reviews (' . $count . ')</h5>';
-														} else {
-															echo "Error: " . mysqli_error($connection);
-														}
+														echo '<h5>Peer Reviews (' . $count . ')</h5>';
+													} else {
+														echo "Error: " . mysqli_error($connection);
+													}
 													?>
 													<h1>
 														<?php echo number_format($_SESSION["rating"], 2); ?>
@@ -327,7 +334,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 													</div>
-													
+
 													All reviews come from verified students
 
 												</div>
@@ -366,22 +373,22 @@ if (!isset($_SESSION['user_ID'])) {
 														}
 
 														mysqli_free_result($result);
-// Output the HTML with dynamic percentages and progress bars
-for ($i = 5; $i >= 0; $i--) {
-    $percentage = ($totalReview > 0) ? round(($totalStars[$i] / $totalReview) * 100) : 0;
-    echo '<div class="media align-items-center">
-            <span class="mr-3">' . $i . ' stars</span>
-            <div class="media-body text-left ml-3">
-                <div class="progress-wrapper">
-                    <div class="progress" style="height: 5px; width: 180px;">
-                        <div class="progress-bar" style="width:' . $percentage . '%"></div>
-                    </div>
-                </div>
-            </div>
-            <span>' . $percentage . '%</span>
-          </div>
-         ';
-}
+														// Output the HTML with dynamic percentages and progress bars
+														for ($i = 5; $i >= 0; $i--) {
+															$percentage = ($totalReview > 0) ? round(($totalStars[$i] / $totalReview) * 100) : 0;
+															echo '<div class="media align-items-center">
+																<span class="mr-3">' . $i . ' stars</span>
+																<div class="media-body text-left ml-3">
+																	<div class="progress-wrapper">
+																		<div class="progress" style="height: 5px; width: 180px;">
+																			<div class="progress-bar" style="width:' . $percentage . '%"></div>
+																		</div>
+																	</div>
+																</div>
+																<span>' . $percentage . '%</span>
+															</div>
+															';
+														}
 
 
 
