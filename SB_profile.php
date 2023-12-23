@@ -89,7 +89,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
 		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
-		
+
 		<!-- Icons CSS-->
 		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
@@ -107,6 +107,68 @@ if (!isset($_SESSION['user_ID'])) {
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
 
 		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				font: 16px Arial;
+			}
+
+			/*the container must be positioned relative:*/
+			.autocomplete {
+				position: relative;
+				display: inline-block;
+			}
+
+			input {
+				border: 1px solid transparent;
+				background-color: #f1f1f1;
+				padding: 10px;
+				font-size: 16px;
+			}
+
+			input[type=text] {
+				background-color: #f1f1f1;
+				width: 100%;
+			}
+
+			input[type=submit] {
+				background-color: DodgerBlue;
+				color: #fff;
+				cursor: pointer;
+			}
+
+			.autocomplete-items {
+				position: absolute;
+				border: 1px solid #d4d4d4;
+				border-bottom: none;
+				border-top: none;
+				z-index: 99;
+				/*position the autocomplete items to be the same width as the container:*/
+				top: 100%;
+				left: 0;
+				right: 0;
+			}
+
+			.autocomplete-items div {
+				padding: 10px;
+				cursor: pointer;
+				background-color: #fff;
+				border-bottom: 1px solid #d4d4d4;
+			}
+
+			/*when hovering an item:*/
+			.autocomplete-items div:hover {
+				background-color: #e9e9e9;
+			}
+
+			/*when navigating through the items using the arrow keys:*/
+			.autocomplete-active {
+				background-color: DodgerBlue !important;
+				color: #ffffff;
+			}
+
 			body {
 				transition: filter 0.3s ease-in-out;
 			}
@@ -304,7 +366,7 @@ if (!isset($_SESSION['user_ID'])) {
 												// Handle the case when 'picture' is null or empty
 												$user_picture = "https://via.placeholder.com/110x110";  // Or any default value you prefer
 											}
-											
+
 											// Display only up to 4 members
 											if ($counter < 4) {
 												?>
@@ -740,22 +802,19 @@ if (!isset($_SESSION['user_ID'])) {
 												<div class="form-group">
 													<div class="row justify-content-center">
 														<!-- Center aligning the row -->
-														<input type="text" class="form-control col-lg-4 mr-2"
-															name="addedSkills" id="addedSkills"
-															placeholder="Input skill required">
+														<div class="autocomplete" style="width:300px;">
+															<input id="myInput" type="text" name="myCountry"
+																placeholder="Input skill required">
+														</div>
 														<button onclick="addSkills()" class="btn btn-primary"
-															style="color: white;">Add</button>
+															style="color: white;">Add
+														</button>
 													</div>
 												</div>
 												<br>
 
-												<div class="form-group">
-													<center id="badgeContainer">
-
-													</center>
-												</div>
-
-
+												<!-- Suggestions dropdown container -->
+												<div class="form-group" id="suggestions-container"></div>
 
 												<center>
 													<button onclick="getFinalArray()"
@@ -764,6 +823,8 @@ if (!isset($_SESSION['user_ID'])) {
 											</div>
 										</div>
 									</div>
+
+
 
 								</div>
 							</div>
@@ -882,8 +943,8 @@ if (!isset($_SESSION['user_ID'])) {
 							col3.className = 'col-3';
 							col3.innerHTML = `You have been invited to StudyHub ${studyHubDetails.studyhub_name}<br>
 							
-								<a href="javascript:void(0)" class="btn btn-success" onclick="approval(${studyHubDetails.studyhub_ID}, 'Accepted', '${studyHubDetails.invite_ID}')">Accept</a>
-								<a href="javascript:void(0)" class="btn btn-danger" onclick="approval(${studyHubDetails.studyhub_ID}, 'Rejected', '${studyHubDetails.invite_ID}')">Reject</a>`;
+																	<a href="javascript:void(0)" class="btn btn-success" onclick="approval(${studyHubDetails.studyhub_ID}, 'Accepted', '${studyHubDetails.invite_ID}')">Accept</a>
+																	<a href="javascript:void(0)" class="btn btn-danger" onclick="approval(${studyHubDetails.studyhub_ID}, 'Rejected', '${studyHubDetails.invite_ID}')">Reject</a>`;
 
 							row.appendChild(col2);
 							row.appendChild(col3);
@@ -1280,46 +1341,46 @@ if (!isset($_SESSION['user_ID'])) {
 									var matchPercentage = user.match_percentage.toFixed(2); // Limiting to two decimal places
 
 									var userContent = `
-										<hr>
+																			<hr>
 									
 
-										<div class="row">
-											<div class ="row align-items-start">							
-												<div class="col-lg-2">
-													${user.imageData !== null && user.imageData !== '' ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">` : `<img src="https://via.placeholder.com/110x110">`}
+																			<div class="row">
+																				<div class ="row align-items-start">							
+																					<div class="col-lg-2">
+																						${user.imageData !== null && user.imageData !== '' ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">` : `<img src="https://via.placeholder.com/110x110">`}
 													
-												</div>
-											</div>
-											<div class="col-lg-4 align-items-center">
-												<h6>Name</h6>
-												<p>${user.name}</p>
-												<hr>
-												<h6>Email</h6>
-												<p>${user.email}</p>
-											</div>
+																					</div>
+																				</div>
+																				<div class="col-lg-4 align-items-center">
+																					<h6>Name</h6>
+																					<p>${user.name}</p>
+																					<hr>
+																					<h6>Email</h6>
+																					<p>${user.email}</p>
+																				</div>
 
-											<div class="col-lg-4 align-items-center">
-												<h6>Skills Matched</h6>
-												<p>${skillsList}</p>
-												<hr>
-												<h6>Accuracy Percentage</h6>
-												<p>${matchPercentage}%</p>
-											</div>
+																				<div class="col-lg-4 align-items-center">
+																					<h6>Skills Matched</h6>
+																					<p>${skillsList}</p>
+																					<hr>
+																					<h6>Accuracy Percentage</h6>
+																					<p>${matchPercentage}%</p>
+																				</div>
 
-											<div class="col-lg-2 d-flex align-items-center justify-content-center">
-												<button class="btn btn-success" onclick="sendInvitation('${user.user_ID}')">
-													Invite
-												</button>
+																				<div class="col-lg-2 d-flex align-items-center justify-content-center">
+																					<button class="btn btn-success" onclick="sendInvitation('${user.user_ID}')">
+																						Invite
+																					</button>
 
-											</div>
-										</div>
-									`;
+																				</div>
+																			</div>
+																		`;
 									contentContainer.insertAdjacentHTML('beforeend', userContent);
 								});
 							} else {
 								var noResultsContent = `
-										<p>No matching users found.</p>
-									`;
+																			<p>No matching users found.</p>
+																		`;
 								contentContainer.innerHTML = noResultsContent;
 							}
 						}
@@ -1423,6 +1484,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 				<!-- Custom scripts -->
 				<script src="assets/js/app-script.js"></script>
+				<script src="assets/js/searchAPI.js"></script>
 	</body>
 
 	</html>
