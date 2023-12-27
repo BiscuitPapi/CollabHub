@@ -3,10 +3,10 @@
     session_start();
 
     $user_ID = $_SESSION["user_ID"];
-    $addedCourse = $_POST['addedCourse'];
-    $addedDay = $_POST['addedDay'];
-    $addedStartTime = $_POST['addedStartTime'];
-    $addedEndTime = $_POST['addedEndTime'];
+    $addedCourse = $_POST['courseName'];
+    $addedDay = $_POST['day'];
+    $addedStartTime = $_POST['startTime'];
+    $addedEndTime = $_POST['endTime'];
     
     // Convert time strings to timestamps
     $startTime = strtotime($addedStartTime);
@@ -21,14 +21,11 @@
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo "Schedule edited successfully!";
-            header("Location: ../../schedule.php");
+            echo "A new schedule has been added!";
         } else {
             echo "Failed to edit schedule.";
         }
-        // $newScheduleID = mysqli_insert_id($connection); // Retrieve the newApplicationID
-        // echo "success|" . $newScheduleID; // Return success and the newApplicationID
-
+    
     } else {
         echo "Error: " . $stmt->error; 
     }

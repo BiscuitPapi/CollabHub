@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Check if the deletion was successful
     if ($stmt->affected_rows > 0) {
-        echo "Course schedule deleted successfully!";
-        header("Location: ../../schedule.php");
+        header("Location: ../../editProfile.php");
     } else {
         echo "Failed to delete course schedule.";
     }

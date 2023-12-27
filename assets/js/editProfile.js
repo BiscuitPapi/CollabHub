@@ -3,6 +3,7 @@ function toggle(tabId) {
     var addBadgeTab = document.getElementById("badge");
     var experienceTab = document.getElementById("experience");
     var pictureBannerTab = document.getElementById("pictureBanner");
+    var scheduleTab = document.getElementById("schedule");
 
     if (tabId === "about") {
         if (aboutTab.style.display === "block") {
@@ -12,6 +13,7 @@ function toggle(tabId) {
             addBadgeTab.style.display = "none";
             experienceTab.style.display = "none";
             pictureBannerTab.style.display = "none";
+            scheduleTab.style.display = "none";
         }
     } else if (tabId === "addBadge") {
         if (addBadgeTab.style.display === "block") {
@@ -21,6 +23,7 @@ function toggle(tabId) {
             aboutTab.style.display = "none";
             experienceTab.style.display = "none";
             pictureBannerTab.style.display = "none";
+            scheduleTab.style.display = "none";
         }
     } else if (tabId === "experience") {
         if (experienceTab.style.display === "block") {
@@ -30,6 +33,7 @@ function toggle(tabId) {
             aboutTab.style.display = "none";
             addBadgeTab.style.display = "none";
             pictureBannerTab.style.display = "none";
+            scheduleTab.style.display = "none";
         }
     } else if (tabId === "pictureBanner") {
         if (pictureBannerTab.style.display === "block") {
@@ -39,6 +43,19 @@ function toggle(tabId) {
             aboutTab.style.display = "none";
             addBadgeTab.style.display = "none";
             experienceTab.style.display = "none";
+            scheduleTab.style.display = "none";
+        }
+    }
+
+    else if (tabId === "schedule") {
+        if (scheduleTab.style.display === "block") {
+            scheduleTab.style.display = "none";
+        } else {
+            pictureBannerTab.style.display = "none";
+            aboutTab.style.display = "none";
+            addBadgeTab.style.display = "none";
+            experienceTab.style.display = "none";
+            scheduleTab.style.display = "block";
         }
     }
 }

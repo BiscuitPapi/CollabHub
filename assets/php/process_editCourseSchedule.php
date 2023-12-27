@@ -7,12 +7,18 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_ID = $_SESSION["user_ID"];
-    $schedule_ID = $_GET['schedule_ID'];
-    $course_name = $_POST['course_name'];
-    $day = $_POST['day'];
-    $start_time = $_POST['start_time'];
-    $end_time = $_POST['end_time'];
-    
+    $schedule_ID = isset($_POST['scheduleID']) ? $_POST['scheduleID'] : '';
+    $course_name = isset($_POST['editedCourseName']) ? $_POST['editedCourseName'] : '';
+    $day = isset($_POST['editedDay']) ? $_POST['editedDay'] : '';
+    $start_time = isset($_POST['editedStartTime']) ? $_POST['editedStartTime'] : '';
+    $end_time = isset($_POST['editedEndTime']) ? $_POST['editedEndTime'] : '';
+
+    // Check if any of the required variables is empty
+    if (empty($schedule_ID) || empty($course_name) || empty($day) || empty($start_time) || empty($end_time)) {
+        echo "One or more required fields are empty. Please fill in all fields.";
+        exit; // Stop further execution
+    }
+
     // Convert time strings to timestamps
     $startTime = strtotime($start_time);
     $endTime = strtotime($end_time);
@@ -20,29 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Calculate the duration in seconds
     $duration = ($endTime - $startTime) / 3600; // Calculate hours
 
-    // Prepare SQL
-    $sql = "UPDATE `schedule` SET `course_name`= ?, `day`= ?, `start_time`= ?, `end_time`= ?, `duration`= ? WHERE `schedule_ID`= ?";
-    
+    // Prepare the SQL statement
+    $sql = "UPDATE schedule SET course_name = ?, day = ?, start_time = ?, end_time = ?, duration = ? WHERE schedule_ID = ?";
     $stmt = $connection->prepare($sql);
 
-    // Check if the prepare statement was successful
-    if ($stmt) {
-        $stmt->bind_param("ssssii", $course_name, $day, $start_time, $end_time, $duration, $schedule_ID);
+    // Bind parameters
+    $stmt->bind_param("ssssii", $course_name, $day, $start_time, $end_time, $duration, $schedule_ID);
 
-        if ($stmt->execute()) {
-            if ($stmt->affected_rows > 0) {
-                echo "Schedule edited successfully!";
-                header("Location: ../../schedule.php");
-            } else {
-                echo "Failed to edit schedule.";
-            }
-        } else {
-            echo "Error: " . $stmt->error; 
-        }
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "Schedule updated successfully.";
 
+        // Close the statement
         $stmt->close();
     } else {
-        echo "Failed to prepare the SQL statement.";
+        echo "Error updating schedule information: " . $connection->error;
     }
+
 }
 ?>

@@ -35,6 +35,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
 		<link href="assets/css/app-style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -89,6 +90,51 @@ if (!isset($_SESSION['user_ID'])) {
 			body {
 				transition: filter 0.3s ease-in-out;
 			}
+
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				font: 16px Arial;
+			}
+
+			/*the container must be positioned relative:*/
+			.autocomplete {
+				position: relative;
+				display: inline-block;
+			}
+
+			.autocomplete-items {
+				position: absolute;
+				border: 1px solid #d4d4d4;
+				border-bottom: none;
+				border-top: none;
+				z-index: 99;
+				/*position the autocomplete items to be the same width as the container:*/
+				top: 100%;
+				left: 0;
+				right: 0;
+			}
+
+			.autocomplete-items div {
+				padding: 10px;
+				cursor: pointer;
+				background-color: #fff;
+				border-bottom: 1px solid #d4d4d4;
+			}
+
+			/*when hovering an item:*/
+			.autocomplete-items div:hover {
+				background-color: #e9e9e9;
+			}
+
+			/*when navigating through the items using the arrow keys:*/
+			.autocomplete-active {
+				background-color: DodgerBlue !important;
+				color: #ffffff;
+			}
 		</style>
 
 	</head>
@@ -120,7 +166,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="row">
 									<a href="javascript:void();" data-toggle="tooltip" data-placement="top"
 										title="Personal Information" onclick="toggle('about');">
-										<div class="card">
+										<div class="card" style="width:55px;">
 											<div class="card-body">
 												<center>
 													<i class="zmdi zmdi-account"></i><span></span>
@@ -133,7 +179,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="row">
 									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Badge"
 										onclick="toggle('addBadge');">
-										<div class="card">
+										<div class="card" style="width:55px;">
 											<div class="card-body">
 												<center>
 													<i class="zmdi zmdi-badge-check"></i><span></span>
@@ -146,7 +192,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="row">
 									<a href="javascript:void();" data-toggle="tooltip" data-placement="top"
 										title="Experience" onclick="toggle('experience');">
-										<div class="card">
+										<div class="card" style="width:55px;">
 											<div class="card-body">
 												<center>
 													<i class="zmdi zmdi-account-box-mail"></i><span></span>
@@ -156,13 +202,26 @@ if (!isset($_SESSION['user_ID'])) {
 									</a>
 								</div>
 
-								<div class="row">
+								<div class="row" style="width:70px;">
 									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Pictures"
 										onclick="toggle('pictureBanner');">
-										<div class="card">
+										<div class="card" style="width:55px;">
 											<div class="card-body">
 												<center>
 													<i class="zmdi zmdi-face"></i><span></span>
+												</center>
+											</div>
+										</div>
+									</a>
+								</div>
+
+								<div class="row" style="width:70px;">
+									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Schedule"
+										onclick="toggle('schedule');">
+										<div class="card" style="width:55px;">
+											<div class="card-body">
+												<center>
+													<i class="zmdi zmdi-book"></i><span></span>
 												</center>
 											</div>
 										</div>
@@ -178,7 +237,7 @@ if (!isset($_SESSION['user_ID'])) {
 							<div class="card">
 								<div class="card-body">
 									<!--- PERSONAL INFORMATION TAB -->
-									<div class="tab-pane" id="about">
+									<div class="tab-pane" id="about" style="min-height:500px;">
 										<div class="row">
 											<div class="col-md-12">
 												<h5 class="mb-3">Personal Information</h5>
@@ -283,7 +342,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 									<!--- BADGE TAB -->
-									<div class="tab-content p-3" id="badge" style="display:none;">
+									<div class="tab-content p-3" id="badge" style="display:none; min-height: 460px;">
 										<ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
 											<li class="nav-item">
 												<a href="javascript:void();" data-target="#addBadge" data-toggle="pill"
@@ -354,10 +413,14 @@ if (!isset($_SESSION['user_ID'])) {
 											<div class="row">
 												<div class="col-md-12">
 													<h5 class="mb-3"></h5>
-													<div class="form-group">
+													<div class="form-group" style="display: flex;flex-direction: column;">
 														<label for="input-1">Name</label>
-														<input type="text" class="form-control" name="addedName"
-															id="addedName" placeholder="" required>
+														<!-- Center aligning the row -->
+														<div class="autocomplete" style="width: 500px;">
+															<input class="form-control" id="myInput" type="text"
+																name="myCountry" style="width: 100%; color: black;">
+														</div>
+
 													</div>
 
 													<div class="form-group">
@@ -503,7 +566,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 									</div>
 
-									<div class="tab-content p-3" id="pictureBanner" style="display:none;">
+									<div class="tab-content p-3" id="pictureBanner"
+										style="display:none; min-height: 460px;">
 										<div class="tab-pane active" id="picture">
 											<div class="row">
 												<div class="col-md-12">
@@ -549,7 +613,7 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="modal fade" id="profileCropModal" tabindex="-1" role="dialog"
 											aria-labelledby="profileCropModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content" style="width: 1000px;" >
+												<div class="modal-content" style="width: 1000px;">
 													<div class="modal-header">
 														<h5 class="modal-title" id="profileCropModalLabel">Crop Profile
 															Picture</h5>
@@ -596,6 +660,269 @@ if (!isset($_SESSION['user_ID'])) {
 														<button type="button" class="btn btn-primary"
 															id="confirmBannerCrop">Confirm Crop</button>
 													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!--Schedule-->
+									<div class="tab-content p-3" id="schedule" style="display:none; min-height: 460px;">
+										<div class="tab-pane active" id="picture">
+											<div class="row">
+												<div class="col-md-12">
+													<!--Table Card-->
+													<div class="card">
+
+														<div class="card-body">
+
+															<h5 class="card-title">My Course Schedule</h5>
+
+															<!--SCHEDULE TABLE-->
+															<div class="table-responsive">
+
+																<table class="table table-bordered">
+
+																	<thead>
+																		<tr>
+																			<th scope="col" style="text-align: center;">
+																				Course Name</th>
+																			<th scope="col" style="text-align: center;">Day
+																			</th>
+																			<th scope="col" style="text-align: center;">
+																				Start Time</th>
+																			<th scope="col" style="text-align: center;">End
+																				Time</th>
+																			<th scope="col" style="text-align: center;">
+																				Action</th>
+
+																		</tr>
+																	</thead>
+
+																	<tbody id="courseScheduleTableBody">
+
+																		<?php
+																		include("assets/php/connection.php");
+
+																		$dayOrder = [
+																			'Monday' => 1,
+																			'Tuesday' => 2,
+																			'Wednesday' => 3,
+																			'Thursday' => 4,
+																			'Friday' => 5,
+																			'Saturday' => 6,
+																			'Sunday' => 7
+																		];
+
+																		// Fetch data by order of day followed by time
+																		$query = "SELECT schedule_ID, course_name, day, start_time, end_time FROM `schedule` where user_ID = '{$_SESSION['user_ID']}' 
+		ORDER BY 
+		CASE
+			WHEN day = 'Monday' THEN 1
+			WHEN day = 'Tuesday' THEN 2
+			WHEN day = 'Wednesday' THEN 3
+			WHEN day = 'Thursday' THEN 4
+			WHEN day = 'Friday' THEN 5
+			WHEN day = 'Saturday' THEN 6
+			WHEN day = 'Sunday' THEN 7
+		END,
+		start_time;";
+
+																		$result = mysqli_query($connection, $query);
+
+																		$count = 1; // Initialize count variable
+																	
+																		// Check if there are no schedules
+																		if (mysqli_num_rows($result) == 0) {
+																			echo '<tr><td colspan="5">No schedule found.</td></tr>';
+																		} else {
+																			while ($row = mysqli_fetch_assoc($result)) {
+
+																				// Format the time values
+																				$formatted_time_start = date('g.i A', strtotime($row['start_time']));
+																				$formatted_time_end = date('g.i A', strtotime($row['end_time']));
+
+																				// Output each row of the table
+																				echo '
+				<tr>
+					<th scope="row" style="text-align: center;">' . $row['course_name'] . '</th>
+					<td style="text-align: center;">' . $row['day'] . '</td>
+					<td style="text-align: center;">' . $formatted_time_start . '</td>
+					<td style="text-align: center;">' . $formatted_time_end . '</td>
+					<td style="text-align: center;">
+						<button class="btn btn-primary editCourseButton" data-schedule-id="' . $row['schedule_ID'] . '"
+							data-course-name="' . $row['course_name'] . '"
+							data-day="' . $row['day'] . '"
+							data-start-time="' . $row['start_time'] . '"
+							data-end-time="' . $row['end_time'] . '"
+							onclick="editCourseModal(this)">Edit</button>
+						<a href="assets/php/process_deleteCourseSchedule.php?schedule_ID=' . $row['schedule_ID'] . '" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			';
+
+																				$count++; // Increment count for each row
+																			}
+																		}
+
+																		// Close the database connection
+																		mysqli_close($connection);
+																		?>
+																	</tbody>
+
+																</table>
+
+															</div>
+															<!--END OF SCHEDULE TABLE-->
+
+															<p>
+															<p>
+																<center><button class="btn btn-primary"
+																		id="addCourseButton">Add Course</button></center>
+
+														</div>
+
+													</div>
+													<!--End of table card-->
+
+													<!-- ADD COURSE MODAL -->
+													<div id="modal" class="modal">
+														<div class="modal-content" style="max-height:90vh">
+															<span class="close">&times;</span>
+
+															<!-- Form Title-->
+															<center>
+																<h3>Add Course</h3>
+															</center>
+
+															<!-- Add Course to Schedule Form -->
+															<div class="tab-pane" id="addCourse">
+																<div class="row">
+																	<div class="col-md-12">
+																		<h5 class="mb-3"></h5>
+
+																		<br>
+																		<div>
+																			<!-- Course Name-->
+																			<div class="form-group">
+																				<label for="input-1">Course Name:</label>
+																				<input type="text" class="form-control"
+																					name="addedCourse" id="input-1"
+																					placeholder="Enter the course name">
+																			</div>
+
+																			<!-- Day -->
+																			<div class="form-group">
+																				<label for="input-2">Day:</label>
+																				<select class="form-control" name="addedDay"
+																					id="input-2">
+																					<option value="Monday">Monday</option>
+																					<option value="Tuesday">Tuesday</option>
+																					<option value="Wednesday">Wednesday
+																					</option>
+																					<option value="Thursday">Thursday
+																					</option>
+																					<option value="Friday">Friday</option>
+																				</select>
+																			</div>
+
+																			<!-- Course Start Time-->
+																			<div class="form-group">
+																				<label for="input-3">Start Time:</label>
+																				<input type="time" class="form-control"
+																					id="input-3" name="addedStartTime"
+																					placeholder="Enter the course start time">
+																			</div>
+
+																			<!-- Course End Time -->
+																			<div class="form-group">
+																				<label for="input-4">End Time:</label>
+																				<input type="time" class="form-control"
+																					id="input-4" name="addedEndTime"
+																					placeholder="Enter the course end time">
+																			</div>
+
+																			
+																			<center><button onclick="addCourse()" class="btn btn-success">Add</button></center>
+																	</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+													</div>
+													<!-- END ADD COURSE MODAL-->
+													<!-- EDIT COURSE MODAL -->
+													<div id="modal_2" class="modal">
+														<div class="modal-content" style="max-height:90vh">
+															<span class="close" id="closeModal">&times;</span>
+
+															<!-- Form Title-->
+															<center>
+																<h3>Edit Course</h3>
+															</center>
+
+															<!-- Edit Course in the Schedule Form -->
+															<div class="tab-pane" id="editCourse">
+																<div class="row">
+																	<div class="col-md-12">
+																		<h5 class="mb-3"></h5>
+
+																		<br>
+
+																		<div
+
+																			<!-- Course Name-->
+																			<div class="form-group">
+																				<label for="input-5">Course Name:</label>
+																				<input type="text" class="form-control"
+																					id="input-5" name="course_name">
+																			</div>
+
+																			<!-- Day -->
+																			<div class="form-group">
+																				<label for="input-6">Day:</label>
+																				<select class="form-control" name="day"
+																					id="input-6">
+																					<option value="Monday">Monday</option>
+																					<option value="Tuesday">Tuesday</option>
+																					<option value="Wednesday">Wednesday
+																					</option>
+																					<option value="Thursday">Thursday
+																					</option>
+																					<option value="Friday">Friday</option>
+																				</select>
+																			</div>
+
+																			<!-- Course Start Time-->
+																			<div class="form-group">
+																				<label for="input-7">Start Time:</label>
+																				<input type="time" class="form-control"
+																					id="input-7" name="start_time">
+																			</div>
+
+																			<!-- Course End Time -->
+																			<div class="form-group">
+																				<label for="input-8">End Time:</label>
+																				<input type="time" class="form-control"
+																					id="input-8" name="end_time">
+																			</div>
+
+
+																			<input type="hidden" id="scheduleIdInput"
+																				name="scheduleId" value = "">
+
+																			<center><button onclick="saveEditedCourse()" class="btn btn-success">Save Changes</button></center>
+
+																	</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+													</div>
+													<?php include_once('schedule-1.php'); ?>
 												</div>
 											</div>
 										</div>
@@ -652,8 +979,13 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/notification.js"></script>
-			<script src="assets/js/eP.js"></script>
+			<script src="assets/js/editProfile-1.js"></script>
 			<script src="assets/js/editPictures.js"></script>
+			<script src="assets/js/searchAPI.js"></script>
+			<!-- Full Calendar -->
+			<script src='assets/plugins/fullcalendar/js/moment.min.js'></script>
+			<script src='assets/plugins/fullcalendar/js/fullcalendar.min.js'></script>
+			<script src="assets/plugins/fullcalendar/js/fullcalendar-custom-script.js"></script>
 
 			<script>
 				displayNotifications();
