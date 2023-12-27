@@ -549,7 +549,7 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="modal fade" id="profileCropModal" tabindex="-1" role="dialog"
 											aria-labelledby="profileCropModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
+												<div class="modal-content" style="width: 1000px;" >
 													<div class="modal-header">
 														<h5 class="modal-title" id="profileCropModalLabel">Crop Profile
 															Picture</h5>
