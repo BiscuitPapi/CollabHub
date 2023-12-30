@@ -192,7 +192,7 @@ if (!isset($_SESSION['user_ID'])) {
 														<div class="card-body">
 															<div class="card-title">My Information</div>
 															<div class="row">
-																<div class="col-lg-6">
+																<div class="col-lg-5">
 																	<img class="profile"
 																		src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"]; ?>"
 																		alt="profile-image">
@@ -237,7 +237,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	<div class="badge-wrapper d-flex flex-wrap"
 																		id="badge-container"></div>
 																	<div id="no-subjects-found" style="display: none;">
-																		No subjects found for this user.
+
 																	</div>
 																	<?php
 
@@ -272,7 +272,7 @@ if (!isset($_SESSION['user_ID'])) {
 																			// Close the badge container
 																			echo '</div>';
 																		} else {
-																			echo "User is not logged in.";
+																			echo "No subjects found for this user.";
 																		}
 																	}
 
@@ -427,19 +427,45 @@ if (!isset($_SESSION['user_ID'])) {
 																				$result_2 = mysqli_query($connection, $query_2);
 																				$row_2 = mysqli_fetch_assoc($result_2);
 
+																				// Store the profile picture properly as a base64-encoded string
+																				$tempPicture = $row_2['picture'];
+																				if ($tempPicture !== null) {
+																					$tempPicture = base64_encode($tempPicture);
+																				} else {
+																					$tempPicture = null;
+																				}
+
+
 																				// Output each row of the table
 																				echo '
-																						<tr>
-																							<th scope="row">' . $count . '</th>
-																							<td>' . $row_2['name'] . '</td>
-																							<td>' . $row['dateCreated'] . '</td>
-																							<td>
-																								<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
-																							</td>
-																						</tr>
-																					';
+																					<tr>
+																						<th scope="row">' . $count . '</th>
+																						<td>';
+
+																							if ($tempPicture === null) {
+																								echo '
+																								<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
+																							';
+																							} else {
+																																									echo '
+																							
+																								<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
+																							';
+																																								}
+
+																																								echo '
+																							' . $row_2['name'] . '
+																						</td>
+																						<td>' . $row['dateCreated'] . '</td>
+																						<td>
+																							<a href="viewProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
+																						</td>
+																					</tr>
+																				';
 
 																				$count++; // Increment count for each row
+																	
+
 																			}
 																		}
 
@@ -470,8 +496,10 @@ if (!isset($_SESSION['user_ID'])) {
 																		<tr>
 																			<th scope="col">#</th>
 																			<th scope="col">Mentor</th>
-																			<th scope="col">Application Date</th>
-																			<th scope="col">Status</th>
+																			<th scope="col" style="text-align: center;">
+																				Application Date</th>
+																			<th scope="col" style="text-align: center;">
+																				Status</th>
 																		</tr>
 																	</thead>
 																	<tbody>
@@ -488,14 +516,37 @@ if (!isset($_SESSION['user_ID'])) {
 																			$query_2 = "SELECT * FROM user WHERE user_ID = '{$mentor_ID}'";
 																			$result_2 = mysqli_query($connection, $query_2);
 																			$row_2 = mysqli_fetch_assoc($result_2);
+																			
+																			// Store the profile picture properly as a base64-encoded string
+																			$tempPicture = $row_2['picture'];
+																			if ($tempPicture !== null) {
+																				$tempPicture = base64_encode($tempPicture);
+																			} else {
+																				$tempPicture = null;
+																			}
 
 																			// Output each row of the table
 																			echo '
 																				<tr>
 																					<th scope="row">' . $count . '</th>
-																					<td>' . $row_2['name'] . '</td>
-																					<td>' . $row['dateCreated'] . '</td>
 																					<td>';
+
+																							if ($tempPicture === null) {
+																								echo '
+																								<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
+																							';
+																							} else {
+																																									echo '
+																							
+																								<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
+																							';
+																																								}
+
+																																								echo '
+																							' . $row_2['name'] . '
+																						</td>
+																					<td style="text-align: center;">' . $row['dateCreated'] . '</td>
+																					<td style="text-align: center;">';
 
 																			if ($row['status'] === 'Approved') {
 																				echo '<span class="badge badge-success"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>';
@@ -541,15 +592,12 @@ if (!isset($_SESSION['user_ID'])) {
 																<?php
 																include("assets/php/connection.php");
 
-																$query = "SELECT u.user_ID, u.name, COUNT(CASE WHEN m.status = 'Approved' THEN m.Mentee_ID END) AS numberOfMentees,
-																			(SELECT AVG(r.stars) FROM review r
-																				INNER JOIN feedback f ON r.review_ID = f.review_ID
-																				WHERE f.reviewee = u.user_ID) AS rating
-																		FROM user u
-																		LEFT JOIN Mentorship m ON u.user_ID = m.Mentor_ID
-																		WHERE u.mentorshipStatus = 'Mentor'
-																		GROUP BY u.user_ID, u.name;
-																		";
+																$query = "SELECT u.picture, u.user_ID, u.name, u.rating, COUNT(CASE WHEN m.status = 'Approved' THEN m.Mentee_ID END) AS numberOfMentees
+																	FROM user u
+																	LEFT JOIN Mentorship m ON u.user_ID = m.Mentor_ID
+																	WHERE u.mentorshipStatus = 'Mentor'
+																	GROUP BY u.user_ID, u.name, u.rating";
+
 																$result = mysqli_query($connection, $query);
 
 																$count = 1; // Initialize count variable
@@ -562,54 +610,67 @@ if (!isset($_SESSION['user_ID'])) {
 																				<tr>
 																					<th scope="col">#</th>
 																					<th scope="col">Name</th>
-																					<th scope="col">Number of Mentees</th>
-																					<th scope="col">Rating</th>
-																					<th scope="col">Action</th>
+																					<th scope="col" style="text-align: center;">Number of Mentees</th>
+																					<th scope="col" style="text-align: center;">Rating</th>
+																					<th scope="col" style="text-align: center;">Action</th>
 																				</tr>
 																			</thead>
 																			<tbody>
 																		';
 
-																	// Output each row of the table
-																	while ($row = mysqli_fetch_assoc($result)) {
-																		?>
-																		<tr>
-																			<th scope="row">
-																				<?php echo $count; ?>
-																			</th>
-																			<td>
-																				<?php echo $row['name']; ?>
-																			</td>
-																			<td>
-																				<?php echo $row['numberOfMentees']; ?>
-																			</td>
-																			<td>
-																				<?php echo isset($row['rating']) ? round($row['rating'], 2) : 0; ?>
-																			</td>
-
-
-																			<td>
-																				<a href="myProfile.php?user_ID=<?php echo $row['user_ID']; ?>"
-																					class="btn btn-success">View</a>
-																				<?php
-																				$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
-																				$resulty = mysqli_query($connection, $checkQuery);
-
-																				if ($resulty) {
-																					// Check if a row exists in the result set
-																					if (mysqli_num_rows($resulty) > 0) {
-																						// Do nothing or add additional logic if needed
-																					} else if (mysqli_num_rows($resulty) == 0) {
-																						echo '<a href="#" class="btn btn-success" onclick="apply(' . $row['user_ID'] . '); return false;">Apply</a>';
+																		
+																		// Output each row of the table
+																		while ($row = mysqli_fetch_assoc($result)) {
+																			// Store the profile picture properly as a base64-encoded string
+																			$tempPicture = $row['picture'];
+																			if ($tempPicture !== null) {
+																				$tempPicture = base64_encode($tempPicture);
+																			} else {
+																				$tempPicture = null;
+																			}
+																			?>
+																			<tr>
+																				<th scope="row">
+																					<?php echo $count; ?>
+																				</th>
+																				<td>
+																					<?php
+																					if ($tempPicture === null) {
+																						echo '<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
+																					} else {
+																						echo '<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
 																					}
-																				}
-																				?>
-																			</td>
-
-																		</tr>
-																		<?php
-																		$count++; // Increment count for each row
-																	}
+																					echo $row['name'];
+																					?>
+																				</td>
+																				<td style="text-align: center;">
+																					<?php echo $row['numberOfMentees']; ?>
+																				</td>
+																				<td style="text-align: center;">
+																					<?php echo $row['rating']; ?>
+																				</td>
+																				<td style="text-align: center;">
+																					<a href="viewProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-success">View</a>
+																					<?php
+																					$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
+																					$resulty = mysqli_query($connection, $checkQuery);
+																		
+																					if ($resulty) {
+																						// Check if a row exists in the result set
+																						if (mysqli_num_rows($resulty) > 0) {
+																							// Do nothing or add additional logic if needed
+																						} else if (mysqli_num_rows($resulty) == 0) {
+																							echo '<a href="#" class="btn btn-success" onclick="apply(' . $row['user_ID'] . '); return false;">Apply</a>';
+																						}
+																					}
+																					?>
+																				</td>
+																			</tr>
+																			<?php
+																			$count++; // Increment count for each row
+																		}
+																		
+																		
 
 																	// Close the table structure
 																	echo '
@@ -870,43 +931,7 @@ if (!isset($_SESSION['user_ID'])) {
 					</div>
 				</div>
 			</footer>
-			<!--End footer-->
-
-			<!--start color switcher-->
-			<div class="right-sidebar">
-				<div class="switcher-icon">
-					<i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-				</div>
-				<div class="right-sidebar-content">
-					<p class="mb-0">Gaussion Texture</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme1"></li>
-						<li id="theme2"></li>
-						<li id="theme3"></li>
-						<li id="theme4"></li>
-						<li id="theme5"></li>
-						<li id="theme6"></li>
-					</ul>
-
-					<p class="mb-0">Gradient Background</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme7"></li>
-						<li id="theme8"></li>
-						<li id="theme9"></li>
-						<li id="theme10"></li>
-						<li id="theme11"></li>
-						<li id="theme12"></li>
-						<li id="theme13"></li>
-						<li id="theme14"></li>
-						<li id="theme15"></li>
-					</ul>
-				</div>
-			</div>
-			<!--end color switcher-->
+			<!--End footer--> 
 
 		</div>
 		<!--End wrapper-->
@@ -934,6 +959,6 @@ if (!isset($_SESSION['user_ID'])) {
 
 	</html>
 
-<?php
+	<?php
 }
 ?>

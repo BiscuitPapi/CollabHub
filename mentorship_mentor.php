@@ -171,7 +171,7 @@
 														<div class="card-body">
 															<div class="card-title">My Information</div>
 															<div class="row">
-																<div class="col-lg-6">
+																<div class="col-lg-5">
 																	<img class="profile" src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"];?>" alt="profile-image">
 																</div>
 
@@ -251,7 +251,7 @@
 
 																		
 																		} else {
-																			echo "User is not logged in.";
+																			echo "";
 																		}
 																	?>
 																</div>

@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_ID'])) {
 	header("Location: login.php");
 	exit();
 } else {
-
 	if (isset($_POST['user_ID'])) {
 		$user_ID = $_POST['user_ID'];
 	} elseif (isset($_GET['user_ID'])) { // Check if a user ID is provided through the URL
@@ -26,28 +25,25 @@ if (!isset($_SESSION['user_ID'])) {
 			$name = $res['name'];
 			$email = $res['email'];
 			$position = $res['position'];
-			$mobile = $res['mobile'];
+			$phone = $res['mobile'];
 			$rating = $res['rating'];
 
 
-            // Store the banner picture properly as a base64-encoded string
-            $bannerPicture = $res['banner_picture'];
-            if ($bannerPicture !== null) {
-                $_SESSION['banner'] = base64_encode($bannerPicture);
-            } else {
-                $_SESSION['banner'] = null;
-            }
+			// Store the banner picture properly as a base64-encoded string
+			$bannerPicture = $res['banner_picture'];
+			if ($bannerPicture !== null) {
+				$bannerPicture = base64_encode($bannerPicture);
+			} else {
+				$bannerPicture = null;
+			}
 
-            // Store the banner picture properly as a base64-encoded string
-            $picture = $res['picture'];
-            if ($bannerPicture !== null) {
-                $_SESSION['picture'] = base64_encode($picture);
-            } else {
-                $_SESSION['picture'] = null;
-            }
-            $_SESSION["mentorshipStatus"] = $res['mentorshipStatus'];
-
-
+			// Store the banner picture properly as a base64-encoded string
+			$picture = $res['picture'];
+			if ($picture !== null) {
+				$picture = base64_encode($picture);
+			} else {
+				$picture = null;
+			}
 
 		}
 
@@ -138,9 +134,9 @@ if (!isset($_SESSION['user_ID'])) {
 						<div class="col-lg-4">
 							<div class="card profile-card-2">
 								<div class="card-img-block">
-									<?php if ($_SESSION['banner'] !== null): ?>
-										<img class="img-fluid banner"
-											src="data:image/jpeg;base64,<?php echo $_SESSION['banner']; ?>" alt="Banner Image">
+									<?php if ($bannerPicture !== null): ?>
+										<img class="img-fluid banner" src="data:image/jpeg;base64,<?php echo $bannerPicture; ?>"
+											alt="Banner Image">
 									<?php else: ?>
 										<img class="img-fluid" src="https://via.placeholder.com/500x300" alt="banner-image"
 											class="banner">
@@ -149,15 +145,15 @@ if (!isset($_SESSION['user_ID'])) {
 
 								<div class="card-body pt-5">
 									<div class="avatar">
-										<?php if ($_SESSION['picture'] === null): ?>
+										<?php if ($picture === null): ?>
 											<div>
 												<img src="https://via.placeholder.com/110x110" alt="profile-image"
 													class="profile">
 											</div>
 										<?php else: ?>
 											<div>
-												<img src="data:image/jpeg;base64,<?php echo $_SESSION['picture']; ?>"
-													alt="Profile Image" class="profile">
+												<img src="data:image/jpeg;base64,<?php echo $picture; ?>" alt="Profile Image"
+													class="profile">
 											</div>
 										<?php endif; ?>
 									</div>
@@ -171,8 +167,8 @@ if (!isset($_SESSION['user_ID'])) {
 									</p>
 									<div class="icon-block">
 										<?php
-										$wa_link = "https://wa.me/" . $_SESSION["phone"];
-										$email_link = "mailto:" . $_SESSION["email"];
+										$wa_link = "https://wa.me/" . $phone;
+										$email_link = "mailto:" . $email;
 										?>
 										<a href="<?php echo $wa_link; ?>" target="_blank" title="Text me on WhatsApp">
 											<i class="fa fa-whatsapp bg-whatsapp text-white"></i>
@@ -326,9 +322,13 @@ if (!isset($_SESSION['user_ID'])) {
 											<div class="row">
 												<div class="col-8">
 													<?php
-													$user_ID = $_SESSION["user_ID"];
 
-													$sql = "SELECT COUNT(*) AS count FROM feedback WHERE reviewee = '$user_ID' AND review_ID IS NOT NULL;";
+
+													$sql = "SELECT COUNT(f.review_ID) AS count, u.rating
+															FROM user u
+															LEFT JOIN feedback f ON u.user_ID = f.reviewee
+															WHERE f.reviewee = '$user_ID' AND f.review_ID IS NOT NULL";
+
 													$result = mysqli_query($connection, $sql);
 
 													if ($result) {
@@ -341,13 +341,21 @@ if (!isset($_SESSION['user_ID'])) {
 													}
 													?>
 													<h1>
-														<?php echo number_format($_SESSION["rating"], 2); ?>
+														<?php
+														$rating = $row["rating"];
+
+														if ($rating !== null) {
+															echo number_format($rating, 2);
+														} else {
+															echo "0.0";
+														}
+														?>
 													</h1>
 													</h5>
 													<div class="star-rating">
 														<?php
 														for ($i = 1; $i <= 5; $i++) {
-															if ($i <= $_SESSION["rating"]) {
+															if ($i <= $row["rating"]) {
 																echo '<span class="fa fa-star checked"></span>';
 															} else {
 																echo '<span class="fa fa-star"></span>';
@@ -367,7 +375,7 @@ if (!isset($_SESSION['user_ID'])) {
 													ini_set('display_startup_errors', 1);
 													error_reporting(E_ALL);
 
-													$sql = "SELECT review_ID FROM feedback WHERE reviewee = '{$_SESSION["user_ID"]}' AND review_ID IS NOT NULL;";
+													$sql = "SELECT review_ID FROM feedback WHERE reviewee = '{$user_ID}' AND review_ID IS NOT NULL;";
 													$result = mysqli_query($connection, $sql);
 
 													if ($result) {
@@ -426,14 +434,12 @@ if (!isset($_SESSION['user_ID'])) {
 											</div>
 											<hr>
 											<div class="row">
-
 												<?php
-
 												error_reporting(E_ALL);
 												ini_set('display_errors', 1);
 												include("assets/php/connection.php");
 
-												$sql = "SELECT review_ID, reviewer FROM feedback WHERE reviewee = '{$_SESSION["user_ID"]}'";
+												$sql = "SELECT review_ID, reviewer FROM feedback WHERE reviewee = '{$user_ID}'";
 												$result = mysqli_query($connection, $sql);
 
 												if (mysqli_num_rows($result) > 0) {
@@ -533,42 +539,6 @@ if (!isset($_SESSION['user_ID'])) {
 			</footer>
 			<!--End footer-->
 
-			<!--start color switcher-->
-			<div class="right-sidebar">
-				<div class="switcher-icon">
-					<i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-				</div>
-				<div class="right-sidebar-content">
-					<p class="mb-0">Gaussion Texture</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme1"></li>
-						<li id="theme2"></li>
-						<li id="theme3"></li>
-						<li id="theme4"></li>
-						<li id="theme5"></li>
-						<li id="theme6"></li>
-					</ul>
-
-					<p class="mb-0">Gradient Background</p>
-					<hr>
-
-					<ul class="switcher">
-						<li id="theme7"></li>
-						<li id="theme8"></li>
-						<li id="theme9"></li>
-						<li id="theme10"></li>
-						<li id="theme11"></li>
-						<li id="theme12"></li>
-						<li id="theme13"></li>
-						<li id="theme14"></li>
-						<li id="theme15"></li>
-					</ul>
-				</div>
-			</div>
-			<!--end color switcher-->
-
 		</div><!--End wrapper-->
 
 
@@ -586,7 +556,8 @@ if (!isset($_SESSION['user_ID'])) {
 		<script src="assets/js/app-script.js"></script>
 		<script src="assets/js/notification.js"></script>
 
-		<script>			displayNotifications();
+		<script>
+			displayNotifications();
 		</script>
 
 	</body>
