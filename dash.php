@@ -250,12 +250,6 @@ if (!isset($_SESSION['user_ID'])) {
 			<script src="assets/js/studyHub.js"></script>
 			<script>
 				displayNotifications();
-
-				
-
-
-				
-
 			</script>
 
 	</body>

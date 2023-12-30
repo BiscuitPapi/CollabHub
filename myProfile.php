@@ -324,7 +324,7 @@ if (!isset($_SESSION['user_ID'])) {
 										<!-- REVIEW -->
 										<div class="tab-pane" id="review">
 											<div class="row">
-												<div class="col-8">
+												<div class="col-6">
 													<?php
 													$user_ID = $_SESSION["user_ID"];
 
@@ -361,7 +361,7 @@ if (!isset($_SESSION['user_ID'])) {
 													All reviews come from verified students
 
 												</div>
-												<div class="col-4">
+												<div class="col-6">
 													<?php
 													ini_set('display_errors', 1);
 													ini_set('display_startup_errors', 1);

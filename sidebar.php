@@ -1,7 +1,7 @@
 <!--Start sidebar-wrapper-->
 <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
     <div class="brand-logo">
-        <a href="index.html">
+        <a href="dash.php">
             <img src="assets/images/collabHub-icon.png" class="logo-icon" alt="logo icon">
             <h5 class="logo-text">CollabHub</h5>
         </a>
