@@ -1,19 +1,25 @@
-<div class="row-2">
+<div class="tab-pane" id="sug">
     <!-- Start of Suggestion -->
     <div class="card profile-card-2" id="suggestionContent" style="min-height: 300px;">
         <div class="card-body">
+
             <h5 class="mb-3">Search Members</h5>
-            <div class="col-md-12">
-                <h5 class="mb-3"></h5>
+            <div class="col-12">
+
                 <div class="form-group">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mx-auto">
                         <div class="row">
-                            <!-- Center aligning the row -->
-                            <div class="autocomplete" style="width: 300px;">
-                                <input id="myInput" type="text" name="myCountry" placeholder="Input skill required"
-                                    style="width: 100%; color: black;">
+                            <div class="col">
+                                <!-- Center aligning the row -->
+                                <div class="autocomplete" style="width: 300px;">
+                                    <input id="myInput" type="text" name="myCountry" placeholder="Input skill required"
+                                        style="width: 100%; color: black;">
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button onclick="addSkills()" class="btn btn-primary"
+                                        style="color: white;">Add</button>
+                                </div>
                             </div>
-                            <button onclick="addSkills()" class="btn btn-primary" style="color: white;">Add</button>
                         </div>
                         <br>
                         <div class="row mt-2"> <!-- Use margin-top (mt-2) for spacing -->
@@ -21,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="" id="badgeContainer">
                 </div>
 
@@ -47,9 +54,6 @@
         </div>
     </div>
     <!-- End of Suggestion -->
-</div>
-
-<div class="row-2">
     <!-- Start of Suggestion -->
     <div class="card profile-card-2" id="suggestionContent" style="min-height: 300px;">
         <div class="card-body">
@@ -69,4 +73,8 @@
         </div>
     </div>
     <!-- End of Suggestion -->
+</div>
+
+<div class="row-2">
+    
 </div>

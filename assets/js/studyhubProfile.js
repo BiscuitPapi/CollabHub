@@ -174,12 +174,14 @@ function displayResults(data) {
 }
 function sendInvitation(user_ID) {
     var studyHub_ID = document.getElementById('dummyID').value;
+    var type = "StudyHub";
     $.ajax({
         url: 'assets/php/process_sendInvitation.php',
         method: 'POST',
         data: {
             user_ID: user_ID,
-            studyHub_ID: studyHub_ID
+            studyHub_ID: studyHub_ID,
+            type: type
         },
         success: function (response) {
             // Handle the response from the PHP script

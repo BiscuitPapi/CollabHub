@@ -94,12 +94,14 @@ if (!isset($_SESSION['user_ID'])) {
 				<!-- Sidebar CSS-->
 				<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 				<!-- Custom Style-->
-				<link href="assets/css/studyhub.css" rel="stylesheet" />
+				<link href="assets/css/SB-profile.css" rel="stylesheet" />
 				<link href="assets/css/app-style.css" rel="stylesheet" />
+
 				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
+				
 			</head>
 
 
@@ -134,15 +136,15 @@ if (!isset($_SESSION['user_ID'])) {
 								<!-- End of First Column -->
 
 								<!-- Start of Second Column -->
-								<div class="col-4">
+								<div class="col-8">
 									<?php include_once('studyhub/edit-card.php'); ?>
 								</div>
 								<!-- End of Second Column -->
 
 								<!-- Start of Third Column -->
-								<div class="col-4">
+								<!-- <div class="col-4">
 									<?php include_once('studyhub/suggest-card.php'); ?>
-								</div>
+								</div> -->
 								<!-- End of Third Column -->
 							</div>
 							<!-- End of the row -->

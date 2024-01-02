@@ -9,6 +9,10 @@
                 <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i
                         class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
             </li>
+            <li class="nav-item" <?php echo $style; ?>>
+                <a href="javascript:void();" data-target="#sug" data-toggle="pill" class="nav-link"><i
+                        class="icon-note"></i> <span class="hidden-xs">Invite</span></a>
+            </li>
         </ul>
 
 
@@ -256,8 +260,13 @@
                 ?>
 
             </div>
+
+
+
+            <?php include_once('studyhub/suggest-card.php'); ?>
             <!--End of First Tab-->
         </div>
+
     </div>
 </div>
 <div class="crop-container">

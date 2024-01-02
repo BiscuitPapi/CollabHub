@@ -4,11 +4,18 @@
 
     $studyHub_ID = $_POST['studyHub_ID'];
     $user_ID = $_POST['user_ID'];
+    $type = $_POST['type'];
+
+    if($studyHub_ID == ""){
+        $studyHub_ID = $_SESSION["user_ID"];
+    }
 
     // Correct the SQL syntax - should use VALUES() with INSERT INTO
-    $sql = "INSERT INTO invitation (studyHub_ID, user_ID) VALUES (?, ?)";
+    $sql = "INSERT INTO invitation (type, studyHub_ID, user_ID) VALUES (?, ?, ?)";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("ii", $studyHub_ID, $user_ID);
+
+    // Add the missing placeholder for $type in bind_param
+    $stmt->bind_param("sii", $type, $studyHub_ID, $user_ID);
 
     if ($stmt->execute()) {
         echo "success";

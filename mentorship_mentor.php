@@ -35,103 +35,10 @@ if (!isset($_SESSION['user_ID'])) {
 		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
 		<link href="assets/css/app-style.css" rel="stylesheet" />
+		<link href="assets/css/mentorship.css" rel="stylesheet" />
 		<link rel="stylesheet" href="assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-		<style>
-			.badge-container {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 5px;
-			}
-
-			.badge-wrapper {
-				display: inline-block;
-			}
-
-			.delete-button {
-				color: #ff0000;
-				font-weight: bold;
-				font-size: 18px;
-				/* Adjust the font size to make the X button bigger */
-				margin-left: 5px;
-				/* Add some spacing between the input field and the X button */
-				padding: 4px 8px;
-				text-decoration: none;
-				margin-left: 5px;
-				/* Add some spacing between the input field and the X button */
-				margin-right: -10px;
-				/* Move the X button towards the right edge of the badge */
-			}
-
-			.badge-pill {
-				display: flex;
-				align-items: center;
-			}
-
-			.badge-input {
-				width: 60%;
-				/* Adjust the width as per your preference */
-				display: inline-block;
-				vertical-align: middle;
-			}
-
-			.badge-name {
-				margin-right: 5px;
-				/* Add some spacing between the badge name and input field */
-			}
-
-			.star-rating {
-				font-size: 24px;
-			}
-
-			.fa-star {
-				color: gray;
-			}
-
-			.checked {
-				color: gold;
-			}
-
-
-			body {
-				transition: filter 0.3s ease-in-out;
-			}
-
-			.container {
-				display: none;
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background-color: white;
-				padding: 20px;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-				z-index: 9999;
-				width: 50%;
-			}
-
-			.container.active {
-				display: block;
-			}
-
-			.close-btn {
-				position: absolute;
-				bottom: 10px;
-				right: 10px;
-				cursor: pointer;
-			}
-
-			.img-circle {
-				border-radius: 50%;
-				object-fit: cover;
-				/* Maintain image aspect ratio */
-				/* Add any additional styles or adjustments as needed */
-			}
-		</style>
-
 	</head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -159,8 +66,6 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 					<div class="row mt-3">
-
-
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="card-body">
@@ -173,7 +78,13 @@ if (!isset($_SESSION['user_ID'])) {
 										<li class="nav-item">
 											<a href="javascript:void();" data-target="#pendingApplication"
 												data-toggle="pill" class="nav-link"><i class="zmdi zmdi-assignment-o"></i>
-												<span class="hidden-xs">Pending Applications</span></a>
+												<span class="hidden-xs">Applications</span></a>
+										</li>
+
+										<li class="nav-item">
+											<a href="javascript:void();" data-target="#inviteTab" data-toggle="pill"
+												class="nav-link"><i class="zmdi zmdi-accounts-add"></i>
+												<span class="hidden-xs">Invite</span></a>
 										</li>
 									</ul>
 
@@ -572,9 +483,9 @@ if (!isset($_SESSION['user_ID'])) {
 																				Rating</th>
 																			<th scope="col" colspan="1"
 																				style="text-align: center;">Status</th>
-																				<th scope="col" colspan="1"
+																			<th scope="col" colspan="1"
 																				style="text-align: center;">Action</th>
-																			
+
 																		</tr>
 																	</thead>
 																	<tbody>
@@ -610,17 +521,17 @@ if (!isset($_SESSION['user_ID'])) {
 																					<td>
 																						<a href="viewProfile.php?user_ID=' . $row_2['user_ID'] . '">';
 
-																						if ($tempPicture === null) {
-																							echo '
+																				if ($tempPicture === null) {
+																					echo '
 																								<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																							';
-																						} else {
-																							echo '
+																				} else {
+																					echo '
 																							<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																						';
-																						}
+																				}
 
-																						echo $row_2['name'] . '</a>
+																				echo $row_2['name'] . '</a>
 																					</td>
 																					<td style="text-align: center;">' . $row['dateCreated'] . '</td>
 																					<td style="text-align: center;">' . $row_2['rating'] . '</td>
@@ -628,7 +539,7 @@ if (!isset($_SESSION['user_ID'])) {
 																						<span class="badge badge-danger"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>
 																					</td>
 																					<td style="text-align: center;">
-																					<button onclick="resetApplicant('.$row["mt_ID"].')"><span class="badge"><i class="zmdi zmdi-chart-donut text-success"></i>Reset</span></button>
+																					<button onclick="resetApplicant(' . $row["mt_ID"] . ')"><span class="badge"><i class="zmdi zmdi-chart-donut text-success"></i>Reset</span></button>
 																					</td>
 																				</tr>
 																				';
@@ -649,9 +560,108 @@ if (!isset($_SESSION['user_ID'])) {
 												</div>
 											</div>
 										</div> <!-- ROW ENDS HERE -->
+										<!-- END OF MY PENDING APPLICATIONS  -->
 
+										<!-- START OF INVITE-->
+										<div class="tab-pane" id="inviteTab" style="min-height:345px;">
+
+											<div class="row">
+												<div class="col-4">
+													<!-- Start of Suggestion -->
+													<div class="card profile-card-2" id="suggestionContent"
+														style="min-height: 300px;">
+														<div class="card-body">
+
+															<h5 class="mb-3">Search Members</h5>
+
+
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-8">
+																		<!-- Center aligning the row -->
+																		<div class="autocomplete" style="width: 200px;">
+																			<input id="myInput" type="text" name="myCountry"
+																				placeholder="Input skill required"
+																				style="width: 100%;">
+																		</div>
+																	</div>
+																	<div class="col-4">
+																		<div class="text-center">
+																			<button onclick="addSkills()"
+																				class="btn btn-primary"
+																				style="color: white;">Add</button>
+																		</div>
+																	</div>
+
+																</div>
+																<br>
+
+
+															</div>
+
+															<div class="badge-wrapper d-flex flex-wrap" id="badgeContainer">
+															</div>
+
+
+
+
+
+															<br>
+
+															<!-- Suggestions dropdown container -->
+															<div class="form-group" id="suggestions-container">
+															</div>
+
+															<center>
+																<button onclick="getFinalArray()"
+																	class="btn btn-success">Search</button>
+															</center>
+
+															<div class="custom-modal" id="myCustomModal">
+																<div class="modal-content-1">
+																	<center>
+																		<div class="loader"></div>
+																	</center>
+
+																	<p id="loadingMessage">Searching for potential
+																		members...</p>
+																</div>
+															</div>
+
+														</div>
+													</div>
+													<!-- End of Suggestion -->
+												</div>
+
+												<div col="8">
+													<!-- Start of Suggestion -->
+													<div class="card profile-card-2" id="suggestionContent"
+														style="min-height: 300px;min-width: 715px;">
+														<div class="card-body">
+															<h5 class="mb-3">Suggested Members</h5>
+															<div class="card"> <!-- Moved the ID here -->
+																<div class="card-body" id="userDetails">
+																	Not searching is made yet.
+																</div>
+															</div>
+															<div class="table-responsive">
+																<table id="suggestionTable"
+																	class="table table-hover table-striped">
+																	<tbody>
+																		<!-- Table content will be inserted here -->
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+													<!-- End of Suggestion -->
+												</div>
+											</div>
+
+										</div>
+										<!-- END OF INVITE-->
 									</div>
-									<!-- END OF MY PENDING APPLICATIONS  -->
+
 								</div>
 							</div>
 						</div>
@@ -697,7 +707,8 @@ if (!isset($_SESSION['user_ID'])) {
 		<!-- Custom scripts -->
 		<script src="assets/js/app-script.js"></script>
 		<script src="assets/js/notification.js"></script>
-		<script src="assets/js/MM.js"></script>
+		<script src="assets/js/mentorship.js"></script>
+		<script src="assets/js/searchAPI.js"></script>
 		<script>
 			displayNotifications();
 		</script>

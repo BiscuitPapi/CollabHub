@@ -4,8 +4,6 @@
 
     include("connection.php");
     session_start();
-
-
     // Assuming $connection is your database connection
     if (isset($_SESSION['user_ID'])) {
         $user_ID = $_SESSION['user_ID'];
@@ -13,7 +11,7 @@
         $studyhubDetails = array();
 
         // Your SQL query to fetch data (replace table/column names with your actual ones)
-        $sql = "SELECT i.invite_ID, sh.studyhub_ID, sh.studyhub_name, sh.profile_pic 
+        $sql = "SELECT i.invite_ID, i.type, sh.studyhub_ID, sh.studyhub_name, sh.profile_pic 
                 FROM studyhub sh 
                 INNER JOIN invitation i ON sh.studyhub_ID = i.studyHub_ID 
                 WHERE i.user_ID = $user_ID AND i.status = 'Pending'";
@@ -32,6 +30,7 @@
 
                 $studyhubDetails[] = array(
                     'invite_ID' => $row['invite_ID'],
+                    'type' => $row['type'],
                     'studyhub_ID' => $row['studyhub_ID'],
                     'studyhub_name' => $row['studyhub_name'],
                     'profile_pic' => $profilePicBase64
