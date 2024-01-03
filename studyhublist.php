@@ -272,7 +272,7 @@ session_start();
 	 
 		<!-- Index js -->
 		<script src="assets/js/index.js"></script>
-		<script src="assets/js/notification.js"></script>
+		<script src="assets/js/inviteMM.js"></script>
     
 		<script>
 			displayNotifications();

@@ -486,7 +486,7 @@ if (!isset($_SESSION['user_ID'])) {
     <script src="assets/plugins/fullcalendar/js/fullcalendar-custom-script.js"></script>
     <!-- Custom scripts -->
 		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/notification.js"></script>
+		<script src="assets/js/inviteMM.js"></script>
 
 		<script>
 			displayNotifications();

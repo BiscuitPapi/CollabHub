@@ -279,7 +279,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
-			<script src="assets/js/notification.js"></script>
+			<script src="assets/js/inviteMM.js"></script>
 			<script src="assets/js/review-1.js"></script>
 
 			<script>

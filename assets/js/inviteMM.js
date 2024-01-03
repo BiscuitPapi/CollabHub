@@ -195,7 +195,7 @@ function approveMM(mentor_ID, answer, invite_ID) {
     confirm("Are you sure you want to " + answerText + " this application?")
   ) {
     $.ajax({
-      url: "assets/php/process_invitationResponse.php",
+      url: "assets/php/process_invitationResponse-mentorship.php",
       method: "POST",
       data: { mentor_ID: mentor_ID, status: answer, invite_ID: invite_ID},
       success: function (response) {
@@ -205,7 +205,7 @@ function approveMM(mentor_ID, answer, invite_ID) {
         else alert("Invitation has been accepted!");
 
         // // Display updated notifications
-        // displayNotifications(invite_ID);
+         displayNotifications(invite_ID);
       },
       error: function (xhr, status, error) {
         // Handle the error

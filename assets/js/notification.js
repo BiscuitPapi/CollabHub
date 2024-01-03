@@ -34,7 +34,7 @@ function addNotificationWithStudyHubDetails(studyHubDetails) {
 
   const col3 = document.createElement("div");
   col3.className = "col-3";
-    col3.innerHTML = `You have been invited to StudyHub ${studyHubDetails.studyhub_name}<br>";}
+    col3.innerHTML = `You have been invited to StudyHub ${studyHubDetails.studyhub_name}<br>"
     <a href="javascript:void(0)" class="btn btn-success" onclick="approval(${studyHubDetails.studyhub_ID}, 'Accepted', '${studyHubDetails.invite_ID}')">Accept</a>
     <a href="javascript:void(0)" class="btn btn-danger" onclick="approval(${studyHubDetails.studyhub_ID}, 'Rejected', '${studyHubDetails.invite_ID}')">Reject</a>`;
 
