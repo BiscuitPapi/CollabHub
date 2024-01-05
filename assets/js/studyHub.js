@@ -54,9 +54,28 @@ $(document).ready(function () {
 
           // Hide the Apply button if the user is already a member
           var applyButtonHtml = isMember ? '' : '<a onclick="joinSB(' + row['studyhub_ID'] + ')" class="btn btn-success">Join</a>';
-
-          var html = '<tr>' +
+          var tempP = row['tempPicture'];
+          console.log(tempP);
+          if (tempP != null) {
+            var html = '<tr>' +
+              '<th scope="row">' + (i + 1) + '</th>' +
+              '<td><img src="data:image/jpeg;base64,' + tempP + '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;"></td>' +
+              '<td>' + row['studyhub_name'] + '</td>' +
+              '<td style="text-align: center;">' + row['creator_name'] + '</td>' +
+              '<td style="text-align: center;">' +
+              row['member_count'] + // Display the member count
+              '</td>' +
+              '<td style="text-align: center;">' +
+              '<a href="viewStudyHub.php?studyhub_ID=' + row['studyhub_ID'] + '" class="btn btn-success">View</a> ' +
+              applyButtonHtml +
+              '</td>' +
+              '</tr>';
+            tableBody.append(html);
+          }
+          else{
+            var html = '<tr>' +
             '<th scope="row">' + (i + 1) + '</th>' +
+            '<td><img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;"></td>' +
             '<td>' + row['studyhub_name'] + '</td>' +
             '<td style="text-align: center;">' + row['creator_name'] + '</td>' +
             '<td style="text-align: center;">' +
@@ -67,8 +86,13 @@ $(document).ready(function () {
             applyButtonHtml +
             '</td>' +
             '</tr>';
-
           tableBody.append(html);
+
+          }
+
+        
+
+      
         }
       }
     });

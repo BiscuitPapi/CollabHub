@@ -18,7 +18,6 @@ $stmt = $connection->prepare($query);
 $stmt->bind_param("i", $userID);
 $stmt->execute();
 
-
 if ($stmt->error) {
     echo "Error: " . $stmt->error;
 } else {
@@ -27,6 +26,17 @@ if ($stmt->error) {
     $rows = array();
 
     while ($row = $result->fetch_assoc()) {
+        // Process $row['picture']
+        $tempPicture = $row['profile_pic'];
+        if ($tempPicture !== null) {
+            $tempPicture = base64_encode($tempPicture);
+        } else {
+            $tempPicture = null;
+        }
+
+        // Add $tempPicture to $row
+        $row['tempPicture'] = $tempPicture;
+
         $rows[] = $row;
     }
 
@@ -37,6 +47,4 @@ if ($stmt->error) {
 
     echo json_encode($rows);
 }
-
-
 ?>
