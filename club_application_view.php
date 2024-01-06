@@ -157,8 +157,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 									if ($_SESSION['user_ID'] != $user_ID) {
-
-										$sql = "SELECT * FROM clubApplication WHERE club_ID = '$club_ID'";
+										$temp_ID = $_SESSION['user_ID'];
+										$sql = "SELECT * FROM clubApplication WHERE applicant_ID = '$temp_ID'";
 
 										$result = mysqli_query($connection, $sql);
 
