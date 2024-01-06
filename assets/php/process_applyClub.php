@@ -6,14 +6,13 @@ include("connection.php");
 session_start();
 
 // Retrieve the form data
-$clubApplication_ID = $_POST['clubApplication_ID'];
-$newStatus = $_POST['status'];
+$club_ID = $_POST['club_ID'];
 
 // Prepare SQL
-$sql = "UPDATE clubApplication SET status = ? WHERE clubApplication_ID = ?";
+$sql = "INSERT INTO clubApplication (club_ID, applicant_ID) VALUES (?,?)";
 $stmt = $connection->prepare($sql);
 
-$stmt->bind_param("si", $newStatus, $clubApplication_ID);
+$stmt->bind_param("si", $club_ID, $_SESSION["user_ID"]);
 
 if ($stmt->execute()) {
     echo "success";

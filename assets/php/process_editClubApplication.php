@@ -16,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $notes = $_POST['notes'];
 
     // Prepare SQL
-    $sql = "UPDATE `club-application` SET `club_name`= ?, `club_description`= ?, `position_available`=?, `skill_needed`= ?, `notes`= ? WHERE application_id = ?;";
+    $sql = "UPDATE `club-application` SET `club_name`=?, `club_description`=?, `position_available`=?, `skill_needed`=?, `notes`=? WHERE `club_id`=?";
 
     $stmt = $connection->prepare($sql);
 
-    $stmt->bind_param("ssssss", $club_name, $club_description, $position_available,  $skill_needed, $notes, $application_id);
+    $stmt->bind_param("ssssss", $club_name, $club_description, $position_available, $skill_needed, $notes, $application_id);
 
     $stmt->execute();
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../../club_application_view.php?application_ID=" . $application_id);
 
     } else {
-        echo "Failed to add experience.";
+        echo "Failed to edit.";
     }
 }
 ?>

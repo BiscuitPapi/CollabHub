@@ -347,7 +347,7 @@ else {
 																		if (isset($_SESSION["user_ID"])) {
 																			$user_ID = $_SESSION["user_ID"];
 
-																			$query = "SELECT * FROM `club-application` WHERE user_ID = ?";
+																			$query = "SELECT * FROM club WHERE user_ID = ?";
 																			$stmt = $connection->prepare($query);
 																			$stmt->bind_param("i", $user_ID);
 																			$stmt->execute();
@@ -367,7 +367,7 @@ else {
 																						<td>' . $row['club_name'] . '</td>
 																						<td style="text-align: center;">' . $row['position_available'] . '</td>                   
 																						<td style="text-align: center;">
-																							<a href="club_application_view.php?application_ID=' . $row['club_id'] . '" class="btn btn-success">View</a>
+																							<a href="club_application_view.php?club_ID=' . $row['club_ID'] . '" class="btn btn-success">View</a>
 																						</td>
 																						</tr>';
 
@@ -578,7 +578,7 @@ else {
 																		<?php
 																		include("assets/php/connection.php");
 
-																		$query = "SELECT ca.club_name, ca.club_id, ca.position_available, cas.status FROM `club-application` AS ca JOIN `club_applicant_status` AS cas ON ca.club_id = cas.application_ID WHERE cas.applicant_ID = '{$_SESSION['user_ID']}';";
+																		$query = "SELECT ca.club_name, ca.club_id, ca.position_available, cas.status FROM club AS ca JOIN `club_applicant_status` AS cas ON ca.club_id = cas.application_ID WHERE cas.applicant_ID = '{$_SESSION['user_ID']}';";
 
 																		$result = mysqli_query($connection, $query);
 

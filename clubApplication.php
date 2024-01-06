@@ -330,6 +330,7 @@ if (!isset($_SESSION['user_ID'])) {
 					console.log(response);
 					if (response.trim().toLowerCase() === "success") {
 						alert("Application updated!");
+						window.location.href = 'dash.php';
 					}
 
 				},

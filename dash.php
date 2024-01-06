@@ -197,6 +197,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<th>#</th>
 												<th>Club Name</th>
 												<th>Position Available</th>
+												<th>Created</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -247,7 +248,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/inviteMM.js"></script>
-			<script src="assets/js/sB-2.js"></script>
+			<script src="assets/js/sB-4.js"></script>
 			<script>
 				displayNotifications();
 			</script>
