@@ -15,7 +15,7 @@ $result = $stmt->execute();
 
 if ($result) {
     // Creation for review purposes
-    $query = "SELECT user_ID FROM studyhub_members WHERE studyhub_ID = ?";
+    $query = "SELECT user_ID FROM studyhubMember WHERE studyhub_ID = ?";
     $stmt = $connection->prepare($query);
     $stmt->bind_param("i", $studyhub_ID);
     $stmt->execute();
@@ -47,7 +47,7 @@ if ($result) {
                 echo "Error inserting feedback: " . $insertStmt1->error . " | " . $insertStmt2->error;
             } else {
                 // Insert into studyhub_members
-                $insert_sql = "INSERT INTO studyhub_members (studyhub_ID, user_ID) VALUES (?, ?)";
+                $insert_sql = "INSERT INTO studyhubMember (studyhub_ID, user_ID) VALUES (?, ?)";
                 $insert_stmt = $connection->prepare($insert_sql);
                 $insert_stmt->bind_param("is", $studyhub_ID, $_SESSION['user_ID']);
                 $insert_result = $insert_stmt->execute();

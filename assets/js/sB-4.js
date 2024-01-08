@@ -40,7 +40,7 @@ $(document).ready(function () {
   function loadTables(page) {
     // Fetch data for the first table
     $.ajax({
-      url: 'assets/php/process_fetchSB.php?page=' + page,
+      url: 'assets/php/process_fetchSB.php',
       type: 'GET',
       dataType: 'json',
       success: function (data) {

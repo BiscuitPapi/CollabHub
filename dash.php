@@ -248,9 +248,160 @@ if (!isset($_SESSION['user_ID'])) {
 			<!-- Custom scripts -->
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/inviteMM.js"></script>
-			<script src="assets/js/sB-4.js"></script>
 			<script>
 				displayNotifications();
+
+				function joinSB(studyhub_ID) {
+					if (confirm("Are you sure you want to join this StudyHub?")) {
+						$.ajax({
+							url: 'assets/php/process_joinStudyHub.php',
+							method: 'POST',
+							data: { studyhub_ID: studyhub_ID },
+							success: function (response) {
+								// Handle the response from the PHP script
+								console.log(response);
+								if (response === "success") {
+									alert("You have successfully joined the StudyHub!");
+								}
+								
+							},
+							error: function (xhr, status, error) {
+								// Handle the error
+								console.log(error);
+							}
+						});
+
+					}
+				}
+
+				function togglePage(pageId) {
+					// Hide all pages
+					document.getElementById('list_1').style.display = 'none';
+					document.getElementById('list_2').style.display = 'none';
+
+					// Show the selected page
+					document.getElementById(pageId).style.display = 'block';
+
+					// Update button styles based on active page
+					document.getElementById('list_1Button').className = 'btn ' + (pageId === 'list_1' ? 'btn-primary' : 'btn-dark');
+					document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
+				}
+
+
+				$(document).ready(function () {
+				
+					function loadTables() {
+						// Fetch data for the first table
+						$.ajax({
+							url: 'assets/php/process_fetchSB.php',
+							type: 'GET',
+							dataType: 'json',
+							success: function (data) {
+								
+								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
+								tableBody.empty(); // Clear existing rows
+								
+								for (var i = 0; i < data.length; i++) {
+									var row = data[i];
+									var studyhubData = row.studyhub_data;
+									console.log(studyhubData);
+									
+									// Accessing properties of studyhub_data
+									var studyhubID = studyhubData.studyhub_ID;
+									var studyhubName = studyhubData.studyhub_name;
+									var studyhubDescription = studyhubData.studyhub_description;
+									var tempP = studyhubData.profile_pic;
+									var rowCount = studyhubData.row_count;
+									var username = studyhubData.foundName;
+									console.log(studyhubID, tempP);
+
+
+									if (tempP == null) {
+										var html = '<tr>' +
+											'<th scope="row">' + (i + 1) + '</th>' +
+											'<td><img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
+											'<td style="text-align: center;">' + username + '</td>' +
+											'<td style="text-align: center;">' + rowCount + '</td>' +
+											'<td style="text-align: center;">' +
+											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-success">View</a> ' +
+											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 
+
+											'</td>' +
+											'</tr>';
+
+									}
+									else {
+										var imageData = JSON.parse(studyhubData.profile_pic);
+										var html = '<tr>' +
+											'<th scope="row">' + (i + 1) + '</th>' +
+											'<td><img src="data:' + imageData.imageType + ';base64,' + imageData.imageBase64 + '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
+											'<td style="text-align: center;">' + username + '</td>' +
+											'<td style="text-align: center;">' + rowCount + '</td>' +
+											'<td style="text-align: center;">' +
+											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-success">View</a> ' +
+											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 	
+											'</td>' +
+											'</tr>';
+
+									}
+									tableBody.append(html);
+
+
+								}
+
+							}
+						});
+
+
+
+						// Fetch data for the second table
+						$.ajax({
+							url: 'assets/php/process_fetchOA.php',
+							type: 'GET',
+							dataType: 'json',
+							success: function (data) {
+								console.log(data); // Display the fetched data in the console
+
+								var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+								tableBody2.empty(); // Clear existing rows
+
+								for (var i = 0; i < data.length; i++) {
+									var row = data[i];
+									var html = '<tr>' +
+										'<th scope="row">' + (i + 1) + '</th>' +
+										'<td>' + row['club_name'] + '</td>' +
+										'<td>' + row['position_available'] + '</td>' +
+										'<td>' + row['days_since_creation'] + ' days ago</td>' +
+										'<td>' +
+										'<a href="club_application_view.php?club_ID=' + row['club_ID'] + '" class="btn btn-success">View</a>' +
+										'</td>' +
+										// Add other table columns as needed
+										'</tr>';
+
+									tableBody2.append(html);
+								}
+							},
+							error: function (xhr, status, error) {
+								console.error(xhr.responseText); // Log any error response to the console
+							}
+						});
+
+
+
+
+					}
+
+					// Initial table load
+					$(document).ready(function () {
+						loadTables();
+
+
+					});
+
+
+				});
+
+
 			</script>
 
 	</body>

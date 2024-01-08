@@ -1,4 +1,3 @@
-
 <div class="card profile-card-2" style="min-height: 600px;">
     <div class="card-img-block">
         <?php
@@ -23,7 +22,8 @@
 
         if ($proPic === null) {
             // Display a placeholder image if $proPic is null
-            echo '<img src="https://via.placeholder.com/110x110" alt="profile-image" class="profile" id ="profilePicture">';
+            echo '<img src="https://via.placeholder.com/110x110" alt="profile-image" class="rounded-circle profile" id ="profilePicture">';
+
         } else {
             // Display the profile image if $proPic is not null
             echo '<img src="data:image/jpeg;base64,' . $proPic . '" alt="profile-image" class="profile" id ="profilePicture">';
@@ -45,7 +45,7 @@
         <h5 class="mb-3">StudyHub Members</h5>
         <?php
         $sql2 = "SELECT u.name, u.picture
-											FROM studyhub_members AS sm
+											FROM studyhubMember AS sm
 											JOIN user AS u ON sm.user_ID = u.user_ID
 											WHERE sm.studyhub_ID = '$studyhub_ID';";
 
@@ -58,20 +58,21 @@
         
             while ($studyhub_member = mysqli_fetch_assoc($result)) {
                 $name = $studyhub_member['name'];
-                if (!empty($studyhub_member['picture'])) {
-                    $user_picture = base64_encode($studyhub_member['picture']);
-                } else {
-                    // Handle the case when 'picture' is null or empty
-                    $user_picture = "https://via.placeholder.com/110x110";  // Or any default value you prefer
-                }
-
+                $user_picture = $studyhub_member['picture'] ? base64_encode($studyhub_member['picture']) : null;
                 // Display only up to 4 members
                 if ($counter < 4) {
                     ?>
                     <div class="media align-items-center">
                         <div class="rounded-circle" style="width: 50px; height: 50px; overflow: hidden;">
-                            <img src="data:image/jpeg;base64,<?php echo $user_picture; ?>" class="rounded-circle"
-                                style="width: 100%; height: auto;" alt="User Picture">
+                            <?php if ($user_picture === null): ?>
+                                <img src="https://via.placeholder.com/110x110" alt="profile-image"
+																	class="rounded-circle" style="width: 100%; height: auto;"
+																	alt="User Picture">
+                            <?php else: ?>
+                                <img src="data:image/jpeg;base64,<?php echo $user_picture; ?>" class="rounded-circle"
+                                    style="width: 100%; height: auto;" alt="User Picture">
+                            <?php endif; ?>
+                        
                         </div>
 
                         <div class="media-body text-left ml-3">

@@ -161,7 +161,7 @@ function approval(studyHub_ID, answer, invite_ID) {
     answerText = answerText.slice(0, -2);
   }
   if (
-    confirm("Are you sure you want to " + answerText + " this application?")
+    confirm("Are you sure you want to " + answerText + " this invitation?")
   ) {
     $.ajax({
       url: "assets/php/process_invitationResponse.php",
