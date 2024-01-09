@@ -751,7 +751,7 @@ else {
                                     '<th scope="row">' + rowCount + '</th>' +
                                     '<td>' + addedCourse + '</td>' +
                                     '<td style="text-align:center;">' + addedName + '</td>' +
-                                    '<td style="text-align:center;"><a href="group_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-success">View</a></td>' +
+                                    '<td style="text-align:center;"><a href="group_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-info">View</a></td>' +
                                     '</tr>';
 
                                 // Hide "No applications found" message if it exists
@@ -816,7 +816,7 @@ else {
                                     '<th scope="row">' + rowCount + '</th>' +
                                     '<td>' + addedClubName + '</td>' +
                                     '<td style="text-align:center;">' + addedClubPosition + '</td>' +
-                                    '<td style="text-align:center;"><a href="club_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-success">View</a></td>' +
+                                    '<td style="text-align:center;"><a href="club_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-info">View</a></td>' +
                                     '</tr>';
 
                                 // Hide "No applications found" message if it exists
