@@ -1,64 +1,12 @@
 function toggle(tabId) {
-    var aboutTab = document.getElementById("about");
-    var addBadgeTab = document.getElementById("badge");
-    var experienceTab = document.getElementById("experience");
-    var pictureBannerTab = document.getElementById("pictureBanner");
-    var scheduleTab = document.getElementById("schedule");
+    var tabs = ["about", "badge", "experience", "pictureBanner", "schedule"];
 
-    if (tabId === "about") {
-        if (aboutTab.style.display === "block") {
-            aboutTab.style.display = "none";
-        } else {
-            aboutTab.style.display = "block";
-            addBadgeTab.style.display = "none";
-            experienceTab.style.display = "none";
-            pictureBannerTab.style.display = "none";
-            scheduleTab.style.display = "none";
-        }
-    } else if (tabId === "addBadge") {
-        if (addBadgeTab.style.display === "block") {
-            addBadgeTab.style.display = "none";
-        } else {
-            addBadgeTab.style.display = "block";
-            aboutTab.style.display = "none";
-            experienceTab.style.display = "none";
-            pictureBannerTab.style.display = "none";
-            scheduleTab.style.display = "none";
-        }
-    } else if (tabId === "experience") {
-        if (experienceTab.style.display === "block") {
-            experienceTab.style.display = "none";
-        } else {
-            experienceTab.style.display = "block";
-            aboutTab.style.display = "none";
-            addBadgeTab.style.display = "none";
-            pictureBannerTab.style.display = "none";
-            scheduleTab.style.display = "none";
-        }
-    } else if (tabId === "pictureBanner") {
-        if (pictureBannerTab.style.display === "block") {
-            pictureBannerTab.style.display = "none";
-        } else {
-            pictureBannerTab.style.display = "block";
-            aboutTab.style.display = "none";
-            addBadgeTab.style.display = "none";
-            experienceTab.style.display = "none";
-            scheduleTab.style.display = "none";
-        }
-    }
-
-    else if (tabId === "schedule") {
-        if (scheduleTab.style.display === "block") {
-            scheduleTab.style.display = "none";
-        } else {
-            pictureBannerTab.style.display = "none";
-            aboutTab.style.display = "none";
-            addBadgeTab.style.display = "none";
-            experienceTab.style.display = "none";
-            scheduleTab.style.display = "block";
-        }
-    }
+    tabs.forEach(function (tab) {
+        var currentTab = document.getElementById(tab);
+        currentTab.style.display = tab === tabId ? "block" : "none";
+    });
 }
+
 
 
 function updateProfile() {

@@ -27,7 +27,7 @@ $("#profile_picture").change(function () {
 
         profileCropper.replace(e.target.result);
       }
-      $("#profileCropModal").modal("show");
+      showModal();
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -78,7 +78,9 @@ $("#confirmProfileCrop").click(function () {
 
               // Find the <img> element with the id 'smallProfilePicture_1' and 'smallProfilePicture_2'
               var imgElement = document.getElementById("smallProfilePicture_1");
-              var imgElement_2 = document.getElementById("smallProfilePicture_2");
+              var imgElement_2 = document.getElementById(
+                "smallProfilePicture_2"
+              );
 
               // Update the 'src' attribute of the <img> element with the new image data
               imgElement.src = "data:image/jpeg;base64," + newImageData;

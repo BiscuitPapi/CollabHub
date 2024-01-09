@@ -45,6 +45,46 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 		<style>
+			.modal-dialog-2 {
+				max-width: 800px;
+				margin: 1.75rem auto;
+				
+			}
+
+			.modal-dialog-scrollable {
+				max-height: calc(100% - 3.5rem)
+			}
+
+			.modal-dialog-scrollable .modal-content {
+				max-height: calc(100vh - 3.5rem)
+			}
+
+			.modal-dialog-centered {
+				min-height:800px;
+			}
+
+			.modal-dialog-centered::before {
+				height: calc(100vh - 3.5rem)
+			}
+
+			.modal-sm {
+				max-width: 300px
+			}
+
+			.cropper-canvas,
+			.cropper-modal,
+			.cropper-crop-box,
+			.cropper-drag-box,
+			.cropper-wrap-box {
+				bottom: 0;
+				left: 0;
+				position: absolute;
+				right: 0;
+				top: 0;
+				
+			}
+
+
 			.badge-container {
 				display: flex;
 				flex-wrap: wrap;
@@ -85,19 +125,6 @@ if (!isset($_SESSION['user_ID'])) {
 			.badge-name {
 				margin-right: 5px;
 				/* Add some spacing between the badge name and input field */
-			}
-
-			body {
-				transition: filter 0.3s ease-in-out;
-			}
-
-
-			* {
-				box-sizing: border-box;
-			}
-
-			body {
-				font: 16px Arial;
 			}
 
 			/*the container must be positioned relative:*/
@@ -610,14 +637,14 @@ if (!isset($_SESSION['user_ID'])) {
 										<link rel="stylesheet"
 											href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
 										<!-- Crop Modal for Profile Picture -->
-										<div class="modal fade" id="profileCropModal" tabindex="-1" role="dialog"
+										<div class="modal" id="profileCropModal" tabindex="-1" role="dialog"
 											aria-labelledby="profileCropModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">
 												<div class="modal-content" style="width: 1000px;">
 													<div class="modal-header">
 														<h5 class="modal-title" id="profileCropModalLabel">Crop Profile
 															Picture</h5>
-														<button type="button" class="close" data-dismiss="modal"
+														<button id="closeProfileCropSmall" type="button" class="close" data-dismiss="modal"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -628,8 +655,8 @@ if (!isset($_SESSION['user_ID'])) {
 													</div>
 
 													<div class="modal-footer justify-content-center">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-secondary" data-dismiss="modal"
+															id="closeProfileCrop">Close</button>
 														<button type="button" class="btn btn-primary"
 															id="confirmProfileCrop">Confirm Crop</button>
 													</div>
@@ -638,13 +665,14 @@ if (!isset($_SESSION['user_ID'])) {
 										</div>
 
 										<!-- Crop Modal for Banner -->
-										<div class="modal fade" id="bannerCropModal" tabindex="-1" role="dialog"
+										<div class="modal" id="bannerCropModal" tabindex="-1" role="dialog"
 											aria-labelledby="bannerCropModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
+											<div class="modal-dialog-2 modal-dialog-centered">
+
+												<div class="modal-content" style="width: 500px;">
 													<div class="modal-header">
 														<h5 class "modal-title" id="bannerCropModalLabel">Crop Banner</h5>
-														<button type="button" class="close" data-dismiss="modal"
+														<button id="closeBannerCropSmall" type="button" class="close" data-dismiss="modal"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -656,7 +684,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 													<div class="modal-footer justify-content-center">
 														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
+															data-dismiss="modal" id="closeBannerCrop">Close</button>
 														<button type="button" class="btn btn-primary"
 															id="confirmBannerCrop">Confirm Crop</button>
 													</div>
@@ -841,9 +869,11 @@ if (!isset($_SESSION['user_ID'])) {
 																					placeholder="Enter the course end time">
 																			</div>
 
-																			
-																			<center><button onclick="addCourse()" class="btn btn-success">Add</button></center>
-																	</div>
+
+																			<center><button onclick="addCourse()"
+																					class="btn btn-success">Add</button>
+																			</center>
+																		</div>
 																	</div>
 																</div>
 															</div>
@@ -870,9 +900,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 																		<br>
 
-																		<div
-
-																			<!-- Course Name-->
+																		<div <!-- Course Name-->
 																			<div class="form-group">
 																				<label for="input-5">Course Name:</label>
 																				<input type="text" class="form-control"
@@ -910,11 +938,13 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 																			<input type="hidden" id="scheduleIdInput"
-																				name="scheduleId" value = "">
+																				name="scheduleId" value="">
 
-																			<center><button onclick="saveEditedCourse()" class="btn btn-success">Save Changes</button></center>
+																			<center><button onclick="saveEditedCourse()"
+																					class="btn btn-success">Save
+																					Changes</button></center>
 
-																	</div>
+																		</div>
 																	</div>
 																</div>
 															</div>
@@ -965,6 +995,176 @@ if (!isset($_SESSION['user_ID'])) {
 					$('[data-toggle="tooltip"]').tooltip()
 				});
 
+				function showModal() {
+					var modal = document.getElementById('profileCropModal');
+					modal.style.display = 'block';
+				}
+				function hideModal() {
+					var modal = document.getElementById('profileCropModal');
+					modal.style.display = 'none';
+				}
+
+				function showBannerCropModal() {
+					$('#bannerCropModal').modal('show');
+				}
+
+				function showModal2() {
+					var modal = document.getElementById('bannerCropModal');
+					modal.style.display = 'block';
+				}
+
+				function hideModal2() {
+					var modal = document.getElementById('bannerCropModal');
+					modal.style.display = 'none';
+				}
+
+				var profileCropper;
+				var bannerCropper;
+
+				$("#chooseProfileFileButton").click(function () {
+					$("#profile_picture").click();
+				});
+
+				$("#chooseBannerFileButton").click(function () {
+					$("#banner_picture").click();
+				});
+
+				$("#profile_picture").change(function () {
+					var input = this;
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							if (profileCropper) {
+								profileCropper.replace(e.target.result);
+							} else {
+								profileCropper = new Cropper(
+									document.getElementById("profileCroppedCanvas"),
+									{
+										aspectRatio: 1,
+										viewMode: 2,
+									}
+								);
+
+								profileCropper.replace(e.target.result);
+							}
+							showModal();
+						};
+						reader.readAsDataURL(input.files[0]);
+					}
+				});
+
+				$("#banner_picture").change(function () {
+					var input = this;
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							if (bannerCropper) {
+								bannerCropper.replace(e.target.result);
+							} else {
+								bannerCropper = new Cropper(
+									document.getElementById("bannerCroppedCanvas"),
+									{
+										aspectRatio: 16 / 9, // Set your desired aspect ratio for the banner image
+										viewMode: 2,
+									}
+								);
+
+								bannerCropper.replace(e.target.result);
+							}
+							showModal2();
+						};
+						reader.readAsDataURL(input.files[0]);
+					}
+				});
+
+				$("#closeProfileCrop").click(function () {
+					hideModal();
+				});
+				$("#closeProfileCropSmall").click(function () {
+					hideModal();
+				});
+				$("#closeBannerCrop").click(function () {
+					hideModal2();
+				});
+				$("#closeBannerCropSmall").click(function () {
+					hideModal2();
+				});
+
+
+				
+				$("#confirmProfileCrop").click(function () {
+					if (profileCropper) {
+						var canvas = profileCropper.getCroppedCanvas({ width: 110, height: 110 });
+						if (canvas) {
+							canvas.toBlob(function (blob) {
+								var formData = new FormData();
+								formData.append("profile_picture", blob);
+								$.ajax({
+									url: "assets/php/process_editProfilePicture.php",
+									method: "POST",
+									data: formData,
+									processData: false,
+									contentType: false,
+									success: function (response) {
+										if (response.imageData) {
+											alert("Your profile picture is updated!");
+
+											var newImageData = response.imageData;
+
+											// Find the <img> element with the id 'smallProfilePicture_1' and 'smallProfilePicture_2'
+											var imgElement = document.getElementById("smallProfilePicture_1");
+											var imgElement_2 = document.getElementById(
+												"smallProfilePicture_2"
+											);
+
+											// Update the 'src' attribute of the <img> element with the new image data
+											imgElement.src = "data:image/jpeg;base64," + newImageData;
+											imgElement_2.src = "data:image/jpeg;base64," + newImageData;
+
+											hideModal();
+										} else {
+											alert("Image data is empty or null. Failed to update image.");
+										}
+									},
+								});
+							});
+						}
+					}
+				});
+
+				$("#confirmBannerCrop").click(function () {
+					if (bannerCropper) {
+						var canvas = bannerCropper.getCroppedCanvas({ width: 800, height: 500 }); // Set your desired dimensions for the banner image
+						if (canvas) {
+							canvas.toBlob(function (blob) {
+								var formData = new FormData();
+								formData.append("banner_picture", blob);
+								$.ajax({
+									url: "assets/php/process_editBanner.php",
+									method: "POST",
+									data: formData,
+									processData: false,
+									contentType: false,
+									success: function (response) {
+										alert("Your banner picture is updated!");
+										hideModal2();
+									},
+								});
+							});
+						}
+					}
+				});
+
+				$("#profileCropModal, #bannerCropModal").on("hidden.bs.modal", function () {
+					$("#profile_picture, #banner_picture").val("");
+					if (profileCropper) {
+						profileCropper.destroy();
+					}
+					if (bannerCropper) {
+						bannerCropper.destroy();
+					}
+				});
+
 			</script>
 			<!-- Bootstrap core JavaScript-->
 			<script src="assets/js/jquery.min.js"></script>
@@ -980,7 +1180,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<script src="assets/js/app-script.js"></script>
 			<script src="assets/js/inviteMM.js"></script>
 			<script src="assets/js/editProfile-1.js"></script>
-			<script src="assets/js/editPictures.js"></script>
+
 			<script src="assets/js/searchAPI.js"></script>
 			<!-- Full Calendar -->
 			<script src='assets/plugins/fullcalendar/js/moment.min.js'></script>
