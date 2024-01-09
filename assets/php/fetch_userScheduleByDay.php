@@ -8,7 +8,7 @@
     $output = [];
 
     // Get user ID of students belonging to the studyhub
-    $sql1 = "SELECT user_ID FROM `studyhub_members` WHERE studyhub_ID = $studyhub_ID";
+    $sql1 = "SELECT user_ID FROM `studyhubMember` WHERE studyhub_ID = $studyhub_ID";
     $result1 = mysqli_query($connection, $sql1);
 
     if ($result1) {

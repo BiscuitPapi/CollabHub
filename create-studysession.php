@@ -456,10 +456,14 @@
 							
 					}
 
+					
+
 					// Count the percentage of available student for specific timeslot
 					for (var i = 0; i < timeCount.length; i++){
+						
 						timePercent[i] = (data.length - timeCount[i]) / data.length;
 						console.log(timeArray[i], ': ', timePercent[i]);
+						
 					}
 
 					createButtons(selectedDay, timePercent);
