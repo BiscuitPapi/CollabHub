@@ -458,7 +458,7 @@ if (!isset($_SESSION['user_ID'])) {
 																						</td>
 																						<td>' . $row['dateCreated'] . '</td>
 																						<td>
-																							<a href="viewProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
+																							<a href="viewProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-info">View</a>
 																						</td>
 																					</tr>
 																				';
@@ -650,7 +650,7 @@ if (!isset($_SESSION['user_ID'])) {
 																					<?php echo $row['rating']; ?>
 																				</td>
 																				<td style="text-align: center;">
-																					<a href="viewProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-success">View</a>
+																					<a href="viewProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-info">View</a>
 																					<?php
 																					$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
 																					$resulty = mysqli_query($connection, $checkQuery);

@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
     // Redirect to the login page
@@ -230,7 +233,7 @@ else {
                                                                                     <td>' . $row['course_name'] . '</td>
                                                                                     <td style="text-align: center;">' . $row['project_name'] . '</td>                                                                               
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-success">View</a>
+                                                                                        <a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>
@@ -261,7 +264,7 @@ else {
 											<div class="modal-content" style ="max-height: 90vh;">
 												<span class="close">&times;</span>
 												<!-- Content for your modal goes here -->
-												<center><h3>Create Group</h3></center>
+												<center><h3>Create Application</h3></center>
 																	
 												<!-- Your additional content for adding badges -->
 												<div class="tab-pane" id="addGroup">
@@ -347,11 +350,15 @@ else {
 																		if (isset($_SESSION["user_ID"])) {
 																			$user_ID = $_SESSION["user_ID"];
 
-																			$query = "SELECT * FROM club WHERE user_ID = ?";
+																			$query = "SELECT * FROM `club` WHERE user_ID = ?";
+																			// var_dump($user_ID);
 																			$stmt = $connection->prepare($query);
 																			$stmt->bind_param("i", $user_ID);
 																			$stmt->execute();
 																			$result = $stmt->get_result();
+																			// $query = "SELECT * FROM `club-application` where user_ID = '{$_SESSION['user_ID']}';";
+                                                                
+																			// $result = mysqli_query($connection, $query);
 
 																			$count = 1; // Initialize count variable
 
@@ -367,7 +374,7 @@ else {
 																						<td>' . $row['club_name'] . '</td>
 																						<td style="text-align: center;">' . $row['position_available'] . '</td>                   
 																						<td style="text-align: center;">
-																							<a href="club_application_view.php?club_ID=' . $row['club_ID'] . '" class="btn btn-success">View</a>
+																							<a href="club_application_view.php?club_ID=' . $row['club_ID'] . '" class="btn btn-info">View</a>
 																						</td>
 																						</tr>';
 
@@ -402,7 +409,7 @@ else {
 											<div class="modal-content" style ="max-height: 90vh;">
 												<span class="close">&times;</span>
 												<!-- Content for your modal goes here -->
-												<center><h3>Create Group</h3></center>
+												<center><h3>Create Application</h3></center>
 																	
 												<!-- Your additional content for adding badges -->
 												<div class="tab-pane" id="addGroup">
@@ -419,7 +426,7 @@ else {
 
                                                             <!-- Club Description -->
                                                             <div class="form-group">
-                                                                <label for="input-8">Project Description:</label>
+                                                                <label for="input-8">Club Description:</label>
                                                                 <input type="text" class="form-control" id="input-8" placeholder="Enter club description">
                                                             </div>
                                                              
@@ -809,7 +816,7 @@ else {
                                     '<th scope="row">' + rowCount + '</th>' +
                                     '<td>' + addedClubName + '</td>' +
                                     '<td style="text-align:center;">' + addedClubPosition + '</td>' +
-                                    '<td style="text-align:center;"><a href="group_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-success">View</a></td>' +
+                                    '<td style="text-align:center;"><a href="club_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-success">View</a></td>' +
                                     '</tr>';
 
                                 // Hide "No applications found" message if it exists

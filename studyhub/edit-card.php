@@ -172,14 +172,37 @@
                 <!--End of Next Session-->
                 <p></p>
                 <!--Start of Create study session button-->
-                <div class=row>
+
+                <!-- <div class=row>
                     <div class="col-md-12">
 
                         <center><a class="btn btn-primary"
                                 href="create-studysession.php?studyhub_ID=<?php echo $studyhub_ID; ?>">Create
                                 Session</a></center>
                     </div>
-                </div>
+                </div> -->
+
+                <?php
+
+                include("assets/php/connection.php");
+
+                $query = "SELECT * FROM studyhubMember WHERE studyhub_ID = $studyhub_ID AND user_ID = $user_ID";
+                $result = mysqli_query($connection, $query);
+
+                // Check if a matching record is found
+                if ($result && mysqli_num_rows($result) > 0) {
+                    // User is a member, display the "Create Session" button
+                    echo '<div class="row">
+                            <div class="col-md-12">
+                                <center><a class="btn btn-primary" href="create-studysession.php?studyhub_ID=' . $studyhub_ID . '">Create Session</a></center>
+                            </div>
+                        </div>';
+                }
+
+                // Close the database connection if open
+                mysqli_close($connection);
+                ?>
+
             </div>
             <!--End of First Tab-->
 

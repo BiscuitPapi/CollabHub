@@ -80,7 +80,7 @@ session_start();
 												<th>No.</th>
 												<th>StudyHub Name</th>
 												<th style="text-align: center;">Date Created</th>
-												<th style="text-align: center;" >Action</th>
+												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
 										
@@ -111,7 +111,7 @@ session_start();
 															<td>' . $row['studyhub_name'] . '</td>
 															<td style="text-align: center;">' . $row['date_created'] . '</td>
 															<td style="text-align: center;">
-																<a href="SB_profile.php?studyhub_ID=' . $row['studyhub_ID'] . '" class="btn btn-success">View</a>
+																<a href="SB_profile.php?studyhub_ID=' . $row['studyhub_ID'] . '" class="btn btn-info">View</a>
 
 																
 															</td>

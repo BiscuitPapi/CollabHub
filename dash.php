@@ -323,7 +323,7 @@ if (!isset($_SESSION['user_ID'])) {
 											'<td style="text-align: center;">' + username + '</td>' +
 											'<td style="text-align: center;">' + rowCount + '</td>' +
 											'<td style="text-align: center;">' +
-											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-success">View</a> ' +
+											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
 											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 
 
 											'</td>' +
@@ -338,7 +338,7 @@ if (!isset($_SESSION['user_ID'])) {
 											'<td style="text-align: center;">' + username + '</td>' +
 											'<td style="text-align: center;">' + rowCount + '</td>' +
 											'<td style="text-align: center;">' +
-											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-success">View</a> ' +
+											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
 											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 	
 											'</td>' +
 											'</tr>';
@@ -373,7 +373,7 @@ if (!isset($_SESSION['user_ID'])) {
 										'<td>' + row['position_available'] + '</td>' +
 										'<td>' + row['days_since_creation'] + ' days ago</td>' +
 										'<td>' +
-										'<a href="club_application_view.php?club_ID=' + row['club_ID'] + '" class="btn btn-success">View</a>' +
+										'<a href="club_application_view.php?club_ID=' + row['club_ID'] + '" class="btn btn-info">View</a>' +
 										'</td>' +
 										// Add other table columns as needed
 										'</tr>';

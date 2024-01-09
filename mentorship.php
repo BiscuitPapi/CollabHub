@@ -267,7 +267,7 @@
 																							<td>' . $row_2['name'] . '</td>
 																							<td>' . $row['dateCreated'] . '</td>
 																							<td>
-																								<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
+																								<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-info">View</a>
 																							</td>
 																						</tr>
 																					';
@@ -517,7 +517,7 @@
 																	<td><?php echo $row['numberOfMentees']; ?></td>
 																	<td><?php echo round($row['rating'], 2); ?></td>
 																	<td>
-																		<a href="myProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-success">View</a>
+																		<a href="myProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-info">View</a>
 																		<?php 
 																			$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
 																			$resulty = mysqli_query($connection, $checkQuery);
@@ -681,7 +681,7 @@
 																											<td>' . $row_2['name'] . '</td>
 																											<td>' . $row['dateCreated'] . '</td>
 																											<td>
-																												<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
+																												<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-info">View</a>
 																											</td>
 																										</tr>
 																									';

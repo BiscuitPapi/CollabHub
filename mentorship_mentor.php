@@ -347,7 +347,7 @@ if (!isset($_SESSION['user_ID'])) {
 																							<td>' . $row_2['name'] . '</td>
 																							<td>' . $row['dateCreated'] . '</td>
 																							<td>
-																								<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-success">View</a>
+																								<a href="myProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-info">View</a>
 																							</td>
 																						</tr>
 																					';

@@ -10,7 +10,7 @@
     $addedClubNotes = $_POST['addedClubNotes'];
     $application_date = date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO `club-application`(`club_name`, `club_description`, `position_available`, `skill_needed`, `notes`, `application_date`, `user_ID`) VALUES (?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO `club`(`club_name`, `club_description`, `position_available`, `skill_needed`, `notes`, `application_date`, `user_ID`) VALUES (?,?,?,?,?,?,?)";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("ssssssi", $addedClubName, $addedClubDescription, $addedClubPosition, $addedClubSkills, $addedClubNotes, $application_date, $user_ID);
 
