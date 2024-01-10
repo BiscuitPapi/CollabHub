@@ -89,7 +89,7 @@
                     </li>
 
                     <li class="dropdown-divider"></li>
-                    <a href="assets/php/logout.php">
+                    <a href="../assets/php/logout.php">
                         <li class="dropdown-item">
                             <i class="icon-power mr-2"></i> Logout
                         </li>

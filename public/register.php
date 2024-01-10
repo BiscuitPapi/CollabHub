@@ -19,18 +19,18 @@ if (isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>Register</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
 	</head>
 
 	<body class="bg-theme bg-theme9">
@@ -148,8 +148,8 @@ if (isset($_SESSION['user_ID'])) {
 							</div>
 
 							<div class="form-group">
-								<center><button id="submit-button" class="btn btn-success"><i
-											class="icon-lock"></i> Register</button></center>
+								<center><button id="submit-button" class="btn btn-success"><i class="icon-lock"></i>
+										Register</button></center>
 							</div>
 						</div>
 					</div>
@@ -160,7 +160,6 @@ if (isset($_SESSION['user_ID'])) {
 			</div>
 
 
-
 			<!--Start Back To Top Button-->
 			<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
 			<!--End Back To Top Button-->
@@ -168,16 +167,16 @@ if (isset($_SESSION['user_ID'])) {
 		</div><!--wrapper-->
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
 
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/registration.js"></script>
+		<script src="../assets/js/app-script.js"></script>
+		<script src="../assets/js/registration-1.js"></script>
 
 	</body>
 

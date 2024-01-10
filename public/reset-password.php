@@ -19,17 +19,17 @@ if (isset($_SESSION['user_ID'])) {
     <meta name="author" content="" />
     <title>Reset Password</title>
     <!-- loader-->
-    <link href="assets/css/pace.min.css" rel="stylesheet" />
-    <script src="assets/js/pace.min.js"></script>
-    <link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+    <link href="../assets/css/pace.min.css" rel="stylesheet" />
+    <script src="../assets/js/pace.min.js"></script>
+    <link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
     <!-- Bootstrap core CSS-->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <!-- animate CSS-->
-    <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
     <!-- Icons CSS-->
-    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
     <!-- Custom Style-->
-    <link href="assets/css/app-style.css" rel="stylesheet" />
+    <link href="../assets/css/app-style.css" rel="stylesheet" />
 
   </head>
 
@@ -130,21 +130,21 @@ if (isset($_SESSION['user_ID'])) {
     </div><!--wrapper-->
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
 
     <!-- sidebar-menu js -->
-    <script src="assets/js/sidebar-menu.js"></script>
+    <script src="../assets/js/sidebar-menu.js"></script>
 
     <!-- Custom scripts -->
-    <script src="assets/js/app-script.js"></script>
+    <script src="../assets/js/app-script.js"></script>
 
     <script>
       function checkToken() {
         var token = document.getElementById("input-token").value;
         $.ajax({
-          url: 'assets/php/process_checkToken.php',
+          url: '../assets/php/process_checkToken.php',
           method: 'POST',
           data: { token: token },
           success: function (response) {
@@ -163,13 +163,12 @@ if (isset($_SESSION['user_ID'])) {
             console.log(response);
           }
         });
-
       }
 
       function checkEmail() {
         var email = document.getElementById("input-email").value;
         $.ajax({
-          url: 'assets/php/process_checkEmail.php',
+          url: '../assets/php/process_checkEmail.php',
           method: 'POST',
           data: { email: email },
           success: function (response) {
@@ -190,7 +189,7 @@ if (isset($_SESSION['user_ID'])) {
 
       function resetPassword(email) {
         $.ajax({
-          url: 'assets/php/process_sendEmail.php',
+          url: '../assets/php/process_sendEmail.php',
           method: 'POST',
           data: { email: email },
           success: function (response) {
@@ -218,7 +217,7 @@ if (isset($_SESSION['user_ID'])) {
         } else {
           var email = document.getElementById("emailHolder").value;
           $.ajax({
-            url: 'assets/php/process_newPassword.php',
+            url: '../assets/php/process_newPassword.php',
             method: 'POST',
             data: { password: passwordValue, email: email }, // Use passwordValue instead of passwordField
             success: function (response) {

@@ -11,40 +11,27 @@ document
       register();
     }
   });
-
-const form = document.querySelector("form");
-const passwordField = document.getElementById("password");
-const confirmPasswordField = document.getElementById("confirmPassword");
-
-form.addEventListener("submit", function (event) {
-  const passwordValue = passwordField.value;
-  const confirmPasswordValue = confirmPasswordField.value;
-
-  if (passwordValue !== confirmPasswordValue) {
-    event.preventDefault();
-    alert("Passwords do not match. Please try again.");
-  }
-});
-
 const emailField = document.getElementById("email");
 
 emailField.addEventListener("blur", function () {
   const emailValue = emailField.value;
-
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "assets/php/check_email.php", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      const response = xhr.responseText;
+  $.ajax({
+    url: "../assets/php/registration/check_email.php",
+    method: "POST",
+    data: { email: emailValue },
+    success: function (response) {
       if (response !== "") {
         alert(response);
         emailField.value = "";
         emailField.focus();
       }
-    }
-  };
-  xhr.send("email=" + emailValue);
+      console.log(response);
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log(error);
+    },
+  });
 });
 
 function register() {
@@ -55,6 +42,56 @@ function register() {
   var year = document.getElementById("year").value;
   var department = document.getElementById("department").value;
   var password = document.getElementById("password").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (name == "") {
+    alert("Please include your name.");
+    const nameField = document.getElementById("name");
+    nameField.focus();
+    exit();
+  }
+
+  if (email == "") {
+    alert("Please include your email.");
+    const emailField = document.getElementById("email");
+    emailField.focus();
+    exit();
+  }
+  if (matricNum == "") {
+    alert("Please include your matric number.");
+    const matricNumField = document.getElementById("matricNum");
+    matricNumField.focus();
+    exit();
+  }
+  if (mobile == "") {
+    alert("Please include your mobile phone.");
+    const mobileField = document.getElementById("mobile");
+    mobileField.focus();
+    exit();
+  }
+
+  if (password == "") {
+    alert("Password cannot be empty");
+    const passwordField = document.getElementById("password");
+    passwordField.focus();
+    exit();
+  }
+
+  if (confirmPassword == "") {
+    alert("Confirm password cannot be empty");
+    const confirmPasswordField = document.getElementById("confirmPassword");
+    confirmPasswordField.focus();
+    exit();
+  }
+  const passwordField = document.getElementById("password");
+  const confirmPasswordField = document.getElementById("confirmPassword");
+  const passwordValue = passwordField.value;
+  const confirmPasswordValue = confirmPasswordField.value;
+
+  if (passwordValue !== confirmPasswordValue) {
+    alert("Passwords do not match. Please try again.");
+    exit();
+  }
 
   // Create an object with the data to be sent
   var data = {
@@ -68,7 +105,7 @@ function register() {
   };
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "assets/php/process_registration.php", true);
+  xhr.open("POST", "../assets/php/registration/process_registration.php", true);
   xhr.setRequestHeader("Content-Type", "application/json"); // Set the content type to JSON
 
   xhr.onreadystatechange = function () {
@@ -78,7 +115,7 @@ function register() {
         alert(
           "You have successfully registered!\nPlease proceed with logging in."
         );
-        window.location.href = "login.php";
+        window.location.href = "index.php";
       } else {
         console.error("Error registering new user: " + xhr.statusText);
         alert("Error registration new user. Please, try again.");

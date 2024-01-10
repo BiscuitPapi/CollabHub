@@ -3,7 +3,7 @@
 
 	// check if email already exists
 	if (isset($_POST['email'])) {
-		include("connection.php");
+		include("../connection.php");
 		$email = $_POST['email'];
 		  
 		$query = "SELECT * FROM user WHERE email = '$email'";
