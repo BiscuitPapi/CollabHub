@@ -3,14 +3,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 // Start the session to access the user_ID value
 session_start();
 
 // Check if the user is logged in and the user_ID is set
 if (isset($_SESSION["user_ID"])) {
     // Include the database connection file
-    include 'connection.php';
+    include '../connection.php';
 
     // Get the user ID from the session
     $userID = $_SESSION["user_ID"];

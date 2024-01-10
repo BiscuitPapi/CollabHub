@@ -8,7 +8,6 @@ function toggle(tabId) {
 }
 
 
-
 function updateProfile() {
     var newMatricNumValue = document.getElementById("matricNum").value;
     var newMobileValue = document.getElementById("mobile").value;
@@ -29,7 +28,7 @@ function updateProfile() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "assets/php/process_editProfile.php", true);
+    xhr.open("POST", "../assets/php/profile/process_editProfile.php", true);
     xhr.setRequestHeader("Content-Type", "application/json"); // Set the content type to JSON
 
     xhr.onreadystatechange = function() {
@@ -68,7 +67,7 @@ function addNewBadge() {
     
 
     $.ajax({
-        url: 'assets/php/process_addBadge.php',
+        url: '../assets/php/profile/process_addBadge.php',
         method: 'POST',
         data: { addedName: addedName, addedType: addedType },
         success: function(response) {
@@ -88,7 +87,7 @@ function addNewBadge() {
 
 function deleteBadge(badgeID) {
     $.ajax({
-        url: 'assets/php/process_deleteBadge.php',
+        url: '../assets/php/profile/process_deleteBadge.php',
         method: 'POST',
         data: { badgeID: badgeID },
         success: function(response) {
@@ -117,7 +116,7 @@ function saveChanges() {
 
 function updateBadgeName(badge_ID, badgeName) {
     $.ajax({
-        url: 'assets/php/process_updateBadge.php',
+        url: '../assets/php/profile/process_updateBadge.php',
         method: 'POST',
         data: { badge_ID: badge_ID, badgeName: badgeName },
         success: function(response) {

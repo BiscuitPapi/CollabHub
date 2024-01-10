@@ -3,7 +3,7 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 
@@ -19,23 +19,23 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>Edit Profile</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/modally.css">
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_ID'])) {
 			.modal-dialog-2 {
 				max-width: 800px;
 				margin: 1.75rem auto;
-				
+
 			}
 
 			.modal-dialog-scrollable {
@@ -60,7 +60,7 @@ if (!isset($_SESSION['user_ID'])) {
 			}
 
 			.modal-dialog-centered {
-				min-height:800px;
+				min-height: 800px;
 			}
 
 			.modal-dialog-centered::before {
@@ -81,7 +81,7 @@ if (!isset($_SESSION['user_ID'])) {
 				position: absolute;
 				right: 0;
 				top: 0;
-				
+
 			}
 
 
@@ -180,8 +180,8 @@ if (!isset($_SESSION['user_ID'])) {
 		<!-- Start wrapper-->
 		<div id="wrapper">
 
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 
 			<div class="clearfix"></div>
 
@@ -205,7 +205,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 								<div class="row">
 									<a href="javascript:void();" data-toggle="tooltip" data-placement="top" title="Badge"
-										onclick="toggle('addBadge');">
+										onclick="toggle('badge');">
 										<div class="card" style="width:55px;">
 											<div class="card-body">
 												<center>
@@ -389,7 +389,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<div class="card-body border-top border-light">
 
 													<?php
-													include("assets/php/connection.php");
+													include("../assets/php/connection.php");
 
 													$badgeTypes = array(
 														'Technical Skills' => 'Technical Skills',
@@ -492,14 +492,12 @@ if (!isset($_SESSION['user_ID'])) {
 															<hr>
 
 															<!----  Form  ---->
-															<form method="POST"
-																action="assets/php/process_addExperience.php"
-																id="experienceForm" onsubmit="return validateDates()">
+															<div>
 																<!----  Type  ---->
 																<div class="form-group">
 																	<label for="input-1">Type</label>
 																	<div class="position-relative has-icon-right">
-																		<select class="form-control" id="input_1"
+																		<select class="form-control" id="expType"
 																			name="input_1">
 																			<option value="Part-time">Part-time job</option>
 																			<option value="Full-time">Full-time job</option>
@@ -513,7 +511,7 @@ if (!isset($_SESSION['user_ID'])) {
 																<div class="form-group">
 																	<label for="input-1">COMPANY/CLUB/ASSOCATIATION</label>
 																	<div class="position-relative has-icon-right">
-																		<input type="text" id="input_2" name="input_2"
+																		<input type="text" id="expComp" name="input_2"
 																			class="form-control input-shadow"
 																			placeholder="Enter Organization" required>
 																	</div>
@@ -522,32 +520,32 @@ if (!isset($_SESSION['user_ID'])) {
 																<div class="form-group">
 																	<label for="input-3">Position</label>
 																	<input type="text" class="form-control" name="input_3"
-																		id="input_3" placeholder="Enter Position" required>
+																		id="expPos" placeholder="Enter Position" required>
 																</div>
 
 																<div class="form-group">
 																	<label for="input-4">Start Date</label>
 																	<input type="date" class="form-control" name="input_4"
-																		id="input_4" required>
+																		id="expStartDate" required>
 																</div>
 
 																<div class="form-group">
 																	<label for="input-5">End Date</label>
 																	<input type="date" class="form-control" name="input_5"
-																		id="input_5" required>
+																		id="expEndDate" required>
 																</div>
 
 																<div class="form-group">
 																	<label for="input-6">Description</label>
-																	<textarea id="input_6" name="input_6"
+																	<textarea id="expDesc" name="input_6"
 																		class="form-control" rows="10"
 																		placeholder="Enter Description" required></textarea>
 																</div>
 
-																<button type="submit" value="Submit"
-																	class="btn btn-light btn-block btn-success">Add
+																<button onclick="addExperience()" value="Submit"
+																	class="btn btn-block btn-success">Add
 																	Experience</button>
-															</form>
+															</div>
 
 
 														</div>
@@ -560,7 +558,7 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="tab-pane active" id="editExperience">
 											<div class="row" style="overflow-y: scroll; max-height: 600px;">
 												<?php
-												include("assets/php/connection.php");
+												include("../assets/php/connection.php");
 												$results_per_page = 2; // Number of rows to display per page
 												$sql = "SELECT * FROM experience WHERE user_ID = '{$_SESSION['user_ID']}'";
 												$result = mysqli_query($connection, $sql);
@@ -602,7 +600,7 @@ if (!isset($_SESSION['user_ID'])) {
 													<div class="form-group">
 														<label for="input-1">Profile Picture</label>
 														<form id="profilePictureForm" enctype="multipart/form-data"
-															action="assets/php/process_editProfilePicture.php"
+															action="../assets/php/process_editProfilePicture.php"
 															method="post">
 															<input type="file" name="profile_picture" id="profile_picture"
 																style="display: none">
@@ -617,7 +615,7 @@ if (!isset($_SESSION['user_ID'])) {
 													<div class="form-group">
 														<label for="input-2">Banner</label>
 														<form id="bannerForm" enctype="multipart/form-data"
-															action="assets/php/process_editBanner.php" method="post">
+															action="../assets/php/process_editBanner.php" method="post">
 															<input type="file" name="banner_picture" id="banner_picture"
 																style="display: none">
 															<button type="button" id="chooseBannerFileButton"
@@ -644,8 +642,8 @@ if (!isset($_SESSION['user_ID'])) {
 													<div class="modal-header">
 														<h5 class="modal-title" id="profileCropModalLabel">Crop Profile
 															Picture</h5>
-														<button id="closeProfileCropSmall" type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
+														<button id="closeProfileCropSmall" type="button" class="close"
+															data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -672,8 +670,8 @@ if (!isset($_SESSION['user_ID'])) {
 												<div class="modal-content" style="width: 500px;">
 													<div class="modal-header">
 														<h5 class "modal-title" id="bannerCropModalLabel">Crop Banner</h5>
-														<button id="closeBannerCropSmall" type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
+														<button id="closeBannerCropSmall" type="button" class="close"
+															data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -683,8 +681,8 @@ if (!isset($_SESSION['user_ID'])) {
 													</div>
 
 													<div class="modal-footer justify-content-center">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal" id="closeBannerCrop">Close</button>
+														<button type="button" class="btn btn-secondary" data-dismiss="modal"
+															id="closeBannerCrop">Close</button>
 														<button type="button" class="btn btn-primary"
 															id="confirmBannerCrop">Confirm Crop</button>
 													</div>
@@ -729,7 +727,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	<tbody id="courseScheduleTableBody">
 
 																		<?php
-																		include("assets/php/connection.php");
+																		include("../assets/php/connection.php");
 
 																		$dayOrder = [
 																			'Monday' => 1,
@@ -783,7 +781,7 @@ if (!isset($_SESSION['user_ID'])) {
 							data-start-time="' . $row['start_time'] . '"
 							data-end-time="' . $row['end_time'] . '"
 							onclick="editCourseModal(this)">Edit</button>
-						<a href="assets/php/process_deleteCourseSchedule.php?schedule_ID=' . $row['schedule_ID'] . '" class="btn btn-danger">Delete</a>
+						<a href="../assets/php/process_deleteCourseSchedule.php?schedule_ID=' . $row['schedule_ID'] . '" class="btn btn-danger">Delete</a>
 					</td>
 				</tr>
 			';
@@ -990,6 +988,90 @@ if (!isset($_SESSION['user_ID'])) {
 			<!--End wrapper-->
 
 			<script>
+				function addExperience() {
+					var startDate = new Date(document.getElementById("expStartDate").value);
+					var endDate = new Date(document.getElementById("expEndDate").value);
+					if (startDate > endDate) {
+						alert("Start date cannot be greater than end date.");
+						const startDateField = document.getElementById("expStartDate");
+						startDateField.focus();
+					}
+
+					else {
+						var type = document.getElementById("expType").value;
+						var company = document.getElementById("expComp").value;
+						var position = document.getElementById("expPos").value;
+						var startDate = document.getElementById("expStartDate").value;
+						var endDate = document.getElementById("expEndDate").value;
+						var description = document.getElementById("expDesc").value;
+
+						if (company == "") {
+							alert("Please include the company/club/association.");
+							const companyField = document.getElementById("expComp");
+							companyField.focus();
+							exit();
+						}
+
+						if (position == "") {
+							alert("Please include your position.");
+							const positionField = document.getElementById("expPos");
+							positionField.focus();
+							exit();
+						}
+
+						if (startDate == "") {
+							alert("Please include the start date");
+							const startDateField = document.getElementById("expStartDate");
+							startDateField.focus();
+							exit();
+						}
+
+						if (endDate == "") {
+							alert("Please include the end date");
+							const endDateField = document.getElementById("expEndDate");
+							endDateField.focus();
+							exit();
+						}
+
+
+						if (description == "") {
+							alert("Please include the description");
+							const descriptionField = document.getElementById("expDesc");
+							descriptionField.focus();
+							exit();
+						}
+
+
+
+						$.ajax({
+							url: '../assets/php/profile/process_addExperience.php',
+							method: 'POST',
+							data: {
+								input1: type,
+								input2: company,
+								input3: position,
+								input4: startDate,
+								input5: endDate,
+								input6: description
+							},
+							success: function (response) {
+								if (response === "success") {
+									alert("A new experience has been added!");
+								} else {
+									alert(response);
+								}
+							},
+							error: function (xhr, status, error) {
+								// Handle the error
+								console.log(error);
+							}
+						});
+					}
+
+				}
+
+
+
 				// Enable Bootstrap tooltips
 				$(function () {
 					$('[data-toggle="tooltip"]').tooltip()
@@ -1091,7 +1173,7 @@ if (!isset($_SESSION['user_ID'])) {
 				});
 
 
-				
+
 				$("#confirmProfileCrop").click(function () {
 					if (profileCropper) {
 						var canvas = profileCropper.getCroppedCanvas({ width: 110, height: 110 });
@@ -1100,7 +1182,7 @@ if (!isset($_SESSION['user_ID'])) {
 								var formData = new FormData();
 								formData.append("profile_picture", blob);
 								$.ajax({
-									url: "assets/php/process_editProfilePicture.php",
+									url: "../assets/php/profile/process_editProfilePicture.php",
 									method: "POST",
 									data: formData,
 									processData: false,
@@ -1140,7 +1222,7 @@ if (!isset($_SESSION['user_ID'])) {
 								var formData = new FormData();
 								formData.append("banner_picture", blob);
 								$.ajax({
-									url: "assets/php/process_editBanner.php",
+									url: "../assets/php/profile/process_editBanner.php",
 									method: "POST",
 									data: formData,
 									processData: false,
@@ -1167,25 +1249,25 @@ if (!isset($_SESSION['user_ID'])) {
 
 			</script>
 			<!-- Bootstrap core JavaScript-->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 
 			<!-- simplebar js -->
-			<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+			<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 			<!-- sidebar-menu js -->
-			<script src="assets/js/sidebar-menu.js"></script>
+			<script src="../assets/js/sidebar-menu.js"></script>
 
 			<!-- Custom scripts -->
-			<script src="assets/js/app-script.js"></script>
-			<script src="assets/js/inviteMM.js"></script>
-			<script src="assets/js/editProfile-1.js"></script>
+			<script src="../assets/js/app-script.js"></script>
+			<script src="../assets/js/inviteMM.js"></script>
+			<script src="../assets/js/editProfile.js"></script>
 
-			<script src="assets/js/searchAPI.js"></script>
+			<script src="../assets/js/searchAPI.js"></script>
 			<!-- Full Calendar -->
-			<script src='assets/plugins/fullcalendar/js/moment.min.js'></script>
-			<script src='assets/plugins/fullcalendar/js/fullcalendar.min.js'></script>
-			<script src="assets/plugins/fullcalendar/js/fullcalendar-custom-script.js"></script>
+			<script src='../assets/plugins/fullcalendar/js/moment.min.js'></script>
+			<script src='../assets/plugins/fullcalendar/js/fullcalendar.min.js'></script>
+			<script src="../assets/plugins/fullcalendar/js/fullcalendar-custom-script.js"></script>
 
 			<script>
 				displayNotifications();
