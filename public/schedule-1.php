@@ -1,19 +1,19 @@
 <script>
     // Retrieve the activeTab parameter from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const activeTab = urlParams.get('activeTab');
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeTab = urlParams.get('activeTab');
 
-// Make the corresponding tab active
-if (activeTab) {
-    $('#' + activeTab).show(); // Show the tab content
-    $('#' + activeTab + '-tab').addClass('active'); // Add the 'active' class to the tab's link
+    // Make the corresponding tab active
+    if (activeTab) {
+        $('#' + activeTab).show(); // Show the tab content
+        $('#' + activeTab + '-tab').addClass('active'); // Add the 'active' class to the tab's link
 
-    // Hide the "about" tab
-    if (activeTab !== 'about') {
-        $('#about').hide();
-        $('#about-tab').removeClass('active'); // Remove the 'active' class from the about tab's link
+        // Hide the "about" tab
+        if (activeTab !== 'about') {
+            $('#about').hide();
+            $('#about-tab').removeClass('active'); // Remove the 'active' class from the about tab's link
+        }
     }
-}
 
     // Get the "Add Course" button by its id
     var addCourseButton = document.getElementById('addCourseButton');
@@ -85,7 +85,7 @@ if (activeTab) {
 
         // Send the edited data to the server using an AJAX request
         $.ajax({
-            url: 'assets/php/process_editCourseSchedule.php',
+            url: '../assets/php/profile/process_editCourseSchedule.php',
             method: 'POST',
             data: editedData,
             success: function (response) {
@@ -111,7 +111,7 @@ if (activeTab) {
 
 
         $.ajax({
-            url: 'assets/php/process_addCourseSchedule.php',
+            url: '../assets/php/profile/process_addCourseSchedule.php',
             method: 'POST',
             data: { courseName: courseName, day: day, startTime: startTime, endTime: endTime },
             success: function (response) {

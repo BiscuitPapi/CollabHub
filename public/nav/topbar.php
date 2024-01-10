@@ -17,11 +17,7 @@
         </ul>
 
         <ul class="navbar-nav align-items-center right-nav-link">
-            <li class="nav-item dropdown-lg">
-                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                    href="javascript:void();">
-                    <i class="fa fa-envelope-open-o"></i></a>
-            </li>
+          
             <li class="nav-item language">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
                     href="javascript:void();">
@@ -81,7 +77,7 @@
                     </li>
 
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+                    
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-item"><a href="myProfile.php"><i class="icon-wallet mr-2"></i> Account</li>
                     <li class="dropdown-divider"></li>

@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Check if the deletion was successful
     if ($stmt->affected_rows > 0) {
-        header("Location: ../../editProfile.php");
+        header("Location: ../../../public/editProfile.php?activeTab=schedule");
     } else {
         echo "Failed to delete course schedule.";
     }

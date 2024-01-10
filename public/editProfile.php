@@ -781,7 +781,7 @@ if (!isset($_SESSION['user_ID'])) {
 							data-start-time="' . $row['start_time'] . '"
 							data-end-time="' . $row['end_time'] . '"
 							onclick="editCourseModal(this)">Edit</button>
-						<a href="../assets/php/process_deleteCourseSchedule.php?schedule_ID=' . $row['schedule_ID'] . '" class="btn btn-danger">Delete</a>
+						<a href="../assets/php/profile/process_deleteCourseSchedule.php?schedule_ID=' . $row['schedule_ID'] . '" class="btn btn-danger">Delete</a>
 					</td>
 				</tr>
 			';
