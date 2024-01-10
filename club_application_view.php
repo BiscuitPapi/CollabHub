@@ -158,7 +158,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 									if ($_SESSION['user_ID'] != $user_ID) {
 										$temp_ID = $_SESSION['user_ID'];
-										$sql = "SELECT * FROM clubApplication WHERE applicant_ID = '$temp_ID'";
+										$sql = "SELECT * FROM clubApplication WHERE applicant_ID = '$temp_ID' AND club_ID = '$club_ID'";
 
 										$result = mysqli_query($connection, $sql);
 
@@ -305,6 +305,9 @@ if (!isset($_SESSION['user_ID'])) {
 						// Handle the response from the PHP script
 						console.log(response);
 						alert("You have successfully applied!");
+
+						// Reload the page after successful application
+						location.reload();
 					},
 					error: function (xhr, status, error) {
 						// Handle the error

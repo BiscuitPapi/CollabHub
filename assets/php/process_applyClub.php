@@ -16,6 +16,9 @@ $stmt->bind_param("si", $club_ID, $_SESSION["user_ID"]);
 
 if ($stmt->execute()) {
     echo "success";
+    // Redirect to the previous page on success
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit();
 } else {
     echo "Failed to edit.";
 }
