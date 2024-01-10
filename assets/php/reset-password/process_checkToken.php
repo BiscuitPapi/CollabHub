@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include("../connection.php");
 
 if (isset($_POST["token"])) {
   // Assuming $_POST["token"] contains the token value you want to check

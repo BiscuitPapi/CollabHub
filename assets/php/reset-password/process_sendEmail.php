@@ -1,12 +1,12 @@
 <?php
-include("connection.php");
+include("../connection.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../../vendor/autoload.php';
+require '../../../vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 

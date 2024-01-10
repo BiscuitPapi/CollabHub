@@ -144,7 +144,7 @@ if (isset($_SESSION['user_ID'])) {
       function checkToken() {
         var token = document.getElementById("input-token").value;
         $.ajax({
-          url: '../assets/php/process_checkToken.php',
+          url: '../assets/php/reset-password/process_checkToken.php',
           method: 'POST',
           data: { token: token },
           success: function (response) {
@@ -168,7 +168,7 @@ if (isset($_SESSION['user_ID'])) {
       function checkEmail() {
         var email = document.getElementById("input-email").value;
         $.ajax({
-          url: '../assets/php/process_checkEmail.php',
+          url: '../assets/php/reset-password/process_checkEmail.php',
           method: 'POST',
           data: { email: email },
           success: function (response) {
@@ -189,7 +189,7 @@ if (isset($_SESSION['user_ID'])) {
 
       function resetPassword(email) {
         $.ajax({
-          url: '../assets/php/process_sendEmail.php',
+          url: '../assets/php/reset-password/process_sendEmail.php',
           method: 'POST',
           data: { email: email },
           success: function (response) {
@@ -217,13 +217,13 @@ if (isset($_SESSION['user_ID'])) {
         } else {
           var email = document.getElementById("emailHolder").value;
           $.ajax({
-            url: '../assets/php/process_newPassword.php',
+            url: '../assets/php/reset-password/process_newPassword.php',
             method: 'POST',
             data: { password: passwordValue, email: email }, // Use passwordValue instead of passwordField
             success: function (response) {
 
               alert("A new password has been set. Please proceed to login");
-              window.location.href = "login.php";
+              window.location.href = "index.php";
             },
             error: function (xhr, status, error) {
               console.log("Error"); // Log the error
