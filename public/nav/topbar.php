@@ -81,7 +81,7 @@
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-item"><a href="myProfile.php"><i class="icon-wallet mr-2"></i> Account</li>
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item"><a href="editProfile.php"><i class="icon-settings mr-2"></i> Setting</a>
+                    <li class="dropdown-item"><a href="editProfile.php?activeTab=about"><i class="icon-settings mr-2"></i> Setting</a>
                     </li>
 
                     <li class="dropdown-divider"></li>

@@ -51,15 +51,11 @@ if (!isset($_SESSION['user_ID'])) {
 				color: #00000;
 				font-weight: bold;
 				font-size: 18px;
-				/* Adjust the font size to make the X button bigger */
 				margin-left: 5px;
-				/* Add some spacing between the input field and the X button */
 				padding: 4px 8px;
 				text-decoration: none;
-				margin-left: 5px;
-				/* Add some spacing between the input field and the X button */
+				margin-left: 5px;		
 				margin-right: -10px;
-				/* Move the X button towards the right edge of the badge */
 			}
 
 			.img-circle {

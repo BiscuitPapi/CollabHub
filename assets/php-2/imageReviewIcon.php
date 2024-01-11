@@ -3,7 +3,7 @@ session_start();
 
 if (isset($_GET['user_ID'])) {
     // Include the connection file
-    include('connection.php');
+    include('../connection.php');
 
     // Retrieve the user ID from the parameter
     $userID = $_GET['user_ID'];

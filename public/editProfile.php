@@ -567,7 +567,7 @@ if (!isset($_SESSION['user_ID'])) {
 													while ($row = mysqli_fetch_assoc($result)) {
 														?>
 														<div class="col-md-12">
-															<h5 style="display:">
+															<h5>
 																<?php echo $row['position']; ?>
 															</h5>
 															<?php echo $row['type'] . " - " . $row['groupName']; ?>

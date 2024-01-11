@@ -459,7 +459,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 																?>
 																<div class="col-md-12">
-																	<img src="../assets/php/imageReviewIcon.php?user_ID=<?php echo $reviewer ?>"
+																	<img src="../assets/php/review/imageReviewIcon.php?user_ID=<?php echo $reviewer ?>"
 																		alt="profile-image" class="profile"
 																		style="border-radius: 50%; width: 50px; height: 50px; display: inline-block;">
 																	<h5 style="display: inline-block; margin-left: 10px;">
