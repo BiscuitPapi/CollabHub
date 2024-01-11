@@ -22,8 +22,8 @@
 
     // For instance, here's a simple SQL query to find users with the skills
     $query = "SELECT u.user_ID, u.picture, u.name, u.email, u.matricNum, u.position, b.name as badge_name
-          FROM User u
-          LEFT JOIN Badge b ON u.user_ID = b.user_ID
+          FROM user u
+          LEFT JOIN badge b ON u.user_ID = b.user_ID
           WHERE b.name IN ('" . implode("','", $skillsArray) . "')
           AND u.user_ID <> " . $_SESSION['user_ID'];
 

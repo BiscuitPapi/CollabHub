@@ -13,49 +13,11 @@ function togglePage(pageId) {
     "btn " + (pageId === "rejectedList" ? "btn-primary" : "btn-dark");
 }
 
-function approvalMM(mt_ID, answer) {
-  var answerText = answer.toLowerCase();
-  if (answerText === "rejected") {
-    answerText = answerText.slice(0, -2);
-  } else {
-    answerText = answerText.slice(0, -1);
-  }
-  if (
-    confirm("Are you sure you want to " + answerText + " this application?")
-  ) {
-    $.ajax({
-      url: "assets/php/process_applicationApproval.php",
-      method: "POST",
-      data: { mt_ID: mt_ID, status: answer },
-      success: function (response) {
-        // Handle the response from the PHP script
-        console.log(response);
-        if (answer == "Rejected") alert("Application has been rejected!");
-        else alert("Application has been approved!");
-      },
-      error: function (xhr, status, error) {
-        // Handle the error
-        console.log(error);
-      },
-    });
-  }
-}
-
 // Get the "Add" span element
 var addSpan = document.querySelector(".clickable-add");
-
-// Get the "Delete" span element
-var deleteSpan = document.querySelector(".clickable-delete");
-
-// Get the add modal, close button, and modal content
 var addModal = document.getElementById("modal");
 var addModalCloseButton = addModal.querySelector(".close");
 var addModalContent = addModal.querySelector(".modal-content");
-
-// Get the delete modal, close button, and modal content
-var deleteModal = document.getElementById("delete-modal");
-var deleteModalCloseButton = deleteModal.querySelector(".close");
-var deleteModalContent = deleteModal.querySelector(".modal-content");
 
 // Function to display the add modal
 function showAddModal() {
@@ -66,22 +28,6 @@ function showAddModal() {
 function closeAddModal() {
   addModal.style.display = "none";
 }
-
-// Function to display the delete modal
-function showDeleteModal() {
-  deleteModal.style.display = "block";
-}
-
-// Function to close the delete modal
-function closeDeleteModal() {
-  deleteModal.style.display = "none";
-}
-
-// Open the add modal when the "Add" span is clicked
-addSpan.addEventListener("click", showAddModal);
-
-// Close the add modal when the close button is clicked
-addModalCloseButton.addEventListener("click", closeAddModal);
 
 // Close the add modal if the background is clicked
 window.addEventListener("click", function (event) {
@@ -94,6 +40,32 @@ window.addEventListener("click", function (event) {
 addModalContent.addEventListener("click", function (event) {
   event.stopPropagation();
 });
+
+addSpan.addEventListener("click", function () {
+  console.log("Add button clicked"); // Add this line
+  showAddModal();
+});
+
+// Close the add modal when the close button is clicked
+addModalCloseButton.addEventListener("click", closeAddModal);
+
+// Get the "Delete" span element
+var deleteSpan = document.querySelector(".clickable-delete");
+
+// Get the delete modal, close button, and modal content
+var deleteModal = document.getElementById("delete-modal");
+var deleteModalCloseButton = deleteModal.querySelector(".close");
+var deleteModalContent = deleteModal.querySelector(".modal-content");
+
+// Function to display the delete modal
+function showDeleteModal() {
+  deleteModal.style.display = "block";
+}
+
+// Function to close the delete modal
+function closeDeleteModal() {
+  deleteModal.style.display = "none";
+}
 
 // Open the delete modal when the "Delete" span is clicked
 deleteSpan.addEventListener("click", showDeleteModal);
@@ -124,9 +96,11 @@ function addNewBadge() {
   }
 
   $.ajax({
-    url: "assets/php/cubaan.php",
+    url: "../assets/php/mentorship/process_addSubject.php",
     method: "POST",
-    data: { addedName: addedName },
+    data: {
+      addedName: addedName,
+    },
     success: function (response) {
       // Handle the response from the PHP script
       console.log(response);
@@ -141,6 +115,7 @@ function addNewBadge() {
         // Create a new badge element
         var newBadge = document.createElement("a");
         newBadge.className = "badge badge-dark badge-pill mr-2";
+        newBadge.style.marginTop = "10px"; // Add margin-top to the badge
         newBadge.innerText = addedName; // Set the badge text to the added name
 
         // Append the new badge to the "badge-container" div
@@ -155,6 +130,7 @@ function addNewBadge() {
           // Create a new div to open a new row
           var newBadgeRow = document.createElement("div");
           newBadgeRow.className = "badge-wrapper d-flex flex-wrap";
+          newBadgeRow.style.marginTop = "10px"; // Add an inline style for margin-top
           badgeContainer.appendChild(newBadgeRow);
         }
 
@@ -167,6 +143,33 @@ function addNewBadge() {
       console.log(error);
     },
   });
+}
+
+function apply(mentor_ID) {
+  if (confirm("Are you sure you want to apply?")) {
+    $.ajax({
+      url: "../assets/php/mentorship/process_applyToBeMentee.php",
+      method: "POST",
+      data: {
+        mentor_ID: mentor_ID,
+      },
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8", // Set the Content-Type
+      success: function (response) {
+        // Handle the response from the PHP script
+        console.log(response);
+        if (response === "success") {
+          alert("An application has been sent!");
+        }
+
+        // Reload the page
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        // Handle the error
+        console.log(error);
+      },
+    });
+  }
 }
 
 function deleteBadge(button) {
@@ -191,9 +194,11 @@ function saveChanges() {
 
   // Send the remainingValuesString to your server for storage
   $.ajax({
-    url: "assets/php/process_saveSubjectChanges.php",
+    url: "../assets/php/mentorship/process_saveSubjectChanges.php",
     method: "POST",
-    data: { remainingValues: remainingValuesString },
+    data: {
+      remainingValues: remainingValuesString,
+    },
     success: function (response) {
       // Handle the response from the PHP script
       console.log(response);
@@ -209,10 +214,38 @@ function saveChanges() {
   location.reload();
 }
 
+function approvalMM(mt_ID, answer) {
+  var answerText = answer.toLowerCase();
+  if (answerText === "rejected") {
+    answerText = answerText.slice(0, -2);
+  } else {
+    answerText = answerText.slice(0, -1);
+  }
+  if (
+    confirm("Are you sure you want to " + answerText + " this application?")
+  ) {
+    $.ajax({
+      url: "../assets/php/mentorship/process_applicationApproval.php",
+      method: "POST",
+      data: { mt_ID: mt_ID, status: answer },
+      success: function (response) {
+        // Handle the response from the PHP script
+        console.log(response);
+        if (answer == "Rejected") alert("Application has been rejected!");
+        else alert("Application has been approved!");
+      },
+      error: function (xhr, status, error) {
+        // Handle the error
+        console.log(error);
+      },
+    });
+  }
+}
+
 function resetApplicant(mt_ID) {
   if (confirm("Are you sure you want to reset this application?")) {
     $.ajax({
-      url: "assets/php/process_applicationReset.php",
+      url: "../assets/php/mentorship/process_applicationReset.php",
       method: "POST",
       data: { mt_ID: mt_ID },
       success: function (response) {
@@ -251,7 +284,6 @@ function addSkills() {
     document.getElementById("myInput").value = "";
   }
 }
-
 
 function showModal() {
   var modal = document.getElementById("myCustomModal");
@@ -300,71 +332,6 @@ function getFinalArray() {
   }, 5000); // 5000 milliseconds = 5 seconds
 }
 
-function displayResults(data) {
-  var contentContainer = document.getElementById("userDetails"); // Assuming 'userDetails' is the ID of the container div
-  contentContainer.innerHTML = "";
-  if (data && data.length > 0) {
-    data.forEach(function (user) {
-      var skillsList = user.matched_skills.join(", "); // Joined matched skills into a string
-      var matchPercentage = user.match_percentage.toFixed(2); // Limiting to two decimal places
-
-      var userContent = `
-                                                          <hr>
-              
-  
-                                                          <div class="row">
-                                                              <div class ="row align-items-start">							
-                                                                  <div class="col-lg-2">
-                                                                      ${
-                                                                        user.imageData !==
-                                                                          null &&
-                                                                        user.imageData !==
-                                                                          ""
-                                                                          ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">`
-                                                                          : `<img src="https://via.placeholder.com/110x110">`
-                                                                      }
-                              
-                                                                  </div>
-                                                              </div>
-                                                              <div class="col-lg-4 align-items-center">
-                                                                  <h6>Name</h6>
-                                                                  <p>${
-                                                                    user.name
-                                                                  }</p>
-                                                                  <hr>
-                                                                  <h6>Email</h6>
-                                                                  <p>${
-                                                                    user.email
-                                                                  }</p>
-                                                              </div>
-  
-                                                              <div class="col-lg-4 align-items-center">
-                                                                  <h6>Skills Matched</h6>
-                                                                  <p>${skillsList}</p>
-                                                                  <hr>
-                                                                  <h6>Accuracy Percentage</h6>
-                                                                  <p>${matchPercentage}%</p>
-                                                              </div>
-  
-                                                              <div class="col-lg-2 d-flex align-items-center justify-content-center">
-                                                                  <button class="btn btn-success" onclick="sendInvitation('${
-                                                                    user.user_ID
-                                                                  }')">
-                                                                      Invite
-                                                                  </button>
-  
-                                                              </div>
-                                                          </div>
-                                                      `;
-      contentContainer.insertAdjacentHTML("beforeend", userContent);
-    });
-  } else {
-    var noResultsContent = `
-                                                          <p>No matching users found.</p>
-                                                      `;
-    contentContainer.innerHTML = noResultsContent;
-  }
-}
 function sendInvitation(user_ID) {
   var studyHub_ID = "";
   var type = "Mentorship";
@@ -374,7 +341,7 @@ function sendInvitation(user_ID) {
     data: {
       user_ID: user_ID,
       studyHub_ID: studyHub_ID,
-      type: type
+      type: type,
     },
     success: function (response) {
       // Handle the response from the PHP script
@@ -389,4 +356,70 @@ function sendInvitation(user_ID) {
       console.log(error);
     },
   });
+}
+
+function displayResults(data) {
+  var contentContainer = document.getElementById("userDetails"); // Assuming 'userDetails' is the ID of the container div
+  contentContainer.innerHTML = "";
+  if (data && data.length > 0) {
+    data.forEach(function (user) {
+      var skillsList = user.matched_skills.join(", "); // Joined matched skills into a string
+      var matchPercentage = user.match_percentage.toFixed(2); // Limiting to two decimal places
+
+      var userContent = `
+                                                            <hr>
+                
+    
+                                                            <div class="row">
+                                                                <div class ="row align-items-start">							
+                                                                    <div class="col-lg-2">
+                                                                        ${
+                                                                          user.imageData !==
+                                                                            null &&
+                                                                          user.imageData !==
+                                                                            ""
+                                                                            ? `<img src="data:image/jpeg;base64, ${user.imageData}" width="110" height="110">`
+                                                                            : `<img src="https://via.placeholder.com/110x110">`
+                                                                        }
+                                
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 align-items-center">
+                                                                    <h6>Name</h6>
+                                                                    <p>${
+                                                                      user.name
+                                                                    }</p>
+                                                                    <hr>
+                                                                    <h6>Email</h6>
+                                                                    <p>${
+                                                                      user.email
+                                                                    }</p>
+                                                                </div>
+    
+                                                                <div class="col-lg-4 align-items-center">
+                                                                    <h6>Skills Matched</h6>
+                                                                    <p>${skillsList}</p>
+                                                                    <hr>
+                                                                    <h6>Accuracy Percentage</h6>
+                                                                    <p>${matchPercentage}%</p>
+                                                                </div>
+    
+                                                                <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                                                                    <button class="btn btn-success" onclick="sendInvitation('${
+                                                                      user.user_ID
+                                                                    }')">
+                                                                        Invite
+                                                                    </button>
+    
+                                                                </div>
+                                                            </div>
+                                                        `;
+      contentContainer.insertAdjacentHTML("beforeend", userContent);
+    });
+  } else {
+    var noResultsContent = `
+                                                            <p>No matching users found.</p>
+                                                        `;
+    contentContainer.innerHTML = noResultsContent;
+  }
 }

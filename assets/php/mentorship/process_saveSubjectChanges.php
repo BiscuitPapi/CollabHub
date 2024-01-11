@@ -1,5 +1,5 @@
 <?php
-	include("connection.php");
+	include("../connection.php");
 	session_start();
 	
 	$newListing = $_POST['remainingValues'];

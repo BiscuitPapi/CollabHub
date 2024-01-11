@@ -3,7 +3,7 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 
@@ -19,24 +19,24 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>Mentorship</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
-		<link href="assets/css/mentorship.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/modally.css">
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
+		<link href="../assets/css/mentorship.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
@@ -55,8 +55,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 
 			<div class="clearfix"></div>
 			<!--Start Content Wrapper-->
@@ -101,7 +101,7 @@ if (!isset($_SESSION['user_ID'])) {
 															<div class="row">
 																<div class="col-lg-5">
 																	<img class="profile"
-																		src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"]; ?>"
+																		src="../assets/php/mentorship/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"]; ?>"
 																		alt="profile-image">
 																</div>
 
@@ -148,7 +148,7 @@ if (!isset($_SESSION['user_ID'])) {
 																		No subjects found for this user.
 																	</div>
 																	<?php
-																	include("assets/php/connection.php");
+																	include("../assets/php/connection.php");
 
 																	if (isset($_SESSION["user_ID"])) {
 																		// Assuming you have already established a database connection
@@ -246,7 +246,7 @@ if (!isset($_SESSION['user_ID'])) {
 																					<div class="progress-wrapper">
 																						<?php
 
-																						include("assets/php/connection.php");
+																						include("../assets/php/connection.php");
 																						$user_ID = $_SESSION["user_ID"];
 																						$stmt = $connection->prepare("SELECT subjects FROM user WHERE user_ID = ?");
 																						$stmt->bind_param("i", $user_ID);
@@ -323,7 +323,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 																	<tbody>
 																		<?php
-																		include("assets/php/connection.php");
+																		include("../assets/php/connection.php");
 
 																		$query = "SELECT * FROM mentorship WHERE mentor_ID = '{$_SESSION['user_ID']}' and status = 'Approved'";
 																		$result = mysqli_query($connection, $query);
@@ -401,7 +401,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	</thead>
 																	<tbody>
 																		<?php
-																		include("assets/php/connection.php");
+																		include("../assets/php/connection.php");
 
 																		$query = "SELECT * FROM mentorship WHERE mentor_ID = '{$_SESSION['user_ID']}' and status = 'Pending'";
 																		$result = mysqli_query($connection, $query);
@@ -490,7 +490,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	</thead>
 																	<tbody>
 																		<?php
-																		include("assets/php/connection.php");
+																		include("../assets/php/connection.php");
 
 																		$query = "SELECT * FROM mentorship WHERE mentor_ID = '{$_SESSION['user_ID']}' and status = 'Rejected'";
 																		$result = mysqli_query($connection, $query);
@@ -695,20 +695,20 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+		<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
 
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/inviteMM.js"></script>
-		<script src="assets/js/mentorship.js"></script>
-		<script src="assets/js/searchAPI.js"></script>
+		<script src="../assets/js/app-script.js"></script>
+		<script src="../assets/js/inviteMM.js"></script>
+		<script src="../assets/js/MM.js"></script>
+		<script src="../assets/js/searchAPI.js"></script>
 		<script>
 			displayNotifications();
 		</script>

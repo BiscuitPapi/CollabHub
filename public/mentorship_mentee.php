@@ -3,11 +3,11 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 
-	?>
+?>
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -19,23 +19,23 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>Mentorship</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/modally.css">
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -147,8 +147,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 
 			<div class="clearfix"></div>
 			<!--Start Content Wrapper-->
@@ -165,19 +165,13 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="card-body">
 									<ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
 										<li class="nav-item">
-											<a href="javascript:void();" data-target="#profile" data-toggle="pill"
-												class="nav-link active"><i class="zmdi zmdi-account-box-mail"></i> <span
-													class="hidden-xs">My Mentorship Profile</span></a>
+											<a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="zmdi zmdi-account-box-mail"></i> <span class="hidden-xs">My Mentorship Profile</span></a>
 										</li>
 										<li class="nav-item">
-											<a href="javascript:void();" data-target="#myApplication" data-toggle="pill"
-												class="nav-link"><i class="zmdi zmdi-assignment-o"></i> <span
-													class="hidden-xs">My Applications</span></a>
+											<a href="javascript:void();" data-target="#myApplication" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-assignment-o"></i> <span class="hidden-xs">My Applications</span></a>
 										</li>
 										<li class="nav-item">
-											<a href="javascript:void();" data-target="#listMentors" data-toggle="pill"
-												class="nav-link"><i class="zmdi zmdi-account-add"></i> <span
-													class="hidden-xs">List of Mentors</span></a>
+											<a href="javascript:void();" data-target="#listMentors" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-account-add"></i> <span class="hidden-xs">List of Mentors</span></a>
 										</li>
 									</ul>
 
@@ -193,9 +187,7 @@ if (!isset($_SESSION['user_ID'])) {
 															<div class="card-title">My Information</div>
 															<div class="row">
 																<div class="col-lg-5">
-																	<img class="profile"
-																		src="assets/php/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"]; ?>"
-																		alt="profile-image">
+																	<img class="profile" src="../assets/php/mentorship/image.php?picture=profile&user_ID=<?php echo $_SESSION["user_ID"]; ?>" alt="profile-image">
 																</div>
 
 																<div class="col-lg-6">
@@ -217,35 +209,29 @@ if (!isset($_SESSION['user_ID'])) {
 															<div class="row">
 																<div class="col-lg-12">
 																	<hr>
-																	<div
-																		class="d-flex justify-content-between align-items-center">
+																	<div class="d-flex justify-content-between align-items-center">
 																		<h6 class="mb-0">Subject Interest</h6>
 																		<span class="d-flex">
-																			<span
-																				class="badge badge-success clickable-add mr-2"
-																				style="cursor: pointer;"><i></i> +
-																				Add</span>
-																			<span
-																				class="badge badge-danger clickable-delete"
-																				style="cursor: pointer;"><i></i> -
+																			<span class="badge badge-success clickable-add mr-2" style="cursor: pointer;"><i></i> + Add</span>
+
+																			<span class="badge badge-danger clickable-delete" style="cursor: pointer;"><i></i> -
 																				Delete</span>
 																		</span>
 																	</div>
 
 
 																	<br>
-																	<div class="badge-wrapper d-flex flex-wrap"
-																		id="badge-container"></div>
+																	<div class="badge-wrapper d-flex flex-wrap" id="badge-container"></div>
 																	<div id="no-subjects-found" style="display: none;">
 
 																	</div>
 																	<?php
 
-																	include("assets/php/connection.php");
+																	include("../assets/php/connection.php");
 
 																	if (isset($_SESSION["user_ID"])) {
 																		// Assuming you have already established a database connection
-																
+
 																		// Retrieve subjects for the logged-in user
 																		$user_ID = $_SESSION["user_ID"];
 																		$stmt = $connection->prepare("SELECT subjects FROM user WHERE user_ID = ?");
@@ -276,9 +262,6 @@ if (!isset($_SESSION['user_ID'])) {
 																		}
 																	}
 
-
-
-
 																	?>
 																</div>
 															</div>
@@ -300,15 +283,11 @@ if (!isset($_SESSION['user_ID'])) {
 																				<div class="form-group">
 																					<label for="input-1">Subject
 																						Name</label>
-																					<input type="text" class="form-control"
-																						name="addedSubject"
-																						id="addedSubject" placeholder=""
-																						required>
+																					<input type="text" class="form-control" name="addedSubject" id="addedSubject" placeholder="" required>
 																				</div>
 
 																				<br>
-																				<center><button onclick="addNewBadge()"
-																						class="btn btn-success">Add
+																				<center><button onclick="addNewBadge()" class="btn btn-success">Add
 																						Subject</button></center>
 																			</div>
 																		</div>
@@ -334,7 +313,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 																					<div class="progress-wrapper">
 																						<?php
-																						include("assets/php/connection.php");
+																						include("../assets/php/connection.php");
 																						$user_ID = $_SESSION["user_ID"];
 																						$stmt = $connection->prepare("SELECT subjects FROM user WHERE user_ID = ?");
 																						$stmt->bind_param("i", $user_ID);
@@ -347,7 +326,7 @@ if (!isset($_SESSION['user_ID'])) {
 																							$subjectsArray = explode("###", $currentSubjects);
 
 																							echo '<div class="badge-wrapper d-flex flex-wrap justify-content-center">'; // Center the subjects and allow them to wrap
-																					
+
 																							$count = 0;
 																							foreach ($subjectsArray as $subject) {
 																								$subject = trim($subject); // Remove any leading/trailing spaces
@@ -409,14 +388,14 @@ if (!isset($_SESSION['user_ID'])) {
 																	</thead>
 
 																	<tbody>
-																		<?php
-																		include("assets/php/connection.php");
-
+																	<?php
+																		include("../assets/php/connection.php");
+																		
 																		$query = "SELECT * FROM mentorship WHERE mentee_ID = '{$_SESSION['user_ID']}' and status = 'Approved'";
 																		$result = mysqli_query($connection, $query);
 
 																		$count = 1; // Initialize count variable
-																	
+
 																		// Check if there are no mentees or no rows found
 																		if (mysqli_num_rows($result) == 0) {
 																			echo '<tr><td colspan="4">No mentors found.</td></tr>';
@@ -442,18 +421,18 @@ if (!isset($_SESSION['user_ID'])) {
 																						<th scope="row">' . $count . '</th>
 																						<td>';
 
-																							if ($tempPicture === null) {
-																								echo '
+																				if ($tempPicture === null) {
+																					echo '
 																								<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																							';
-																							} else {
-																																									echo '
+																				} else {
+																					echo '
 																							
 																								<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																							';
-																																								}
+																				}
 
-																																								echo '
+																				echo '
 																							' . $row_2['name'] . '
 																						</td>
 																						<td>' . $row['dateCreated'] . '</td>
@@ -464,7 +443,7 @@ if (!isset($_SESSION['user_ID'])) {
 																				';
 
 																				$count++; // Increment count for each row
-																	
+
 
 																			}
 																		}
@@ -504,70 +483,68 @@ if (!isset($_SESSION['user_ID'])) {
 																	</thead>
 																	<tbody>
 																		<?php
-																		include("assets/php/connection.php");
+																		include("../assets/php/connection.php");
 
-																		$query = "SELECT * FROM mentorship WHERE mentee_ID = '{$_SESSION['user_ID']}'";
+																		$query = "SELECT * FROM mentorship WHERE mentee_ID = '{$_SESSION['user_ID']}' and status = 'Approved'";
 																		$result = mysqli_query($connection, $query);
 
 																		$count = 1; // Initialize count variable
-																	
-																		while ($row = mysqli_fetch_assoc($result)) {
-																			$mentor_ID = $row['mentor_ID'];
-																			$query_2 = "SELECT * FROM user WHERE user_ID = '{$mentor_ID}'";
-																			$result_2 = mysqli_query($connection, $query_2);
-																			$row_2 = mysqli_fetch_assoc($result_2);
-																			
-																			// Store the profile picture properly as a base64-encoded string
-																			$tempPicture = $row_2['picture'];
-																			if ($tempPicture !== null) {
-																				$tempPicture = base64_encode($tempPicture);
-																			} else {
-																				$tempPicture = null;
-																			}
 
-																			// Output each row of the table
-																			echo '
-																				<tr>
-																					<th scope="row">' . $count . '</th>
-																					<td>';
+																		// Check if there are no mentees or no rows found
+																		if (mysqli_num_rows($result) == 0) {
+																			echo '<tr><td colspan="4">No mentors found.</td></tr>';
+																		} else {
+																			while ($row = mysqli_fetch_assoc($result)) {
+																				$mentor_ID = $row['mentor_ID'];
+																				$query_2 = "SELECT * FROM user WHERE user_ID = '{$mentor_ID}'";
+																				$result_2 = mysqli_query($connection, $query_2);
+																				$row_2 = mysqli_fetch_assoc($result_2);
 
-																							if ($tempPicture === null) {
-																								echo '
+																				// Store the profile picture properly as a base64-encoded string
+																				$tempPicture = $row_2['picture'];
+																				if ($tempPicture !== null) {
+																					$tempPicture = base64_encode($tempPicture);
+																				} else {
+																					$tempPicture = null;
+																				}
+
+
+																				// Output each row of the table
+																				echo '
+																					<tr>
+																						<th scope="row">' . $count . '</th>
+																						<td>';
+
+																				if ($tempPicture === null) {
+																					echo '
 																								<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																							';
-																							} else {
-																																									echo '
+																				} else {
+																					echo '
 																							
 																								<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">
 																							';
-																																								}
+																				}
 
-																																								echo '
+																				echo '
 																							' . $row_2['name'] . '
 																						</td>
-																					<td style="text-align: center;">' . $row['dateCreated'] . '</td>
-																					<td style="text-align: center;">';
-
-																			if ($row['status'] === 'Approved') {
-																				echo '<span class="badge badge-success"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>';
-																			} else if ($row['status'] === 'Pending') {
-																				echo '<span class="badge badge-warning"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>';
-																			} else {
-																				echo '<span class="badge badge-danger"><i class="fa fa-cog"></i> ' . $row['status'] . '</span>';
-																			}
-
-																			echo '
-																					</td>
-																				</tr>
+																						<td>' . $row['dateCreated'] . '</td>
+																						<td>
+																							<a href="viewProfile.php?user_ID=' . $row_2['user_ID'] . '" class="btn btn-info">View</a>
+																						</td>
+																					</tr>
 																				';
 
-																			$count++; // Increment count for each row
+																				$count++; // Increment count for each row
+
+
+																			}
 																		}
 
 																		// Close the database connection
 																		mysqli_close($connection);
 																		?>
-
 
 																	</tbody>
 
@@ -589,101 +566,112 @@ if (!isset($_SESSION['user_ID'])) {
 														<div class="card-body">
 															<h5 class="card-title">List of Mentors</h5>
 															<div class="table-responsive ">
-																<?php
-																include("assets/php/connection.php");
+																<table class="table table-hover">
+																	
+																	<tbody>
+																		<?php
 
-																$query = "SELECT u.picture, u.user_ID, u.name, u.rating, COUNT(CASE WHEN m.status = 'Approved' THEN m.Mentee_ID END) AS numberOfMentees
-																	FROM user u
-																	LEFT JOIN Mentorship m ON u.user_ID = m.Mentor_ID
-																	WHERE u.mentorshipStatus = 'Mentor'
-																	GROUP BY u.user_ID, u.name, u.rating";
+																		include("../assets/php/connection.php");
 
-																$result = mysqli_query($connection, $query);
+																		$query = "SELECT u.picture, u.user_ID, u.name, u.rating, COUNT(CASE WHEN m.status = 'Approved' THEN m.Mentee_ID END) AS numberOfMentees
+																				FROM user u
+																				LEFT JOIN mentorship m ON u.user_ID = m.Mentor_ID
+																				WHERE u.mentorshipStatus = 'Mentor'
+																				GROUP BY u.user_ID, u.name, u.rating";
 
-																$count = 1; // Initialize count variable
-															
-																if (mysqli_num_rows($result) > 0) {
-																	// Output the table structure
-																	echo '
-																		<table class="table table-hover">
-																			<thead>
+																		$result = mysqli_query($connection, $query);
+
+																		$count = 1; // Initialize count variable
+
+
+																		if (mysqli_num_rows($result) > 0) {
+																			// Output the table structure
+																			echo '
+																					<table class="table table-hover">
+																						<thead>
+																							<tr>
+																								<th scope="col">#</th>
+																								<th scope="col">Name</th>
+																								<th scope="col" style="text-align: center;">Number of Mentees</th>
+																								<th scope="col" style="text-align: center;">Rating</th>
+																								<th scope="col" style="text-align: center;">Action</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																					';
+
+
+																			// Output each row of the table
+																			while ($row = mysqli_fetch_assoc($result)) {
+																				// Store the profile picture properly as a base64-encoded string
+																				$tempPicture = $row['picture'];
+																				if ($tempPicture !== null) {
+																					$tempPicture = base64_encode($tempPicture);
+																				} else {
+																					$tempPicture = null;
+																				}
+																		?>
 																				<tr>
-																					<th scope="col">#</th>
-																					<th scope="col">Name</th>
-																					<th scope="col" style="text-align: center;">Number of Mentees</th>
-																					<th scope="col" style="text-align: center;">Rating</th>
-																					<th scope="col" style="text-align: center;">Action</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																		';
-
-																		
-																		// Output each row of the table
-																		while ($row = mysqli_fetch_assoc($result)) {
-																			// Store the profile picture properly as a base64-encoded string
-																			$tempPicture = $row['picture'];
-																			if ($tempPicture !== null) {
-																				$tempPicture = base64_encode($tempPicture);
-																			} else {
-																				$tempPicture = null;
-																			}
-																			?>
-																			<tr>
-																				<th scope="row">
-																					<?php echo $count; ?>
-																				</th>
-																				<td>
-																					<?php
-																					if ($tempPicture === null) {
-																						echo '<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
-																					} else {
-																						echo '<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
-																					}
-																					echo $row['name'];
-																					?>
-																				</td>
-																				<td style="text-align: center;">
-																					<?php echo $row['numberOfMentees']; ?>
-																				</td>
-																				<td style="text-align: center;">
-																					<?php echo $row['rating']; ?>
-																				</td>
-																				<td style="text-align: center;">
-																					<a href="viewProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-info">View</a>
-																					<?php
-																					$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
-																					$resulty = mysqli_query($connection, $checkQuery);
-																		
-																					if ($resulty) {
-																						// Check if a row exists in the result set
-																						if (mysqli_num_rows($resulty) > 0) {
-																							// Do nothing or add additional logic if needed
-																						} else if (mysqli_num_rows($resulty) == 0) {
-																							echo '<a href="#" class="btn btn-success" onclick="apply(' . $row['user_ID'] . '); return false;">Apply</a>';
+																					<th scope="row">
+																						<?php echo $count; ?>
+																					</th>
+																					<td>
+																						<?php
+																						if ($tempPicture === null) {
+																							echo '<img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
+																						} else {
+																							echo '<img src="data:image/jpeg;base64,' . $tempPicture . '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">';
 																						}
-																					}
-																					?>
-																				</td>
-																			</tr>
-																			<?php
-																			$count++; // Increment count for each row
+																						echo $row['name'];
+																						?>
+																					</td>
+																					<td style="text-align: center;">
+																						<?php echo $row['numberOfMentees']; ?>
+																					</td>
+																					<td style="text-align: center;">
+																						<?php echo $row['rating']; ?>
+																					</td>
+																					<td style="text-align: center;">
+																						<a href="viewProfile.php?user_ID=<?php echo $row['user_ID']; ?>" class="btn btn-info">View</a>
+																						<?php
+																						$checkQuery = "SELECT * FROM mentorship WHERE mentor_ID = '{$row['user_ID']}' AND mentee_ID = '{$_SESSION['user_ID']}'";
+																						$resulty = mysqli_query($connection, $checkQuery);
+
+																						if ($resulty) {
+																							// Check if a row exists in the result set
+																							if (mysqli_num_rows($resulty) > 0) {
+																								// Do nothing or add additional logic if needed
+																							} else if (mysqli_num_rows($resulty) == 0) {
+																								echo '<a href="#" class="btn btn-success" onclick="apply(' . $row['user_ID'] . '); return false;">Apply</a>';
+																							}
+																						}
+																						?>
+																					</td>
+																				</tr>
+																		<?php
+																				$count++; // Increment count for each row
+																			}
+
+
+
+																			// Close the table structure
+																			echo '
+																						</tbody>
+																					</table>
+																					';
+																		} else {
+																			echo "No mentors found.";
 																		}
-																		
-																		
+																		// Close the database connection
+																		mysqli_close($connection);
+																		?>
+																	</tbody>
+																</table>
 
-																	// Close the table structure
-																	echo '
-																			</tbody>
-																		</table>
-																		';
-																} else {
-																	echo "No mentors found.";
-																}
 
-																// Close the database connection
-																mysqli_close($connection);
-																?>
+
+
+
 															</div>
 														</div>
 													</div>
@@ -711,211 +699,6 @@ if (!isset($_SESSION['user_ID'])) {
 			</div>
 			<!--End content-wrapper-->
 			<script>
-				// Get the "Add" span element
-				var addSpan = document.querySelector(".clickable-add");
-				var addModal = document.getElementById("modal");
-				var addModalCloseButton = addModal.querySelector(".close");
-				var addModalContent = addModal.querySelector(".modal-content");
-
-				// Function to display the add modal
-				function showAddModal() {
-					addModal.style.display = "block";
-				}
-
-				// Function to close the add modal
-				function closeAddModal() {
-					addModal.style.display = "none";
-				}
-
-				// Close the add modal if the background is clicked
-				window.addEventListener("click", function (event) {
-					if (event.target === addModal) {
-						closeAddModal();
-					}
-				});
-
-
-				// Prevent clicks inside the add modal content from closing the modal
-				addModalContent.addEventListener("click", function (event) {
-					event.stopPropagation();
-				});
-
-				addSpan.addEventListener("click", function () {
-					console.log("Add button clicked"); // Add this line
-					showAddModal();
-				});
-
-				// Close the add modal when the close button is clicked
-				addModalCloseButton.addEventListener("click", closeAddModal);
-
-				// Get the "Delete" span element
-				var deleteSpan = document.querySelector(".clickable-delete");
-
-				// Get the delete modal, close button, and modal content
-				var deleteModal = document.getElementById("delete-modal");
-				var deleteModalCloseButton = deleteModal.querySelector(".close");
-				var deleteModalContent = deleteModal.querySelector(".modal-content");
-
-				// Function to display the delete modal
-				function showDeleteModal() {
-					deleteModal.style.display = "block";
-				}
-
-				// Function to close the delete modal
-				function closeDeleteModal() {
-					deleteModal.style.display = "none";
-				}
-
-				// Open the delete modal when the "Delete" span is clicked
-				deleteSpan.addEventListener("click", showDeleteModal);
-
-				// Close the delete modal when the close button is clicked
-				deleteModalCloseButton.addEventListener("click", closeDeleteModal);
-
-				// Close the delete modal if the background is clicked
-				window.addEventListener("click", function (event) {
-					if (event.target === deleteModal) {
-						closeDeleteModal();
-					}
-				});
-
-				// Prevent clicks inside the delete modal content from closing the modal
-				deleteModalContent.addEventListener("click", function (event) {
-					event.stopPropagation();
-				});
-
-				function addNewBadge() {
-					var addedNameInput = document.getElementById("addedSubject");
-					var addedName = addedNameInput.value;
-
-					// Check if the input name is empty
-					if (addedName.trim() === "") {
-						alert("Please enter a name for the badge.");
-						return; // Stop further execution
-					}
-
-					$.ajax({
-						url: 'assets/php/cubaan.php',
-						method: 'POST',
-						data: { addedName: addedName },
-						success: function (response) {
-							// Handle the response from the PHP script
-							console.log(response);
-
-							// If the response indicates success, hide the "no-subjects-found" sentence
-							if (response === "success") {
-								var noSubjectsFound = document.getElementById("no-subjects-found");
-								if (noSubjectsFound) {
-									noSubjectsFound.style.display = "none";
-								}
-
-								// Create a new badge element
-								var newBadge = document.createElement("a");
-								newBadge.className = "badge badge-dark badge-pill mr-2";
-								newBadge.style.marginTop = "10px"; // Add margin-top to the badge
-								newBadge.innerText = addedName; // Set the badge text to the added name
-
-
-								// Append the new badge to the "badge-container" div
-								var badgeContainer = document.getElementById("badge-container");
-								badgeContainer.appendChild(newBadge);
-
-								// Count the number of badges currently in the container
-								var badgeCount = badgeContainer.querySelectorAll(".badge").length;
-
-								// If the badge count is a multiple of 4, open a new row
-								if (badgeCount % 4 === 0) {
-									// Create a new div to open a new row
-									var newBadgeRow = document.createElement("div");
-									newBadgeRow.className = "badge-wrapper d-flex flex-wrap";
-									newBadgeRow.style.marginTop = "10px"; // Add an inline style for margin-top
-									badgeContainer.appendChild(newBadgeRow);
-								}
-
-
-								alert("A new subject has been added!");
-								closeAddModal();
-							}
-						},
-						error: function (xhr, status, error) {
-							// Handle the error
-							console.log(error);
-						}
-					});
-				}
-
-				function apply(mentor_ID) {
-					if (confirm("Are you sure you want to apply?")) {
-						$.ajax({
-							url: 'assets/php/process_applyToBeMentee.php',
-							method: 'POST',
-							data: { mentor_ID: mentor_ID },
-							contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // Set the Content-Type
-							success: function (response) {
-								// Handle the response from the PHP script
-								console.log(response);
-								if (response === "success") {
-									alert("An application has been sent!");
-								}
-
-								// Reload the page
-								location.reload();
-							},
-							error: function (xhr, status, error) {
-								// Handle the error
-								console.log(error);
-							}
-						});
-
-					}
-				}
-
-
-
-
-				function deleteBadge(button) {
-
-					const subject = button.getAttribute('data-subject');
-
-					// Remove the entire parent container (the badge and the input field)
-					button.parentNode.remove();
-
-					// You can perform additional actions, such as deleting the subject from your data
-
-
-				}
-
-				function saveChanges() {
-					const badgeInputs = document.querySelectorAll('.badge-input');
-					const remainingValues = [];
-
-					badgeInputs.forEach(function (input) {
-						remainingValues.push(input.value);
-					});
-
-					// Create a string with "###" separator
-					const remainingValuesString = remainingValues.join("###");
-
-					// Send the remainingValuesString to your server for storage
-					$.ajax({
-						url: 'assets/php/process_saveSubjectChanges.php',
-						method: 'POST',
-						data: { remainingValues: remainingValuesString },
-						success: function (response) {
-							// Handle the response from the PHP script
-							console.log(response);
-						},
-						error: function (xhr, status, error) {
-							// Handle the error
-							console.log(error);
-						}
-					});
-
-					alert("Changes have been made!");
-					// Reload the current page
-					location.reload();
-				}
-
 
 			</script>
 
@@ -931,26 +714,26 @@ if (!isset($_SESSION['user_ID'])) {
 					</div>
 				</div>
 			</footer>
-			<!--End footer--> 
+			<!--End footer-->
 
 		</div>
 		<!--End wrapper-->
 
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+		<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
 
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/inviteMM.js"></script>
-
+		<script src="../assets/js/app-script.js"></script>
+		<script src="../assets/js/inviteMM.js"></script>
+		<script src="../assets/js/MM.js"></script>
 		<script>
 			displayNotifications();
 		</script>
@@ -959,6 +742,6 @@ if (!isset($_SESSION['user_ID'])) {
 
 	</html>
 
-	<?php
+<?php
 }
 ?>

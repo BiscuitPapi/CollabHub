@@ -3,14 +3,14 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 	if (isset($_POST['user_ID'])) {
 		$user_ID = $_POST['user_ID'];
 	} elseif (isset($_GET['user_ID'])) { // Check if a user ID is provided through the URL
 		$user_ID = $_GET['user_ID'];
-		include("assets/php/connection.php");
+		include("../assets/php/connection.php");
 		$sql = "SELECT * FROM user WHERE user_ID ='$user_ID'";
 
 		// execute the query
@@ -71,22 +71,22 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>My Profile</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
 
 		<style>
 			.star-rating {
@@ -123,8 +123,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 
 			<div class="clearfix"></div>
 
@@ -184,7 +184,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 								<div class="card-body border-top border-light">
 									<?php
-									include("assets/php/connection.php");
+									include("../assets/php/connection.php");
 
 									$badgeTypes = array(
 										'Technical Skills' => 'Technical Skills',
@@ -266,7 +266,7 @@ if (!isset($_SESSION['user_ID'])) {
 										<div class="tab-pane" id="adjust">
 											<div class="row">
 												<?php
-												include("assets/php/connection.php");
+												include("../assets/php/connection.php");
 												$results_per_page = 2; // Number of rows to display per page
 												$sql = "SELECT * FROM experience WHERE user_ID = '{$user_ID}'";
 												$result = mysqli_query($connection, $sql);
@@ -284,7 +284,7 @@ if (!isset($_SESSION['user_ID'])) {
 													while ($row = mysqli_fetch_assoc($result)) {
 														?>
 														<div class="col-md-12">
-															<h5 style="display:">
+															<h5>
 																<?php echo $row['position']; ?>
 															</h5>
 															<?php echo $row['type'] . " - " . $row['groupName']; ?>
@@ -437,7 +437,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<?php
 												error_reporting(E_ALL);
 												ini_set('display_errors', 1);
-												include("assets/php/connection.php");
+												include("../assets/php/connection.php");
 
 												$sql = "SELECT review_ID, reviewer FROM feedback WHERE reviewee = '{$user_ID}'";
 												$result = mysqli_query($connection, $sql);
@@ -543,18 +543,18 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+		<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
 
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/inviteMM.js"></script>
+		<script src="../assets/js/app-script.js"></script>
+		<script src="../assets/js/inviteMM.js"></script>
 
 		<script>
 			displayNotifications();

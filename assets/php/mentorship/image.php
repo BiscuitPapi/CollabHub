@@ -6,7 +6,7 @@ if ($_GET['picture'] === 'profile') {
     if (isset($_GET['user_ID'])) {
         $userID = $_GET['user_ID'];
 
-        include('connection.php');
+        include('../connection.php');
 
         // Retrieve the user record from the database based on the user ID
         $sql = "SELECT * FROM user WHERE user_ID='$userID'";
@@ -42,7 +42,7 @@ if ($_GET['picture'] === 'profile') {
    if (isset($_GET['user_ID'])) {
         $userID = $_GET['user_ID'];
 
-        include('connection.php');
+        include('../connection.php');
 
         // Retrieve the user record from the database based on the user ID
         $sql = "SELECT * FROM user WHERE user_ID='$userID'";

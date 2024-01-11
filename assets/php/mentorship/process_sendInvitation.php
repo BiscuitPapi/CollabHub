@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include("../connection.php");
 session_start();
 
 $studyHub_ID = $_POST['studyHub_ID'];
