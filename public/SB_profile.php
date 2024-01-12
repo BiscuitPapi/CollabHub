@@ -180,7 +180,7 @@ if (!isset($_SESSION['user_ID'])) {
 					<!-- Custom scripts -->
 					<script src=../assets/js/app-script.js"></script>
 					<script src="../assets/js/sb-profile.js"></script>
-					<script src="../assets/js/inviteMM.js"></script>
+					<script src="../assets/js/notifications.js"></script>
 					<script src="../assets/js/searchAPI.js"></script>
 					<script>
 						displayNotifications();

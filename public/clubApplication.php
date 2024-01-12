@@ -157,8 +157,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 									if ($_SESSION['user_ID'] != $user_ID) {
-										$temp_ID = $_SESSION['user_ID'];
-										$sql = "SELECT * FROM clubApplication WHERE applicant_ID = '$temp_ID'";
+
+										$sql = "SELECT * FROM clubApplication WHERE club_ID = '$club_ID'";
 
 										$result = mysqli_query($connection, $sql);
 
@@ -330,6 +330,7 @@ if (!isset($_SESSION['user_ID'])) {
 					console.log(response);
 					if (response.trim().toLowerCase() === "success") {
 						alert("Application updated!");
+						
 					}
 
 				},
@@ -381,7 +382,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 	<!-- Custom scripts -->
 	<script src="../assets/js/app-script.js"></script>
-	<script src="../assets/js/inviteMM.js"></script>
+	<script src="../assets/js/notifications.js"></script>
 
 </body>
 

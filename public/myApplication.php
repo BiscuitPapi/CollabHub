@@ -558,7 +558,7 @@ if (!isset($_SESSION['user_ID'])) {
 																				echo '
 																					</td>
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="club_application_view.php?club_ID=' . $row['club_id'] . '" class="btn btn-info">View</a>
+                                                                                        <a href="clubApplication.php?club_ID=' . $row['club_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>
@@ -855,7 +855,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<!-- Chart js -->
 
 		<script src="../assets/plugins/Chart.js/Chart.min.js"></script>
-		<script src="../assets/js/inviteMM.js"></script>
+		<script src="../assets/js/notifications.js"></script>
 
 		<script>
 			displayNotifications();

@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include("connection.php");
+include("../connection.php");
 session_start();
 
 $studyhub_ID = $_POST['studyHub_ID'];
