@@ -2,21 +2,24 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Retrieve the form data
     $application_ID = $_GET['application_ID'];
-    $applicant_ID = $_GET['applicant_ID'];
-    $status = "Approved";
+    $applicant_ID = $_SESSION['user_ID'];
+    $status = "Pending";
+    $date_applied = date('Y-m-d H:i:s');
 
     // Prepare SQL
-    $sql = "UPDATE `group_applicant_status` SET `status`=? WHERE application_ID = ? AND applicant_ID = ?";    
+    $sql = "INSERT INTO `group_applicant_status`(`application_ID`, `applicant_ID`, `status`, `date_applied`) VALUES (?,?,?,?)";
+    
+
     $stmt = $connection->prepare($sql);
 
-    $stmt->bind_param("sss", $status, $application_ID, $applicant_ID);
+    $stmt->bind_param("ssss", $application_ID, $applicant_ID, $status, $date_applied);
 
     $stmt->execute();
 
@@ -24,11 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($stmt->affected_rows > 0) {
     
         echo "Applied successfully!";
-        header("Location: ../../group_application_view.php?application_ID=" . $application_ID);
+            
+        header("Location: ../../../public/myApplication.php");
         exit(); // Stop further execution
 
     } else {
-        echo "Applied successfully.";
+        echo "Failed to apply.";
     }
 
     

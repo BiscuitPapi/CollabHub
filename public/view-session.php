@@ -160,7 +160,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 									<?php
 									if ($_SESSION['user_ID'] == $created_by) {
-										echo '<center><button type="submit" class="btn btn-success px-5">Save Changes</button></center>';
+										echo '<center><button type="submit" class="btn btn-primary px-5">Save Changes</button></center>';
 									} else {
 										echo '<center><a href="javascript:history.back()" class="btn btn-light" style="margin-left: 10px">Back</a></center>';
 									}

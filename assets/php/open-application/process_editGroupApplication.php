@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if the insertion was successful
     if ($stmt->affected_rows > 0) {
         echo "Group application edited added successfully!";
-        header("Location: ../../group_application_view.php?application_ID=" . $application_id);
+        header("Location: ../../../public/group_application_view.php?application_ID=" . $application_id);
 
     } else {
         echo "Failed to edit group application.";

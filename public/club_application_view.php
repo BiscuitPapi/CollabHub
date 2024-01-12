@@ -4,11 +4,11 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 
-	include("assets/php/connection.php");
+	include("../assets/php/connection.php");
 
 	if (isset($_GET['club_ID'])) {
 		$club_ID = $_GET['club_ID'];
@@ -52,24 +52,24 @@ if (!isset($_SESSION['user_ID'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Create Club/Association</title>
+	<title>Club/Association</title>
 	<!-- loader-->
-	<link href="assets/css/pace.min.css" rel="stylesheet" />
-	<script src="assets/js/pace.min.js"></script>
+	<link href="../assets/css/pace.min.css" rel="stylesheet" />
+	<script src="../assets/js/pace.min.js"></script>
 	<!--favicon-->
-	<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+	<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 	<!-- simplebar CSS-->
-	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 	<!-- Bootstrap core CSS-->
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 	<!-- animate CSS-->
-	<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 	<!-- Icons CSS-->
-	<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 	<!-- Sidebar CSS-->
-	<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+	<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 	<!-- Custom Style-->
-	<link href="assets/css/app-style.css" rel="stylesheet" />
+	<link href="../assets/css/app-style.css" rel="stylesheet" />
 	<style>
 		.hover-effect:hover {
 			filter: brightness(1.7);
@@ -88,8 +88,8 @@ if (!isset($_SESSION['user_ID'])) {
 		</div>
 	</div>
 	<div id="wrapper">
-		<?php include_once('sidebar.php'); ?>
-		<?php include_once('topbar.php'); ?>
+		<?php include_once('nav/sidebar.php'); ?>
+		<?php include_once('nav/topbar.php'); ?>
 
 
 		<div class="clearfix"></div>
@@ -146,14 +146,14 @@ if (!isset($_SESSION['user_ID'])) {
 									<!-- Edit button - only available for application creator-->
 									<?php
 									if ($_SESSION['user_ID'] == $user_ID) {
-										echo '<center><button onclick="editClubInfo(' . $club_ID . ')" class="btn btn-primary px-5">Edit Changes</button></center>';
+										echo '<center><button onclick="editClubInfo(' . $club_ID . ')" class="btn btn-primary px-5">Save Changes</button></center>';
 									}
 									?>
 
 
 									<!-- Apply button - only avaiable for applicant -->
 									<?php
-									include("assets/php/connection.php");
+									include("../assets/php/connection.php");
 
 
 									if ($_SESSION['user_ID'] != $user_ID) {
@@ -189,7 +189,7 @@ if (!isset($_SESSION['user_ID'])) {
 					<div class="col-lg-6">
 						<div class="card">
 							<?php
-							include("assets/php/connection.php");
+							include("../assets/php/connection.php");
 
 							// Check if the user_ID from group-applicantion is equal to the current session user_ID
 							if ($_SESSION['user_ID'] === $user_ID) {
@@ -211,7 +211,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 											<tbody>
 												<?php
-												include("assets/php/connection.php");
+												include("../assets/php/connection.php");
 
 												$query = "SELECT u.name, c.date_created, c.status, c.clubApplication_ID FROM user u JOIN clubApplication c on u.user_ID = c.applicant_ID WHERE c.club_ID = '$club_ID'";
 
@@ -232,7 +232,7 @@ if (!isset($_SESSION['user_ID'])) {
 														if ($daysAgo === 0) {
 															$timeline = "Today";
 														} else {
-															$timeline = $daysAgo . 'days ago';
+															$timeline = $daysAgo . ' days ago';
 														}
 														echo '
 														<tr>
@@ -278,7 +278,7 @@ if (!isset($_SESSION['user_ID'])) {
 				</div>
 			</div>
 		</div>
-		<script src="assets/js/notification.js"></script>
+		<script src="../assets/js/notification.js"></script>
 
 		<script>
 			displayNotifications();
@@ -298,7 +298,7 @@ if (!isset($_SESSION['user_ID'])) {
 		function applyPosition(club_ID){
 			if (confirm("Are you sure you want to apply this application?")) {
 				$.ajax({
-					url: "assets/php/process_applyClub.php",
+					url: "../assets/php/open-application/process_applyClub.php",
 					method: "POST",
 					data: { club_ID: club_ID},
 					success: function (response) {
@@ -322,7 +322,7 @@ if (!isset($_SESSION['user_ID'])) {
 			var notes = document.getElementById("input-5").value;
 
 			$.ajax({
-				url: 'assets/php/process_editClub.php',
+				url: '../assets/php/open-application/process_editClub.php',
 				method: 'POST',
 				data: { clubID: club_ID, clubName: clubName, description: description, position: position, skill: skill, notes: notes },
 				success: function (response) {
@@ -349,7 +349,7 @@ if (!isset($_SESSION['user_ID'])) {
 			}
 			if (confirm("Are you sure you want to " + answerText + " this application?")) {
 				$.ajax({
-					url: "assets/php/process_approveClubApplication.php",
+					url: "../assets/php/open-application/process_approveClubApplication.php",
 					method: "POST",
 					data: { clubApplication_ID: clubApplication_ID, status: answer },
 					success: function (response) {
@@ -370,18 +370,18 @@ if (!isset($_SESSION['user_ID'])) {
 	</script>
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/popper.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 
 	<!-- simplebar js -->
-	<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+	<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 	<!-- sidebar-menu js -->
-	<script src="assets/js/sidebar-menu.js"></script>
+	<script src="../assets/js/sidebar-menu.js"></script>
 
 	<!-- Custom scripts -->
-	<script src="assets/js/app-script.js"></script>
-	<script src="assets/js/inviteMM.js"></script>
+	<script src="../assets/js/app-script.js"></script>
+	<script src="../assets/js/inviteMM.js"></script>
 
 </body>
 

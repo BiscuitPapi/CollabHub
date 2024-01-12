@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $application_id = $_GET['application_ID'];
 
     // Prepare the SQL statement
-    $sql = "DELETE FROM `club-application` WHERE application_ID = ?";
+    $sql = "DELETE FROM `clubApplication` WHERE application_ID = ?";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("s", $application_id);
 

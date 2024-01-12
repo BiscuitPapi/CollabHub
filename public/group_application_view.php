@@ -3,12 +3,12 @@
 	// Check if the session variable exists
 	if (!isset($_SESSION['user_ID'])) {
 		// Redirect to the login page
-		header("Location: login.html");
+		header("Location: index.php");
 		exit();
 	}
 	else {
 		
-		include("assets/php/connection.php");
+		include("../assets/php/connection.php");
 
 		if (isset($_GET['application_ID'])) {
 			$application_id = $_GET['application_ID'];
@@ -31,7 +31,7 @@
 				$notes= $groupapplication['notes'];
 				$application_date = $groupapplication['application_date'];
 				$user_ID = $groupapplication['user_ID'];
-	
+				
 				
 			} else {
 				// Study hub profile not found, handle the error
@@ -57,22 +57,22 @@
 		<meta name="author" content=""/>
 		<title>Member Application Form</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet"/>
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet"/>
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css"/>
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css"/>
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet"/>
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet"/>
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet"/>
+		<link href="../assets/css/app-style.css" rel="stylesheet"/>
 		<style>
 			.img-circle {
 				border-radius: 50%;
@@ -87,9 +87,9 @@
 	<body class="bg-theme bg-theme9">
 		<div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
-
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
+			
 			<div class="clearfix"></div>
     
 			<div class="content-wrapper">
@@ -102,7 +102,7 @@
 									<hr>	
 
 									<!--Group Application - Form-->
-									<form action="assets/php/process_editGroupApplication.php?application_ID=<?php echo $application_id; ?>" method="POST">
+									<form action="../assets/php/open-application/process_editGroupApplication.php?application_ID=<?php echo $application_id; ?>" method="POST">
 									<div class="form-group row">
 										<label class="col-lg-3">Department Name</label>
 										<div class="col-lg-9">
@@ -118,7 +118,8 @@
 									<div class="form-group row">
 										<label class="col-lg-3 ">Project Name</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text" name="project_name" value="<?php echo $project_name; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
+										<input class="form-control" type="text" name="project_name" value="<?php echo htmlspecialchars($project_name); ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
+
 										</div>
 									</div>
 									<div class="form-group row">
@@ -152,13 +153,13 @@
 									<!-- Edit button - only available for application creator-->
 									<?php
 										if ($_SESSION['user_ID'] == $user_ID) {
-											echo '<center><button type="submit" class="btn btn-light px-5">Edit</button></center>';
+											echo '<center><button type="submit" class="btn btn-primary px-5">Save Changes</button></center>';
 										}
 									?>
 
 									<!-- Apply button - only avaiable for applicant -->
 									<?php
-										include("assets/php/connection.php");
+										include("../assets/php/connection.php");
 
 
 										if ($_SESSION['user_ID'] != $user_ID) {
@@ -169,7 +170,7 @@
 
 											if (mysqli_num_rows($result) == 0) {
 												echo '<div style="display: flex; justify-content: center">';
-												echo '<a href="assets/php/process_applyGroupApplication.php?application_ID=' . $application_id . '" class="btn btn-success">Apply</a>';
+												echo '<a href="../assets/php/open-application/process_applyGroupApplication.php?application_ID=' . $application_id . '" class="btn btn-success">Apply</a>';
 												echo '<a href="javascript:history.back()" class="btn btn-light" style="margin-left: 10px">Back</a>';
 												echo '</div>';
 												
@@ -190,7 +191,7 @@
 						<div class="col-lg-6">
 							<div class="card">
 								<?php
-								include("assets/php/connection.php");
+								include("../assets/php/connection.php");
 
 								// Check if the user_ID from group-applicantion is equal to the current session user_ID
 								if ($_SESSION['user_ID'] === $user_ID) {
@@ -214,7 +215,7 @@
 
 									<tbody>
 										<?php
-											include("assets/php/connection.php");
+											include("../assets/php/connection.php");
 											$query = "SELECT u.name, gas.status, gas.application_ID, gas.applicant_ID
 											FROM user u
 											JOIN group_applicant_status gas ON u.user_ID = gas.applicant_ID
@@ -226,7 +227,7 @@
 
 											// Check if there are no mentees or no rows found
 											if (mysqli_num_rows($result) == 0) {
-												echo '<tr><td colspan="4">No applicants found.</td></tr>';
+												echo '<tr><td colspan="5">No applicants found.</td></tr>';
 											} 
 												
 											else {
@@ -244,8 +245,8 @@
 														// Check if status is 'pending' to show the buttons
 														if ($row['status'] == 'pending') {
 															echo '
-															<a href="assets/php/process_approveGroupApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-success">Approve</a>
-															<a href="assets/php/process_rejectGroupApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-warning">Reject</a>';
+															<a href="../assets/php/process_approveGroupApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-success">Approve</a>
+															<a href="../assets/php/process_rejectGroupApplication.php?application_ID=' . $row['application_ID'] . '&applicant_ID=' . $row['applicant_ID'] . '" class="btn btn-warning">Reject</a>';
 														}
 														echo '
 														</td>
@@ -283,57 +284,22 @@
 					</div>
 				</div>
 			</footer>
-			<div class="right-sidebar">
-				<div class="switcher-icon">
-					<i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-				</div>
-				<div class="right-sidebar-content">
-
-					<p class="mb-0">Gaussion Texture</p>
-					<hr>
-			
-					<ul class="switcher">
-						<li id="theme1"></li>
-						<li id="theme2"></li>
-						<li id="theme3"></li>
-						<li id="theme4"></li>
-						<li id="theme5"></li>
-						<li id="theme6"></li>
-					</ul>
-
-					<p class="mb-0">Gradient Background</p>
-					<hr>
-				
-					<ul class="switcher">
-						<li id="theme7"></li>
-						<li id="theme8"></li>
-						<li id="theme9"></li>
-						<li id="theme10"></li>
-						<li id="theme11"></li>
-						<li id="theme12"></li>
-						<li id="theme13"></li>
-						<li id="theme14"></li>
-						<li id="theme15"></li>
-					</ul>
-			
-				</div>
-			</div>
 		</div>
 
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
     
 		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+		<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
     
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
-		<script src="assets/js/inviteMM.js"></script>
+		<script src="../assets/js/app-script.js"></script>
+		<script src="../assets/js/inviteMM.js"></script>
     
 		<script>
 			displayNotifications();

@@ -1,11 +1,9 @@
 <?php include("../connection.php");
+session_start();
 
-$query = "SELECT u.picture, u.user_ID, u.name, u.rating, COUNT(CASE WHEN m.status = 'Approved' THEN m.Mentee_ID END) AS numberOfMentees
-    FROM user u
-    LEFT JOIN mentorship m ON u.user_ID = m.Mentor_ID
-    WHERE u.mentorshipStatus = 'Mentor'
-    GROUP BY u.user_ID, u.name, u.rating";
+$query = "SELECT ca.club_name, ca.club_id, ca.position_available, cas.status FROM club AS ca JOIN `clubApplication` AS cas ON ca.club_id = cas.club_ID WHERE cas.applicant_ID = '{$_SESSION['user_ID']}';";
 
 $result = mysqli_query($connection, $query);
 
 $count = 1; // Initialize count variable
+?>
