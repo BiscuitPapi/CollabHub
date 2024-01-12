@@ -28,7 +28,7 @@
                             <table class="table table-hover table-striped">
                                 <tbody>
                                     <?php
-                                    include("assets/php/connection.php");
+                                    include("../assets/php/connection.php");
 
                                     //$query = "SELECT * FROM `study_session` WHERE studyhub_ID = '$studyhub_ID';";
                                     $query = "SELECT s.*, sm.studysession_id AS member_studysession_id
@@ -111,7 +111,7 @@
                             <table class="table table-hover table-striped">
                                 <tbody>
                                     <?php
-                                    include("assets/php/connection.php");
+                                    include("../assets/php/connection.php");
 
 
                                     $query = "SELECT s.*, sm.studysession_id AS member_studysession_id
@@ -184,7 +184,7 @@
 
                 <?php
 
-                include("assets/php/connection.php");
+                include("../assets/php/connection.php");
 
                 $query = "SELECT * FROM studyhubMember WHERE studyhub_ID = $studyhub_ID AND user_ID = $user_ID";
                 $result = mysqli_query($connection, $query);
@@ -299,7 +299,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content"
-                style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
+                style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 500px; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="profileCropModalLabel">Crop Profile Picture</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -308,8 +308,8 @@
                 </div>
                 <div class="modal-body text-center d-flex justify-content-center align-items-center">
                     <canvas id="profileCroppedCanvas" width="110" height="110"></canvas>
-                    <div class="cropper-container cropper-bg" touch-action="none" style="width:200px; height:100px;">
-
+                    <div class="cropper-container cropper-bg" touch-action="none" style="width:300px; height:100px;">
+                    
                     </div>
 
                 </div>
@@ -328,7 +328,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content"
-                style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 70%; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
+                style="background: linear-gradient(45deg, #29323c, #485563); margin: 10% auto; padding: 20px; width: 500px; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); position: relative; color: #000;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="bannerCropModalLabel">Crop Banner</h5>
 
@@ -415,7 +415,7 @@
                     formData.append('profile_picture', blob);
                     formData.append('studyHub_ID', studyHub_ID);
                     $.ajax({
-                        url: 'assets/php/process_editSB-Profile.php',
+                        url: '../assets/php/studyhub/process_editSB-Profile.php',
                         method: 'POST',
                         data: formData,
                         processData: false,
@@ -453,7 +453,7 @@
                     formData.append('banner_picture', blob);
                     formData.append('studyHub_ID', studyHub_ID); // Fetch and append studyHub_ID
                     $.ajax({
-                        url: 'assets/php/process_editSB-Banner.php',
+                        url: '../assets/php/studyhub/process_editSB-Banner.php',
                         method: 'POST',
                         data: formData,
                         processData: false,

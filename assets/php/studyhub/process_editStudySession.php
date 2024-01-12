@@ -1,5 +1,5 @@
 <?php
-    include("connection.php");
+    include("../connection.php");
     session_start();
     ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -10,12 +10,12 @@
         $user_ID = $_SESSION["user_ID"];
         $studysession_id = $_GET['studysession_id'];
         $studysession_name = $_POST['studysession_name'];
-        $studysession_date = $_POST['studysession_date'];
         $studysession_time = $_POST['studysession_time'];
         $studysession_mode = $_POST['studysession_mode'];
         $studysession_link = $_POST['studysession_link'];
+        $studysession_date = $_POST['studysession_date'];
         $note = $_POST['note'];
-    
+        
 
         // Prepare SQL
         $sql = "UPDATE `study_session` SET `studysession_name`= ?, `studysession_date`= ?, `studysession_time`= ?, `studysession_mode`= ?, `studysession_link`= ?, `note` = ? WHERE `studysession_id`= ?";
@@ -29,7 +29,7 @@
             if ($stmt->execute()) {
                 if ($stmt->affected_rows > 0) {
                     echo "Schedule edited successfully!";
-                    header("Location: ../../view-session.php?studysession_id=" . $studysession_id);
+                    header("Location: ../../../public/view-session.php?studysession_id=" . $studysession_id);
                 } else {
                     echo "Failed to edit study session.";
                 }

@@ -1,5 +1,5 @@
 <?php
-    include("connection.php");
+    include("../connection.php");
 
     $selectedDay = mysqli_real_escape_string($connection, $_POST['selectedDay']);
     $studyhub_ID = mysqli_real_escape_string($connection, $_POST['studyhub_ID']);
@@ -8,7 +8,7 @@
     $output = [];
 
     // Get user ID of students belonging to the studyhub
-    $sql1 = "SELECT user_ID FROM `studyhubMember` WHERE studyhub_ID = $studyhub_ID";
+    $sql1 = "SELECT user_ID FROM studyhubMember WHERE studyhub_ID = $studyhub_ID";
     $result1 = mysqli_query($connection, $sql1);
 
     if ($result1) {

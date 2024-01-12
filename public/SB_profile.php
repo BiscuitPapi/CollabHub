@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-include('assets/php/connection.php');
+include('../assets/php/connection.php');
 
 // Function to encode image to base64
 function encodeImage($image)
@@ -16,7 +16,7 @@ function encodeImage($image)
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 	// Regenerate session ID to prevent session fixation
@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_ID'])) {
 			$stmt->bind_param("i", $user_ID);
 			$stmt->execute();
 			$result = $stmt->get_result();
-			?>
+?>
 
 			<!DOCTYPE html>
 			<html lang="en">
@@ -78,30 +78,29 @@ if (!isset($_SESSION['user_ID'])) {
 				<meta name="author" content="" />
 				<title>StudyHub</title>
 				<!-- loader-->
-				<link href="assets/css/pace.min.css" rel="stylesheet" />
-				<script src="assets/js/pace.min.js"></script>
+				<link href="../assets/css/pace.min.css" rel="stylesheet" />
+				<script src="../assets/js/pace.min.js"></script>
 				<!--favicon-->
-				<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+				<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 				<!-- simplebar CSS-->
-				<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+				<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 				<!-- Bootstrap core CSS-->
-				<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 				<!-- animate CSS-->
-				<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+				<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 
 				<!-- Icons CSS-->
-				<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+				<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 				<!-- Sidebar CSS-->
-				<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+				<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 				<!-- Custom Style-->
-				<link href="assets/css/SB-profile.css" rel="stylesheet" />
-				<link href="assets/css/app-style.css" rel="stylesheet" />
+				<link href="../assets/css/SB-profile.css" rel="stylesheet" />
+				<link href="../assets/css/app-style.css" rel="stylesheet" />
 
 				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
-				
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">		
 			</head>
 
 
@@ -118,8 +117,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 				<!-- Start wrapper-->
 				<div id="wrapper">
-					<?php include_once('sidebar.php'); ?>
-					<?php include_once('topbar.php'); ?>
+					<?php include_once('nav/sidebar.php'); ?>
+					<?php include_once('nav/topbar.php'); ?>
 
 					<div class="clearfix"></div>
 
@@ -169,23 +168,22 @@ if (!isset($_SESSION['user_ID'])) {
 					<!--End footer-->
 
 					<!-- Bootstrap core JavaScript-->
-					<script src="assets/js/jquery.min.js"></script>
-					<script src="assets/js/popper.min.js"></script>
-					<script src="assets/js/bootstrap.min.js"></script>
+					<script src="../assets/js/jquery.min.js"></script>
+					<script src="../assets/js/popper.min.js"></script>
+					<script src="../assets/js/bootstrap.min.js"></script>
 
 					<!-- simplebar js -->
-					<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+					<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 					<!-- sidebar-menu js -->
-					<script src="assets/js/sidebar-menu.js"></script>
+					<script src="../assets/js/sidebar-menu.js"></script>
 
 					<!-- Custom scripts -->
-					<script src="assets/js/app-script.js"></script>
-					<script src="assets/js/studyhubProfile.js"></script>
-					<script src="assets/js/inviteMM.js"></script>
-					<script src="assets/js/searchAPI.js"></script>
+					<script src=../assets/js/app-script.js"></script>
+					<script src="../assets/js/sb-profile.js"></script>
+					<script src="../assets/js/inviteMM.js"></script>
+					<script src="../assets/js/searchAPI.js"></script>
 					<script>
 						displayNotifications();
-
 					</script>
 				</div>
 				</div>
@@ -197,7 +195,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 			</html>
 
-			<?php
+<?php
 			// Reopen PHP block if necessary
 		}
 	} else {

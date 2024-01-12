@@ -3,7 +3,7 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     
-    include("connection.php");
+    include("../connection.php");
     session_start();
     
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["user_ID"])) {
@@ -11,10 +11,10 @@
         // Fetch studyHub_ID from the POST data
         $studyhub_ID = $_POST['studyHub_ID'];
     
-        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-            $bannerPicture = file_get_contents($_FILES['profile_picture']['tmp_name']);
+        if (isset($_FILES['banner_picture']) && $_FILES['banner_picture']['error'] === UPLOAD_ERR_OK) {
+            $bannerPicture = file_get_contents($_FILES['banner_picture']['tmp_name']);
             
-            $stmt = $connection->prepare("UPDATE studyhub SET profile_pic = ? WHERE studyhub_ID = ?");
+            $stmt = $connection->prepare("UPDATE studyhub SET background_pic = ? WHERE studyhub_ID = ?");
             $stmt->bind_param("si", $bannerPicture, $studyhub_ID);
     
             if ($stmt->execute()) {
@@ -30,10 +30,9 @@
                 echo "Error: " . $stmt->error;
             }
     
-    
             $stmt->close();
         } else {
-            echo "Error uploading the profile picture.";
+            echo "Error uploading the banner picture.";
         }
     }
     

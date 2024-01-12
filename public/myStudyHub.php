@@ -15,24 +15,24 @@ session_start();
 		<meta name="author" content=""/>
 		<title>My StudyHub</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet"/>
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet"/>
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- Vector CSS -->
-		<link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+		<link href="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css"/>
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css"/>
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet"/>
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet"/>
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet"/> 
+		<link href="../assets/css/app-style.css" rel="stylesheet"/> 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
 
@@ -40,8 +40,8 @@ session_start();
  
 		<!-- Start wrapper-->
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 			<div class="clearfix"></div>
 		
 			<div class="content-wrapper">
@@ -66,7 +66,7 @@ session_start();
 												<i class="icon-options"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="create-studyhub-form.php">Create StudyHub</a>
+												<a class="dropdown-item" href="createStudyhub.php">Create StudyHub</a>
 											</div>
 										</div>
 									</div>
@@ -86,7 +86,7 @@ session_start();
 										
 										<tbody>
 											<?php
-												include("assets/php/connection.php");
+												include("../assets/php/connection.php");
 											
 												$query = "SELECT sh.studyhub_ID, sh.studyhub_name, sh.date_created 
 														FROM studyhubMember AS sm
@@ -166,25 +166,25 @@ session_start();
 		</div><!--End wrapper-->
 
 		<!-- Bootstrap core JavaScript-->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 		
 		<!-- simplebar js -->
-		<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+		<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 		<!-- sidebar-menu js -->
-		<script src="assets/js/sidebar-menu.js"></script>
+		<script src="../assets/js/sidebar-menu.js"></script>
 		<!-- loader scripts -->
-		<script src="assets/js/jquery.loading-indicator.js"></script>
+		<script src="../assets/js/jquery.loading-indicator.js"></script>
 		<!-- Custom scripts -->
-		<script src="assets/js/app-script.js"></script>
+		<script src="../assets/js/app-script.js"></script>
 		<!-- Chart js -->
 	  
-		<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+		<script src="../assets/plugins/Chart.js/Chart.min.js"></script>
 	 
 		<!-- Index js -->
-		<script src="assets/js/index.js"></script>
-		<script src="assets/js/inviteMM.js"></script>
+		<script src="../assets/js/index.js"></script>
+		<script src="../assets/js/inviteMM.js"></script>
     
 		<script>
 			displayNotifications();

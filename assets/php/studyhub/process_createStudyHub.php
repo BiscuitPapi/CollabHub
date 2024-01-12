@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -11,16 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $studyhub_name = $_POST['studyhub_name'];
     $studyhub_description = $_POST['studyhub_description'];
     $setting = $_POST['setting'];
-    $date_created = date('Y-m-d H:i:s');
     $user_ID = $_SESSION["user_ID"];
 
     // Prepare SQL
-    $sql = "INSERT INTO `studyhub`(`studyhub_name`, `studyhub_description`, `setting`, `date_created`, `user_ID`) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO `studyhub`(`studyhub_name`, `studyhub_description`, `setting`, `user_ID`) VALUES (?,?,?,?)";
     
 
     $stmt = $connection->prepare($sql);
 
-    $stmt->bind_param("sssss", $studyhub_name, $studyhub_description, $setting, $date_created, $user_ID);
+    $stmt->bind_param("sssi", $studyhub_name, $studyhub_description, $setting, $user_ID);
 
     $stmt->execute();
 
@@ -35,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $stmt2 = $connection->prepare($sql2);
 
-        $stmt2->bind_param("ss", $studyhub_ID,$user_ID);
+        $stmt2->bind_param("ii", $studyhub_ID,$user_ID);
 
         $stmt2->execute();
 
         if ($stmt2->affected_rows > 0) {
-            echo "Studyhub added successfully!";
-            
-            header("Location: ../../SB_profile.php?studyhub_ID=" . $studyhub_ID);
-            exit(); // Stop further execution
+            // echo "Studyhub added successfully!";
+            // echo "sucess";
+            header("Location: ../../../public/SB_profile.php?studyhub_ID=" . $studyhub_ID);
+            // exit(); // Stop further execution
             
         } else {
             echo "Failed to add study hub members.";

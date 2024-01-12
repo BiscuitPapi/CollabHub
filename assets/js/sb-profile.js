@@ -5,7 +5,7 @@ function editStudyHub(ID) {
   var selectedSetting = $("input[name='setting']:checked").val();
 
   $.ajax({
-    url: "assets/php/process_editStudyHub.php",
+    url: "../assets/php/studyhub/process_editStudyHub.php",
     method: "POST",
     data: {
       studyHubName: studyHubName,
@@ -77,7 +77,7 @@ function getFinalArray() {
   // Delay for 5 seconds
   setTimeout(function () {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "assets/php/algorithmicMatching.php");
+    xhr.open("POST", "../assets/php/algorithmicMatching.php");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({ skillsArray: addedSkillsArray }));
 
@@ -176,7 +176,7 @@ function sendInvitation(user_ID) {
     var studyHub_ID = document.getElementById('dummyID').value;
     var type = "StudyHub";
     $.ajax({
-        url: 'assets/php/process_sendInvitation.php',
+        url: '../assets/php/mentorship/process_sendInvitation.php',
         method: 'POST',
         data: {
             user_ID: user_ID,

@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include("connection.php");
+include("../connection.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt2->affected_rows > 0) {
                 echo "Studyhub added successfully!";
                 
-                header("Location: ../../SB_profile.php?studyhub_ID=" . $studyhub_ID);
+                header("Location: ../../../public/SB_profile.php?studyhub_ID=" . $studyhub_ID);
                 exit(); // Stop further execution
                 
             } else {

@@ -102,7 +102,8 @@ if (isset($_SESSION['user_ID'])) {
 									<a href="reset-password.php">Reset Password</a>
 								</div>
 							</div>
-							<button type="submit" value="submit" class="btn btn-light btn-block">Sign In</button>
+							<center>
+							<button type="submit" value="submit" class="btn btn-success" style="width: 100%;">Sign In</button></center>
 						</form>
 					</div>
 				</div>
