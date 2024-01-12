@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include("../connection.php");
 session_start();
 
 $query = "SELECT DISTINCT studyhub_ID

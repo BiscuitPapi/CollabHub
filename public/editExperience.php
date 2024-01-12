@@ -48,13 +48,12 @@ if (!isset($_SESSION['user_ID'])) {
 			}
 
 			.delete-button {
-				color: #00000;
+				color: #0000;
 				font-weight: bold;
 				font-size: 18px;
-				margin-left: 5px;
+				margin-left: 5px; /* Keep only one margin-left property */
 				padding: 4px 8px;
 				text-decoration: none;
-				margin-left: 5px;		
 				margin-right: -10px;
 			}
 

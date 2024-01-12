@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include("../connection.php");
 session_start();
 $query = "SELECT *, DATEDIFF(NOW(), application_date) AS days_since_creation FROM club WHERE user_ID != ?";
 

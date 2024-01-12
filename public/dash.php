@@ -3,7 +3,7 @@ session_start();
 // Check if the session variable exists
 if (!isset($_SESSION['user_ID'])) {
 	// Redirect to the login page
-	header("Location: login.php");
+	header("Location: index.php");
 	exit();
 } else {
 
@@ -19,23 +19,23 @@ if (!isset($_SESSION['user_ID'])) {
 		<meta name="author" content="" />
 		<title>Dashboard</title>
 		<!-- loader-->
-		<link href="assets/css/pace.min.css" rel="stylesheet" />
-		<script src="assets/js/pace.min.js"></script>
+		<link href="../assets/css/pace.min.css" rel="stylesheet" />
+		<script src="../assets/js/pace.min.js"></script>
 		<!--favicon-->
-		<link rel="icon" href="assets/images/CB-favi.ico" type="image/x-icon">
+		<link rel="icon" href="../assets/images/CB-favi.ico" type="image/x-icon">
 		<!-- simplebar CSS-->
-		<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+		<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<!-- Bootstrap core CSS-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- animate CSS-->
-		<link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
 		<!-- Icons CSS-->
-		<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
 		<!-- Sidebar CSS-->
-		<link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+		<link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
 		<!-- Custom Style-->
-		<link href="assets/css/app-style.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/modally.css">
+		<link href="../assets/css/app-style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../assets/css/modally.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -54,8 +54,8 @@ if (!isset($_SESSION['user_ID'])) {
 
 		<!-- Start wrapper-->
 		<div id="wrapper">
-			<?php include_once('sidebar.php'); ?>
-			<?php include_once('topbar.php'); ?>
+			<?php include_once('nav/sidebar.php'); ?>
+			<?php include_once('nav/topbar.php'); ?>
 
 			<div class="clearfix"></div>
 			<!--Start Content Wrapper-->
@@ -236,25 +236,25 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 			<!-- Bootstrap core JavaScript-->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/popper.min.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 
 			<!-- simplebar js -->
-			<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+			<script src="../assets/plugins/simplebar/js/simplebar.js"></script>
 			<!-- sidebar-menu js -->
-			<script src="assets/js/sidebar-menu.js"></script>
+			<script src="../assets/js/sidebar-menu.js"></script>
 
 			<!-- Custom scripts -->
-			<script src="assets/js/app-script.js"></script>
-			<script src="assets/js/inviteMM.js"></script>
+			<script src="../assets/js/app-script.js"></script>
+			<script src="../assets/js/notifications.js"></script>
 			<script>
 				displayNotifications();
 
 				function joinSB(studyhub_ID) {
 					if (confirm("Are you sure you want to join this StudyHub?")) {
 						$.ajax({
-							url: 'assets/php/process_joinStudyHub.php',
+							url: '../assets/php/studyhub/process_joinStudyHub.php',
 							method: 'POST',
 							data: { studyhub_ID: studyhub_ID },
 							success: function (response) {
@@ -293,19 +293,18 @@ if (!isset($_SESSION['user_ID'])) {
 					function loadTables() {
 						// Fetch data for the first table
 						$.ajax({
-							url: 'assets/php/process_fetchSB.php',
+							url: '../assets/php/dashboard/process_fetchSB.php',
 							type: 'GET',
 							dataType: 'json',
 							success: function (data) {
 								
 								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
 								tableBody.empty(); // Clear existing rows
-								
+
 								for (var i = 0; i < data.length; i++) {
 									var row = data[i];
 									var studyhubData = row.studyhub_data;
-									console.log(studyhubData);
-									
+
 									// Accessing properties of studyhub_data
 									var studyhubID = studyhubData.studyhub_ID;
 									var studyhubName = studyhubData.studyhub_name;
@@ -356,7 +355,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 						// Fetch data for the second table
 						$.ajax({
-							url: 'assets/php/process_fetchOA.php',
+							url: '../assets/php/dashboard/process_fetchOA.php',
 							type: 'GET',
 							dataType: 'json',
 							success: function (data) {
@@ -373,7 +372,7 @@ if (!isset($_SESSION['user_ID'])) {
 										'<td>' + row['position_available'] + '</td>' +
 										'<td>' + row['days_since_creation'] + ' days ago</td>' +
 										'<td>' +
-										'<a href="club_application_view.php?club_ID=' + row['club_ID'] + '" class="btn btn-info">View</a>' +
+										'<a href="clubApplication.php?club_ID=' + row['club_ID'] + '" class="btn btn-info">View</a>' +
 										'</td>' +
 										// Add other table columns as needed
 										'</tr>';
