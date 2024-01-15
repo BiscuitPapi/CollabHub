@@ -73,7 +73,7 @@
 																					<th scope="row">' . $count . '</th>
 																					<td>' . $row['studysession_name'] . '</td>
 																					<td>' . $row['studysession_date'] . '</td>
-																					<td><a href="' . ($userHasJoined ? 'view-session.php' : 'assets/php/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a></td>
+																					<td><a href="' . ($userHasJoined ? 'view-session.php' : '../assets/php/studyhub/process_joinStudySession.php') . '?studysession_id=' . $studysession_id . '" class="btn ' . ($userHasJoined ? 'btn-info' : 'btn-success') . '">' . $buttonLabel . '</a></td>
 																				</tr>
 																			';
                                                 $hasRows = true;
