@@ -173,7 +173,7 @@ if (!isset($_SESSION['user_ID'])) {
                                                                                     <td>' . $row['course_name'] . '</td>
                                                                                     <td style="text-align: center;">' . $row['project_name'] . '</td>                                                                               
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
+                                                                                        <a href="group_application_view.php?application_id=' . $row['application_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>
@@ -480,7 +480,7 @@ if (!isset($_SESSION['user_ID'])) {
 																				echo '
 																					</td>
                                                                                     <td style="text-align: center;">
-                                                                                        <a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-info">View</a>
+                                                                                        <a href="group_application_view.php?application_id=' . $row['application_id'] . '" class="btn btn-info">View</a>
                                                                                     </td>
                                                                                    
                                                                                     </tr>
