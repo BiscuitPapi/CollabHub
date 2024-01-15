@@ -96,14 +96,14 @@ if (!isset($_SESSION['user_ID'])) {
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 id = "sbCount" class="text-white mb-0">20 <span class="float-right"><i class="fa fa-eye"></i></span></h5>
+										<h5 id="sbCount" class="text-white mb-0">20 <span class="float-right"><i class="fa fa-eye"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
 										<p class="mb-0 text-white small-font">StudyHub<span class="float-right">+5.2% <i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -495,16 +495,16 @@ if (!isset($_SESSION['user_ID'])) {
 								var sbs = data.sb_count;
 
 								document.getElementById('userCount').innerHTML =
-								users + '<span class="float-right"><i class="zmdi zmdi-account-o"></i></span>';
+									users + '<span class="float-right"><i class="zmdi zmdi-account-o"></i></span>';
 
 								document.getElementById('clubApp').innerHTML =
-								clubs + '<span class="float-right"><i class="zmdi zmdi-assignment"></i></span>';
+									clubs + '<span class="float-right"><i class="zmdi zmdi-assignment"></i></span>';
 
 								document.getElementById('groupApp').innerHTML =
-								groups + '<span class="float-right"><i class="zmdi zmdi-help-outline"></i></span>';
+									groups + '<span class="float-right"><i class="zmdi zmdi-help-outline"></i></span>';
 
 								document.getElementById('sbCount').innerHTML =
-								sbs + '<span class="float-right"><i class="fa fa-eye"></i></span>';
+									sbs + '<span class="float-right"><i class="fa fa-eye"></i></span>';
 
 
 							},

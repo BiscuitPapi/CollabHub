@@ -62,7 +62,7 @@
 										<div class="form-group">
 											<label for="input-1">Department:</label>
 											<select class="form-control" name="department_name" id="input-1">
-												<option value="Department of Artificial Intelligende">Department of Artificial Intelligence</option>
+												<option value="Department of Artificial Intelligent">Department of Artificial Intelligent</option>
 												<option value="Department of Computer System and Network">Department of Computer System and Network</option>
 												<option value="Department of Information System">Department of Information System</option>
 												<option value="Department of Software Engineering">Department of Software Engineering</option>
