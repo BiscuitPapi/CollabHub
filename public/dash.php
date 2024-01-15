@@ -181,7 +181,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<th>Club Name</th>
 												<th>Position Available</th>
 												<th>Created</th>
-												<th>Action</th>
+												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
 										<tbody id="yourTableBody2">
@@ -201,7 +201,7 @@ if (!isset($_SESSION['user_ID'])) {
 												<th><a href="#" onclick="filterOAList('sortCourse')">Course</a></th>
 												<th><a href="#" onclick="filterOAList('sortProject')">Project</a></th>
 												<th><a href="#" onclick="filterOAList('sortDate')">Created</a></th>
-												<th>Action</th>
+												<th style="text-align:center;">Action</th>
 											</tr>
 										</thead>
 										<tbody id="yourTableBody3">
@@ -292,6 +292,138 @@ if (!isset($_SESSION['user_ID'])) {
 					document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
 				}
 
+				function applyGroup(group_ID) {
+					if (confirm("Are you sure want to apply for this application?")) {
+						$.ajax({
+							url: '../assets/php/open-application/process_applyGroup.php',
+							method: 'POST',
+							data: {
+								application_ID: group_ID
+							},
+							success: function(response) {
+								// Handle the response from the PHP script
+								console.log(response);
+								if (response === "success") {
+									alert("You have successfully applied!");
+
+									var tableBody2 = $('#yourTableBody3'); // Update with your actual second table body ID
+									tableBody2.empty(); // Clear existing rows
+
+									// Fetch data for the second table
+									$.ajax({
+										url: '../assets/php/dashboard/process_fetchOA-group.php',
+										type: 'GET',
+										dataType: 'json',
+										success: function(data) {
+											console.log(data); // Display the fetched data in the console
+
+											var tableBody2 = $('#yourTableBody3'); // Update with your actual second table body ID
+											tableBody2.empty(); // Clear existing rows
+
+											for (var i = 0; i < data.length; i++) {
+												var row = data[i];
+												var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
+												var html = '<tr>' +
+													'<th scope="row">' + (i + 1) + '</th>' +
+													'<td>' + row['department_name'] + '</td>' +
+													'<td>' + row['course_name'] + '</td>' +
+													'<td>' + row['project_name'] + '</td>' +
+													'<td>' + daysSinceCreation + '</td>' +
+													'<td style="text-align:center;">' +
+													'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info mr-2">View</a>' +
+													'<a href="#" class="btn btn-success" onclick="applyGroup(' + row['application_id'] + ')">Apply</a>' +
+													'</td>' +
+													// Add other table columns as needed
+													'</tr>';
+
+												tableBody2.append(html);
+											}
+
+										},
+										error: function(xhr, status, error) {
+											console.error(xhr.responseText); // Log any error response to the console
+										}
+									});
+								} else {
+									alert(response);
+								}
+
+							},
+							error: function(xhr, status, error) {
+								// Handle the error
+								alert(error);
+							}
+						});
+					}
+				}
+
+				function applyClub(club_ID) {
+					if (confirm("Are you sure want to apply for this application?")) {
+						$.ajax({
+							url: '../assets/php/open-application/process_applyClub.php',
+							method: 'POST',
+							data: {
+								club_ID: club_ID
+							},
+							success: function(response) {
+								// Handle the response from the PHP script
+								console.log(response);
+								if (response === "success") {
+									alert("You have successfully applied!");
+									var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+									tableBody2.empty(); // Clear existing rows
+									$.ajax({
+										url: '../assets/php/dashboard/process_fetchOA.php',
+										type: 'GET',
+										dataType: 'json',
+										success: function(data) {
+											console.log(data); // Display the fetched data in the console
+
+											var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+											tableBody2.empty(); // Clear existing rows
+
+											for (var i = 0; i < data.length; i++) {
+												var row = data[i];
+												var daysSinceCreation = (row['days_since_creation'] < 1) ? 'Today' : row['days_since_creation'] + ' days ago';
+												var html = '<tr>' +
+													'<th scope="row">' + (i + 1) + '</th>' +
+													'<td>' + row['club_name'] + '</td>' +
+													'<td>' + row['position_available'] + '</td>' +
+													'<td>' + daysSinceCreation + '</td>' +
+													'<td style="text-align: center;">' +
+													'<a href="clubApplication.php?club_ID=' + row['club_ID'] + '" class="btn btn-info mr-2">View</a>' +
+													'<a href="#" class="btn btn-success" onclick="applyClub(' + row['club_ID'] + ')">Apply</a>' +
+													'</td>' +
+													// Add other table columns as needed
+													'</tr>';
+
+												tableBody2.append(html);
+											}
+
+										},
+										error: function(xhr, status, error) {
+											console.error(xhr.responseText); // Log any error response to the console
+										}
+									});
+
+								} else {
+
+								}
+
+							},
+							error: function(xhr, status, error) {
+								// Handle the error
+								alert(error);
+							}
+						});
+
+
+
+
+					}
+
+				}
+
 				function toggleOA(pageId) {
 					// Hide all pages
 					document.getElementById('club').style.display = 'none';
@@ -323,20 +455,23 @@ if (!isset($_SESSION['user_ID'])) {
 
 							for (var i = 0; i < data.length; i++) {
 								var row = data[i];
+								var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
 								var html = '<tr>' +
 									'<th scope="row">' + (i + 1) + '</th>' +
 									'<td>' + row['department_name'] + '</td>' +
 									'<td>' + row['course_name'] + '</td>' +
 									'<td>' + row['project_name'] + '</td>' +
-									'<td>' + row['days_since_creation'] + ' days ago</td>' +
+									'<td>' + daysSinceCreation + '</td>' +
 									'<td>' +
-									'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info">View</a>' +
+									'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info mr-2">View</a>' +
+									'<a href="#" class="btn btn-success" onclick="applyGroup(' + row['application_id'] + ')">Apply</a>' +
 									'</td>' +
 									// Add other table columns as needed
 									'</tr>';
 
 								tableBody2.append(html);
 							}
+
 						},
 						error: function(xhr, status, error) {
 							console.error(xhr.responseText); // Log any error response to the console
@@ -422,13 +557,15 @@ if (!isset($_SESSION['user_ID'])) {
 
 								for (var i = 0; i < data.length; i++) {
 									var row = data[i];
+									var daysSinceCreation = (row['days_since_creation'] < 1) ? 'Today' : row['days_since_creation'] + ' days ago';
 									var html = '<tr>' +
 										'<th scope="row">' + (i + 1) + '</th>' +
 										'<td>' + row['club_name'] + '</td>' +
 										'<td>' + row['position_available'] + '</td>' +
-										'<td>' + row['days_since_creation'] + ' days ago</td>' +
-										'<td>' +
-										'<a href="clubApplication.php?club_ID=' + row['club_ID'] + '" class="btn btn-info">View</a>' +
+										'<td>' + daysSinceCreation + '</td>' +
+										'<td style="text-align: center;">' +
+										'<a href="clubApplication.php?club_ID=' + row['club_ID'] + '" class="btn btn-info mr-2">View</a>' +
+										'<a href="#" class="btn btn-success" onclick="applyClub(' + row['club_ID'] + ')">Apply</a>' +
 										'</td>' +
 										// Add other table columns as needed
 										'</tr>';
@@ -454,20 +591,23 @@ if (!isset($_SESSION['user_ID'])) {
 
 								for (var i = 0; i < data.length; i++) {
 									var row = data[i];
+									var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
 									var html = '<tr>' +
 										'<th scope="row">' + (i + 1) + '</th>' +
 										'<td>' + row['department_name'] + '</td>' +
 										'<td>' + row['course_name'] + '</td>' +
 										'<td>' + row['project_name'] + '</td>' +
-										'<td>' + row['days_since_creation'] + ' days ago</td>' +
-										'<td>' +
-										'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info">View</a>' +
+										'<td>' + daysSinceCreation + '</td>' +
+										'<td style="text-align:center;">' +
+										'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info mr-2">View</a>' +
+										'<a href="#" class="btn btn-success" onclick="applyGroup(' + row['application_id'] + ')">Apply</a>' +
 										'</td>' +
 										// Add other table columns as needed
 										'</tr>';
 
 									tableBody2.append(html);
 								}
+
 							},
 							error: function(xhr, status, error) {
 								console.error(xhr.responseText); // Log any error response to the console
