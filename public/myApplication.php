@@ -316,7 +316,7 @@ if (!isset($_SESSION['user_ID'])) {
 																						<td>' . $row['club_name'] . '</td>
 																						<td style="text-align: center;">' . $row['position_available'] . '</td>                   
 																						<td style="text-align: center;">
-																							<a href="club_application_view.php?club_ID=' . $row['club_ID'] . '" class="btn btn-info">View</a>
+																							<a href="clubApplication.php?club_ID=' . $row['club_ID'] . '" class="btn btn-info">View</a>
 																						</td>
 																						</tr>';
 
@@ -801,7 +801,7 @@ if (!isset($_SESSION['user_ID'])) {
 									'<th scope="row">' + rowCount + '</th>' +
 									'<td>' + addedClubName + '</td>' +
 									'<td style="text-align:center;">' + addedClubPosition + '</td>' +
-									'<td style="text-align:center;"><a href="club_application_view.php?application_ID=' + newApplicationID + '" class="btn btn-info">View</a></td>' +
+									'<td style="text-align:center;"><a href="clubApplication.php?application_ID=' + newApplicationID + '" class="btn btn-info">View</a></td>' +
 									'</tr>';
 
 								// Hide "No applications found" message if it exists
