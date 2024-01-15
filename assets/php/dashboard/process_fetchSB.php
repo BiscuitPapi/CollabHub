@@ -1,15 +1,14 @@
 <?php
 include("../connection.php");
 session_start();
-
-$query = "SELECT DISTINCT studyhub_ID
-FROM studyhubMember sm
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM studyhubMember
-    WHERE studyhub_ID = sm.studyhub_ID AND user_ID = ?
-)
-ORDER BY studyhub_ID ASC;";
+    $query = "SELECT DISTINCT studyhub_ID
+    FROM studyhubMember sm
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM studyhubMember
+        WHERE studyhub_ID = sm.studyhub_ID AND user_ID = ?
+    )
+    ORDER BY studyhub_ID ASC;";    
 
 $userID = $_SESSION["user_ID"];
 $stmt = $connection->prepare($query);

@@ -10,8 +10,8 @@
 		
 		include("../assets/php/connection.php");
 
-		if (isset($_GET['application_ID'])) {
-			$application_id = $_GET['application_ID'];
+		if (isset($_GET['application_id'])) {
+			$application_id = $_GET['application_id'];
 	
 			// Fetch the study hub profile based on the studyhub_ID
 			$sql = "SELECT * FROM `group-application` WHERE application_ID = '$application_id'";
@@ -39,7 +39,7 @@
 			}
 		} else {
 			// Studyhub ID not provided, handle the error
-			echo "Study Hub ID is not provided.";
+			echo "Group Application ID is not provided.";
 		}
   }
 

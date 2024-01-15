@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_ID'])) {
 	exit();
 } else {
 
-	?>
+?>
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -67,49 +67,43 @@ if (!isset($_SESSION['user_ID'])) {
 							<div class="row row-group m-0">
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">10 <span class="float-right"><i
-													class="zmdi zmdi-account-o"></i></span></h5>
+										<h5 id="userCount" class="text-white mb-0">10 <span class="float-right"><i class="zmdi zmdi-account-o"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">New Users<span class="float-right">+4.2%
+										<p id="activeUsers class=" mb-0 text-white small-font">Active Users<span class="float-right">+4.2%
 												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">5 <span class="float-right"><i
-													class="zmdi zmdi-assignment"></i></span></h5>
+										<h5 id="clubApp" class="text-white mb-0">5 <span class="float-right"><i class="zmdi zmdi-assignment"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Open Applications<span
-												class="float-right">+1.2%
+										<p class="mb-0 text-white small-font">Individual Applications<span class="float-right">+1.2%
 												<i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">20 <span class="float-right"><i
-													class="fa fa-eye"></i></span></h5>
+										<h5 id="groupApp" class="text-white mb-0">102 <span class="float-right"><i class="zmdi zmdi-help-outline"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">StudyHub<span class="float-right">+5.2% <i
-													class="zmdi zmdi-long-arrow-up"></i></span></p>
+										<p class="mb-0 text-white small-font">Group Applications <span class="float-right">+2.2% <i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
 								<div class="col-12 col-lg-6 col-xl-3 border-light">
 									<div class="card-body">
-										<h5 class="text-white mb-0">102 <span class="float-right"><i
-													class="zmdi zmdi-help-outline"></i></span></h5>
+										<h5 id = "sbCount" class="text-white mb-0">20 <span class="float-right"><i class="fa fa-eye"></i></span></h5>
 										<div class="progress my-3" style="height:3px;">
 											<div class="progress-bar" style="width:55%"></div>
 										</div>
-										<p class="mb-0 text-white small-font">Messages <span class="float-right">+2.2% <i
-													class="zmdi zmdi-long-arrow-up"></i></span></p>
+										<p class="mb-0 text-white small-font">StudyHub<span class="float-right">+5.2% <i class="zmdi zmdi-long-arrow-up"></i></span></p>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -117,8 +111,7 @@ if (!isset($_SESSION['user_ID'])) {
 						<div class="col-12 col-lg-12">
 							<!-- SWITCH BUTTON -->
 							<div class="row" style="justify-content: center; align-items: center; margin-bottom: 20px;">
-								<button class="btn btn-primary" id="list_1Button"
-									onclick="togglePage('list_1')">StudyHub</button>
+								<button class="btn btn-primary" id="list_1Button" onclick="togglePage('list_1')">StudyHub</button>
 								<button class="btn btn-dark" id="list_2Button" onclick="togglePage('list_2')">Open
 									Application</button>
 							</div>
@@ -126,8 +119,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="card-header">StudyHub List
 									<div class="card-action">
 										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
+											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
 												<i class="icon-options"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right">
@@ -173,24 +165,15 @@ if (!isset($_SESSION['user_ID'])) {
 
 							<div class="card" id="list_2" style="display:none;">
 								<div class="card-header">Open Application List
+
 									<div class="card-action">
-										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-												data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
-										</div>
+										<button class="btn btn-primary" style="height:30px;" id="clubButton" onclick="toggleOA('club')">Individual</button>
+										<button class="btn btn-dark" style="height:30px;" id="groupButton" onclick="toggleOA('group')">Group</button>
 									</div>
+
 								</div>
 
-								<div class="table-responsive">
+								<div class="table-responsive" id="club">
 									<table class="table align-items-center table-flush table-borderless">
 										<thead>
 											<tr>
@@ -202,6 +185,26 @@ if (!isset($_SESSION['user_ID'])) {
 											</tr>
 										</thead>
 										<tbody id="yourTableBody2">
+											<!-- Table rows will be dynamically added here -->
+										</tbody>
+
+									</table>
+
+								</div>
+
+								<div class="table-responsive" id="group" style="display: none;">
+									<table class="table align-items-center table-flush table-borderless">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th><a href="#" onclick="filterOAList('sortDepartment')">Department</a></th>
+												<th><a href="#" onclick="filterOAList('sortCourse')">Course</a></th>
+												<th><a href="#" onclick="filterOAList('sortProject')">Project</a></th>
+												<th><a href="#" onclick="filterOAList('sortDate')">Created</a></th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody id="yourTableBody3">
 											<!-- Table rows will be dynamically added here -->
 										</tbody>
 
@@ -256,16 +259,18 @@ if (!isset($_SESSION['user_ID'])) {
 						$.ajax({
 							url: '../assets/php/studyhub/process_joinStudyHub.php',
 							method: 'POST',
-							data: { studyhub_ID: studyhub_ID },
-							success: function (response) {
+							data: {
+								studyhub_ID: studyhub_ID
+							},
+							success: function(response) {
 								// Handle the response from the PHP script
 								console.log(response);
 								if (response === "success") {
 									alert("You have successfully joined the StudyHub!");
 								}
-								
+
 							},
-							error: function (xhr, status, error) {
+							error: function(xhr, status, error) {
 								// Handle the error
 								console.log(error);
 							}
@@ -287,20 +292,72 @@ if (!isset($_SESSION['user_ID'])) {
 					document.getElementById('list_2Button').className = 'btn ' + (pageId === 'list_2' ? 'btn-primary' : 'btn-dark');
 				}
 
+				function toggleOA(pageId) {
+					// Hide all pages
+					document.getElementById('club').style.display = 'none';
+					document.getElementById('group').style.display = 'none';
 
-				$(document).ready(function () {
-				
+					// Show the selected page
+					document.getElementById(pageId).style.display = 'block';
+
+					// Update button styles based on active page
+					document.getElementById('clubButton').className = 'btn ' + (pageId === 'club' ? 'btn-primary' : 'btn-dark');
+					document.getElementById('groupButton').className = 'btn ' + (pageId === 'group' ? 'btn-primary' : 'btn-dark');
+				}
+
+
+				function filterOAList(criteria) {
+					// Fetch data for the second table
+					$.ajax({
+						url: '../assets/php/dashboard/process_fetchOA-group.php',
+						method: 'POST',
+						dataType: 'json',
+						data: {
+							type: criteria
+						},
+						success: function(data) {
+							console.log(data); // Display the fetched data in the console
+
+							var tableBody2 = $('#yourTableBody3'); // Update with your actual second table body ID
+							tableBody2.empty(); // Clear existing rows
+
+							for (var i = 0; i < data.length; i++) {
+								var row = data[i];
+								var html = '<tr>' +
+									'<th scope="row">' + (i + 1) + '</th>' +
+									'<td>' + row['department_name'] + '</td>' +
+									'<td>' + row['course_name'] + '</td>' +
+									'<td>' + row['project_name'] + '</td>' +
+									'<td>' + row['days_since_creation'] + ' days ago</td>' +
+									'<td>' +
+									'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info">View</a>' +
+									'</td>' +
+									// Add other table columns as needed
+									'</tr>';
+
+								tableBody2.append(html);
+							}
+						},
+						error: function(xhr, status, error) {
+							console.error(xhr.responseText); // Log any error response to the console
+						}
+					});
+				}
+
+
+
+				$(document).ready(function() {
+
 					function loadTables() {
 						// Fetch data for the first table
 						$.ajax({
 							url: '../assets/php/dashboard/process_fetchSB.php',
 							type: 'GET',
 							dataType: 'json',
-							success: function (data) {
-								
+							success: function(data) {
+
 								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
 								tableBody.empty(); // Clear existing rows
-
 								for (var i = 0; i < data.length; i++) {
 									var row = data[i];
 									var studyhubData = row.studyhub_data;
@@ -323,13 +380,12 @@ if (!isset($_SESSION['user_ID'])) {
 											'<td style="text-align: center;">' + rowCount + '</td>' +
 											'<td style="text-align: center;">' +
 											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
-											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 
+											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
 
 											'</td>' +
 											'</tr>';
 
-									}
-									else {
+									} else {
 										var imageData = JSON.parse(studyhubData.profile_pic);
 										var html = '<tr>' +
 											'<th scope="row">' + (i + 1) + '</th>' +
@@ -338,7 +394,7 @@ if (!isset($_SESSION['user_ID'])) {
 											'<td style="text-align: center;">' + rowCount + '</td>' +
 											'<td style="text-align: center;">' +
 											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
-											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>`+ 	
+											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
 											'</td>' +
 											'</tr>';
 
@@ -358,7 +414,7 @@ if (!isset($_SESSION['user_ID'])) {
 							url: '../assets/php/dashboard/process_fetchOA.php',
 							type: 'GET',
 							dataType: 'json',
-							success: function (data) {
+							success: function(data) {
 								console.log(data); // Display the fetched data in the console
 
 								var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
@@ -380,7 +436,40 @@ if (!isset($_SESSION['user_ID'])) {
 									tableBody2.append(html);
 								}
 							},
-							error: function (xhr, status, error) {
+							error: function(xhr, status, error) {
+								console.error(xhr.responseText); // Log any error response to the console
+							}
+						});
+
+						// Fetch data for the second table
+						$.ajax({
+							url: '../assets/php/dashboard/process_fetchOA-group.php',
+							type: 'GET',
+							dataType: 'json',
+							success: function(data) {
+								console.log(data); // Display the fetched data in the console
+
+								var tableBody2 = $('#yourTableBody3'); // Update with your actual second table body ID
+								tableBody2.empty(); // Clear existing rows
+
+								for (var i = 0; i < data.length; i++) {
+									var row = data[i];
+									var html = '<tr>' +
+										'<th scope="row">' + (i + 1) + '</th>' +
+										'<td>' + row['department_name'] + '</td>' +
+										'<td>' + row['course_name'] + '</td>' +
+										'<td>' + row['project_name'] + '</td>' +
+										'<td>' + row['days_since_creation'] + ' days ago</td>' +
+										'<td>' +
+										'<a href="group_application_view.php?application_id=' + row['application_id'] + '" class="btn btn-info">View</a>' +
+										'</td>' +
+										// Add other table columns as needed
+										'</tr>';
+
+									tableBody2.append(html);
+								}
+							},
+							error: function(xhr, status, error) {
 								console.error(xhr.responseText); // Log any error response to the console
 							}
 						});
@@ -388,25 +477,59 @@ if (!isset($_SESSION['user_ID'])) {
 
 
 
+
+					}
+
+					function fetchStats() {
+						// Fetch data for the second table
+						$.ajax({
+							url: '../assets/php/dashboard/process_fetchStats.php',
+							method: 'POST',
+							dataType: 'json',
+							success: function(data) {
+								console.log(data); // Display the fetched data in the console
+
+								var users = data.user_count;
+								var clubs = data.club_count;
+								var groups = data.group_count;
+								var sbs = data.sb_count;
+
+								document.getElementById('userCount').innerHTML =
+								users + '<span class="float-right"><i class="zmdi zmdi-account-o"></i></span>';
+
+								document.getElementById('clubApp').innerHTML =
+								clubs + '<span class="float-right"><i class="zmdi zmdi-assignment"></i></span>';
+
+								document.getElementById('groupApp').innerHTML =
+								groups + '<span class="float-right"><i class="zmdi zmdi-help-outline"></i></span>';
+
+								document.getElementById('sbCount').innerHTML =
+								sbs + '<span class="float-right"><i class="fa fa-eye"></i></span>';
+
+
+							},
+							error: function(xhr, status, error) {
+								console.error(xhr.responseText); // Log any error response to the console
+							}
+						});
 					}
 
 					// Initial table load
-					$(document).ready(function () {
+					$(document).ready(function() {
 						loadTables();
+						fetchStats();
 
 
 					});
 
 
 				});
-
-
 			</script>
 
 	</body>
 
 	</html>
 
-	<?php
+<?php
 }
 ?>
