@@ -435,7 +435,7 @@ if (!isset($_SESSION['user_ID'])) {
 																	<thead>
 																		<tr>
 																			<th scope="col">#</th>
-																			<th scope="col">Course Name</th>
+																			<th scope="col" style="text-align: center;">Course Name</th>
 																			<th scope="col" style="text-align: center;">Project Name</th>
 																			<th scope="col" style="text-align: center;">Status</th>
 																			<th scope="col" colspan="2" style="text-align: center;">Action</th>
@@ -855,7 +855,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<!-- Chart js -->
 
 		<script src="../assets/plugins/Chart.js/Chart.min.js"></script>
-		<script src="../assets/js/notifications.js"></script>
+		<script src="../assets/js/notification.js"></script>
 
 		<script>
 			displayNotifications();

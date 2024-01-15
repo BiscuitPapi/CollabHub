@@ -234,7 +234,7 @@ if (!isset($_SESSION['user_ID'])) {
 	<script src="../assets/js/sidebar-menu.js"></script>
 
 	<!-- Custom scripts -->
-	<script src="../assets/js/notifications.js"></script>
+	<script src="../assets/js/notification.js"></script>
 
 
 </body>
