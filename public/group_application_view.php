@@ -216,7 +216,7 @@
 									<tbody>
 										<?php
 											include("../assets/php/connection.php");
-											$query = "SELECT u.name, gas.status, gas.application_ID, gas.applicant_ID
+											$query = "SELECT u.name, u.user_ID, gas.status, gas.application_ID, gas.applicant_ID
 											FROM user u
 											JOIN group_applicant_status gas ON u.user_ID = gas.applicant_ID
 											WHERE gas.application_ID = '$application_id';";
@@ -238,7 +238,7 @@
 														<th scope="row">' . $count . '</th>
 														<td>' . $row['name'] . '</td>
 														<td>
-															<a href="group_application_view.php?application_ID=' . $row['application_id'] . '" class="btn btn-primary">View</a>
+															<a href="viewProfile.php?user_ID=' . $row['user_ID'] . '" class="btn btn-primary">View</a>
 														</td>
 														<td>' . $row['status'] . '</td>
 														<td>';
