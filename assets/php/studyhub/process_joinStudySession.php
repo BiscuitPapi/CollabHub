@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Check if the insertion was successful
     if ($stmt->affected_rows > 0) {
         echo "Experience added successfully!";
-        header("Location: ../../view-session.php?studysession_id=" . $studysession_id);
+        header("Location: ../../../public/view-session.php?studysession_id=" . $studysession_id);
 
     } else {
         echo "Failed to join the study session.";
