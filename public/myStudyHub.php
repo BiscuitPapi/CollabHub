@@ -105,15 +105,15 @@ session_start();
 												
 												else {
 													while ($row = mysqli_fetch_assoc($result)) {
+														$dateCreated = $row['date_created'];
+														$formattedDate = date('Y-m-d', strtotime($dateCreated));
 														echo'
 															<tr>
 															<th scope="row">' . $count . '</th>
 															<td>' . $row['studyhub_name'] . '</td>
-															<td style="text-align: center;">' . $row['date_created'] . '</td>
+															<td style="text-align: center;">' . $formattedDate . '</td>
 															<td style="text-align: center;">
 																<a href="SB_profile.php?studyhub_ID=' . $row['studyhub_ID'] . '" class="btn btn-info">View</a>
-
-																
 															</td>
 															</tr>
 														';
