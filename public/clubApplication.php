@@ -365,7 +365,6 @@ if (!isset($_SESSION['user_ID'])) {
 					},
 				});
 			}
-
 		}
 
 	</script>
