@@ -30,7 +30,6 @@ if (!isset($_SESSION['user_ID'])) {
 			$notes = $club['notes'];
 			$application_date = $club['application_date'];
 			$user_ID = $club['user_ID'];
-
 		} else {
 			// Study hub profile not found, handle the error
 			echo "Club Application not found.";
@@ -107,40 +106,35 @@ if (!isset($_SESSION['user_ID'])) {
 									<!--Club Name-->
 									<div class="form-group">
 										<label for="input-1">Club Name:</label>
-										<input type="text" class="form-control" id="input-1" name="club_name"
-											value="<?php echo $club_name; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
-												   echo 'readonly'; ?>>
+										<input type="text" class="form-control" id="input-1" name="club_name" value="<?php echo $club_name; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
+																																					echo 'readonly'; ?>>
 									</div>
 
 									<!--Club Description-->
 									<div class="form-group">
 										<label for="input-2">Club Description:</label>
-										<input type="text" class="form-control" id="input-2" name="club_description"
-											value="<?php echo $club_description; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
-												   echo 'readonly'; ?>>
+										<input type="text" class="form-control" id="input-2" name="club_description" value="<?php echo $club_description; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
+																																									echo 'readonly'; ?>>
 									</div>
 
 									<!--Position Available-->
 									<div class="form-group">
 										<label for="input-3">Position Available:</label>
-										<input type="text" class="form-control" id="input-3" name="position_available"
-											value="<?php echo $position_available; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
-												   echo 'readonly'; ?>>
+										<input type="text" class="form-control" id="input-3" name="position_available" value="<?php echo $position_available; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
+																																										echo 'readonly'; ?>>
 									</div>
 
 									<!--Skill Wanted-->
 									<div class="form-group">
 										<label for="input-4">Skill Wanted:</label>
-										<input type="text" class="form-control" id="input-4" name="skill_needed"
-											value="<?php echo $skill_needed; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
-												   echo 'readonly'; ?>>
+										<input type="text" class="form-control" id="input-4" name="skill_needed" value="<?php echo $skill_needed; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
+																																							echo 'readonly'; ?>>
 									</div>
 
 									<div class="form-group">
 										<label for="input-6">Notes:</label>
-										<input type="text" class="form-control" id="input-5" name="notes"
-											value="<?php echo $notes; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
-												   echo 'readonly'; ?>>
+										<input type="text" class="form-control" id="input-5" name="notes" value="<?php echo $notes; ?>" <?php if ($_SESSION['user_ID'] != $user_ID)
+																																			echo 'readonly'; ?>>
 									</div>
 
 									<!-- Edit button - only available for application creator-->
@@ -167,14 +161,11 @@ if (!isset($_SESSION['user_ID'])) {
 											echo '<button onclick = applyPosition(' . $club_ID . ') class="btn btn-success">Apply</button>';
 											echo '<a href="javascript:history.back()" class="btn btn-light" style="margin-left: 10px">Back</a>';
 											echo '</div>';
-
 										} else {
 											echo '<div style="display: flex; justify-content: center">';
 											echo '<a href="javascript:history.back()" class="btn btn-light">Back</a>';
 											echo '</div>';
 										}
-
-
 									}
 									?>
 
@@ -193,7 +184,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 							// Check if the user_ID from group-applicantion is equal to the current session user_ID
 							if ($_SESSION['user_ID'] === $user_ID) {
-								?>
+							?>
 
 								<div class="card-body">
 									<h5 class="card-title">Pending Applicant List</h5>
@@ -205,72 +196,74 @@ if (!isset($_SESSION['user_ID'])) {
 												<tr>
 													<th scope="col"></th>
 													<th scope="col">Name</th>
-													<th scope="col" style="text-align: center;">Action</th>
+													<th scope="col">Status</th>
+													<th scope="col">Action</th>
 												</tr>
 											</thead>
 
-											<tbody>
-												<?php
-												include("../assets/php/connection.php");
-
-												$query = "SELECT u.name, c.date_created, c.status, c.clubApplication_ID FROM user u JOIN clubApplication c on u.user_ID = c.applicant_ID WHERE c.club_ID = '$club_ID'";
-
-												$result = mysqli_query($connection, $query);
-
-												$count = 1; // Initialize count variable
-											
-												// Check if there are no mentees or no rows found
-												if (mysqli_num_rows($result) == 0) {
-													echo '<tr><td colspan ="5">No applicants found.</td></tr>';
-												} else {
-													while ($row = mysqli_fetch_assoc($result)) {
-														$dateCreated = new DateTime($row['date_created']);
-														$currentDate = new DateTime();
-														$interval = $currentDate->diff($dateCreated);
-														$daysAgo = $interval->days;
-														$timeline = "";
-														if ($daysAgo === 0) {
-															$timeline = "Today";
-														} else {
-															$timeline = $daysAgo . ' days ago';
-														}
-														echo '
-														<tr>
-															<td>' . $timeline . '</td>
-														<td>' . $row['name'] . '</td>
-													
-											
-														<td style ="text-align: center;">';
-														// Check if status is 'pending' to show the buttons
-											
-														if ($row['status'] == 'Pending') {
-															echo '<img width="30" height="30" src="https://img.icons8.com/fluency/48/checkmark--v1.png" alt="checkmark--v1" onclick="respondApplication(' . $club_ID . ', \'Approved\')" style="cursor: pointer;" title="Approve" class="hover-effect">&nbsp;&nbsp;';
-															echo '<img width="30" height="30" src="https://img.icons8.com/fluency/48/delete-sign.png" alt="delete-sign" onclick="respondApplication(' . $club_ID . ', \'Rejected\')" style="cursor: pointer;" title="Reject" class="hover-effect">&nbsp;&nbsp;';
-														}
+											<tbody id="yourTableBody1">
 
 
-														echo '
-														</td>
-														</tr>
-													';
-														$count++; // Increment count for each row
-													}
-												}
-
-												// Close the database connection
-												mysqli_close($connection);
-
-												?>
 											</tbody>
 
 										</table>
 									</div>
 								</div>
 
+
+
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Rejected Applicant List</h5>
+								<div class="table-responsive">
+
+									<table class="table table-hover">
+
+										<thead>
+											<tr>
+												<th scope="col"></th>
+												<th scope="col">Name</th>
+												<th scope="col">Status</th>
+											</tr>
+										</thead>
+										<tbody id="yourTableBody2">
+											<!-- Table rows will be dynamically added here -->
+										</tbody>
+
+
+									</table>
+								</div>
 							</div>
-							<?php
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Approved Applicant List</h5>
+								<div class="table-responsive">
+
+									<table class="table table-hover">
+
+										<thead>
+											<tr>
+												<th scope="col"></th>
+												<th scope="col">Name</th>
+												<th scope="col">Status</th>
+											</tr>
+										</thead>
+										<tbody id="yourTableBody3">
+											<!-- Table rows will be dynamically added here -->
+										</tbody>
+
+
+									</table>
+								</div>
+							</div>
+						</div>
+					<?php
 							} // Close the if statement
-							?>
+					?>
 					</div>
 
 
@@ -279,9 +272,139 @@ if (!isset($_SESSION['user_ID'])) {
 			</div>
 		</div>
 		<script src="../assets/js/notification.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 		<script>
 			displayNotifications();
+			// Initial table load
+			$(document).ready(function() {
+				fetchPendingApplicants();
+				fetchRejectedApplicants();
+				fetchApprovedApplicants();
+			});
+
+			function fetchPendingApplicants() {
+				// Fetch data for the second table
+				var club_ID = <?php echo $club_ID ?>;
+				var status = "Pending";
+				$.ajax({
+					url: '../assets/php/open-application/process_fetchClubApplicants.php',
+					method: 'POST',
+					dataType: 'json',
+					data: {
+						club_ID: club_ID,
+						status: status
+					},
+					success: function(data) {
+						console.log(data); // Display the fetched data in the console
+
+						var tableBody1 = $('#yourTableBody1'); // Update with your actual second table body ID
+						tableBody1.empty(); // Clear existing rows
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								var row = data[i];
+								var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
+								var html = '<tr>' +
+									'<td>' + daysSinceCreation + '</td>' +
+									'<td><a href="viewProfile.php?user_ID=' + row['user_ID'] + '">' + row['name'] + '</a></td>' +
+
+									'<td><span class="badge badge-warning"><i class="fa fa-cog"></i> ' + row['status'] + '</span></td>' +
+									'<td>' +
+									'<img width="30" height="30" src="https://img.icons8.com/fluency/48/checkmark--v1.png" alt="checkmark--v1" onclick="respondApplication(' + row['clubApplication_ID'] + ', \'Approved\')" style="cursor: pointer;" title="Approve" class="hover-effect">&nbsp;&nbsp;' +
+									'<img width="30" height="30" src="https://img.icons8.com/fluency/48/delete-sign.png" alt="delete-sign" onclick="respondApplication(' + row['clubApplication_ID'] + ', \'Rejected\')" style="cursor: pointer;" title="Reject" class="hover-effect">&nbsp;&nbsp;' +
+									'</td>' +
+									'</tr>';
+
+								tableBody1.append(html);
+							}
+						} else {
+							var html = '<tr><td colspan="4">There is no pending application yet</td></tr>';
+							tableBody1.append(html);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText); // Log any error response to the console
+					}
+				});
+			}
+
+			function fetchRejectedApplicants() {
+				var club_ID = <?php echo $club_ID ?>;
+				var status = "Rejected";
+				$.ajax({
+					url: '../assets/php/open-application/process_fetchClubApplicants.php',
+					method: 'POST',
+					dataType: 'json',
+					data: {
+						club_ID: club_ID,
+						status: status
+					},
+					success: function(data) {
+						console.log(data); // Display the fetched data in the console
+
+						var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+						tableBody2.empty(); // Clear existing rows
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								var row = data[i];
+								var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
+								var html = '<tr>' +
+									'<td>' + daysSinceCreation + '</td>' +
+									'<td><a href="viewProfile.php?user_ID=' + row['user_ID'] + '">' + row['name'] + '</a></td>' +
+									'<td><span class="badge badge-danger"><i class="fa fa-cog"></i> ' + row['status'] + '</span></td>' +
+									'</tr>';
+
+								tableBody2.append(html);
+							}
+						} else {
+							var html = '<tr><td colspan="4">There is no rejected application yet</td></tr>';
+							tableBody2.append(html);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText); // Log any error response to the console
+					}
+				});
+			}
+
+			function fetchApprovedApplicants() {
+				var club_ID = <?php echo $club_ID ?>;
+				var status = "Approved";
+				$.ajax({
+					url: '../assets/php/open-application/process_fetchClubApplicants.php',
+					method: 'POST',
+					dataType: 'json',
+					data: {
+						club_ID: club_ID,
+						status: status
+					},
+					success: function(data) {
+						console.log(data); // Display the fetched data in the console
+
+						var tableBody3 = $('#yourTableBody3'); // Update with your actual second table body ID
+						tableBody3.empty(); // Clear existing rows
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								var row = data[i];
+								var daysSinceCreation = (row['days_since_creation'] == 0) ? 'Today' : row['days_since_creation'] + ' days ago';
+								var html = '<tr>' +
+									'<td>' + daysSinceCreation + '</td>' +
+									'<td><a href="viewProfile.php?user_ID=' + row['user_ID'] + '">' + row['name'] + '</a></td>' +
+									'<td><span class="badge badge-success"><i class="fa fa-cog"></i> ' + row['status'] + '</span></td>' +
+									'</tr>';
+
+								tableBody3.append(html);
+							}
+						} else {
+							var html = '<tr><td colspan="4">There is no approved application yet</td></tr>';
+							tableBody3.append(html);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText); // Log any error response to the console
+					}
+				});
+			}
 		</script>
 		<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
 
@@ -295,24 +418,27 @@ if (!isset($_SESSION['user_ID'])) {
 	</div>
 
 	<script>
-		function applyPosition(club_ID){
+		function applyPosition(club_ID) {
 			if (confirm("Are you sure you want to apply this application?")) {
 				$.ajax({
 					url: "../assets/php/open-application/process_applyClub.php",
 					method: "POST",
-					data: { club_ID: club_ID},
-					success: function (response) {
+					data: {
+						club_ID: club_ID
+					},
+					success: function(response) {
 						// Handle the response from the PHP script
 						console.log(response);
 						alert("You have successfully applied!");
 					},
-					error: function (xhr, status, error) {
+					error: function(xhr, status, error) {
 						// Handle the error
 						console.log(error);
 					},
 				});
 			}
 		}
+
 		function editClubInfo(ID) {
 			var club_ID = ID;
 			var clubName = document.getElementById("input-1").value;
@@ -324,17 +450,24 @@ if (!isset($_SESSION['user_ID'])) {
 			$.ajax({
 				url: '../assets/php/open-application/process_editClub.php',
 				method: 'POST',
-				data: { clubID: club_ID, clubName: clubName, description: description, position: position, skill: skill, notes: notes },
-				success: function (response) {
+				data: {
+					clubID: club_ID,
+					clubName: clubName,
+					description: description,
+					position: position,
+					skill: skill,
+					notes: notes
+				},
+				success: function(response) {
 					// Handle the response from the PHP script
 					console.log(response);
 					if (response.trim().toLowerCase() === "success") {
-						alert("Application updated!");
-						
+						alert("Application has been updated!");
+
 					}
 
 				},
-				error: function (xhr, status, error) {
+				error: function(xhr, status, error) {
 					// Handle the error
 					console.log(error);
 				}
@@ -352,21 +485,39 @@ if (!isset($_SESSION['user_ID'])) {
 				$.ajax({
 					url: "../assets/php/open-application/process_approveClubApplication.php",
 					method: "POST",
-					data: { clubApplication_ID: clubApplication_ID, status: answer },
-					success: function (response) {
-						// Handle the response from the PHP script
-						console.log(response);
-						if (answer == "Rejected") alert("Application has been rejected!");
-						else alert("Application has been approved!");
+					data: {
+						clubApplication_ID: clubApplication_ID,
+						status: answer
 					},
-					error: function (xhr, status, error) {
+					success: function(response) {
+						/// Handle the response from the PHP script
+						console.log(response);
+						if (answer == "Rejected") {
+							alert("Application has been rejected!");
+						} else {
+							alert("Application has been approved!");
+						}
+
+						var tableBody1 = $('#yourTableBody1'); // Update with your actual second table body ID
+						tableBody1.empty(); // Clear existing rows
+
+						var tableBody2 = $('#yourTableBody2'); // Update with your actual second table body ID
+						tableBody2.empty(); // Clear existing rows
+
+						var tableBody3 = $('#yourTableBody3'); // Update with your actual second table body ID
+						tableBody3.empty(); // Clear existing rows
+
+						fetchPendingApplicants();
+						fetchRejectedApplicants();
+						fetchApprovedApplicants();
+					},
+					error: function(xhr, status, error) {
 						// Handle the error
 						console.log(error);
 					},
 				});
 			}
 		}
-
 	</script>
 
 	<!-- Bootstrap core JavaScript-->
