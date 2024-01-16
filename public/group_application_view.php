@@ -107,7 +107,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<hr>
 
 								<!--Group Application - Form-->
-								<form action="../assets/php/open-application/process_editGroupApplication.php?application_ID=<?php echo $application_id; ?>" method="POST">
+								<div>
 									<div class="form-group row">
 										<label class="col-lg-3">Department Name</label>
 										<div class="col-lg-9">
@@ -123,27 +123,26 @@ if (!isset($_SESSION['user_ID'])) {
 									<div class="form-group row">
 										<label class="col-lg-3 ">Project Name</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text" name="project_name" value="<?php echo htmlspecialchars($project_name); ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
+											<input id="input-1" class="form-control" type="text" name="project_name" value="<?php echo htmlspecialchars($project_name); ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
 
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-lg-3">Project Description</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text" name="project_description" value="<?php echo $project_description; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
+											<input id="input-2" class="form-control" type="text" name="project_description" value="<?php echo $project_description; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-lg-3">Skill Needed</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text" name="skill_needed" value="<?php echo $skill_needed; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
-
+											<input id="input-3" class="form-control" type="text" name="skill_needed" value="<?php echo $skill_needed; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-lg-3">Notes</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text" name="notes" value="<?php echo $notes; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
+											<input id="input-4" class="form-control" type="text" name="notes" value="<?php echo $notes; ?>" <?php if ($_SESSION['user_ID'] != $user_ID) echo 'readonly'; ?>>
 										</div>
 									</div>
 									<div class="form-group row">
@@ -158,7 +157,7 @@ if (!isset($_SESSION['user_ID'])) {
 									<!-- Edit button - only available for application creator-->
 									<?php
 									if ($_SESSION['user_ID'] == $user_ID) {
-										echo '<center><button type="submit" class="btn btn-primary px-5">Save Changes</button></center>';
+										echo '<center><button onclick = "editApplication()" class="btn btn-primary px-5">Save Changes</button></center>';
 									}
 									?>
 
@@ -185,6 +184,7 @@ if (!isset($_SESSION['user_ID'])) {
 										}
 									}
 									?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -326,9 +326,7 @@ if (!isset($_SESSION['user_ID'])) {
 
 							tableBody1.append(html);
 						}
-					}
-
-					else {
+					} else {
 						var html = '<tr><td colspan="4">There is no pending application yet</td></tr>';
 						tableBody1.append(html);
 					}
@@ -417,10 +415,6 @@ if (!isset($_SESSION['user_ID'])) {
 			});
 		}
 
-
-
-
-
 		function respondApplication(groupApplication_ID, answer, applicant_ID) {
 			var answerText = answer.toLowerCase();
 			if (answerText === "rejected") {
@@ -442,8 +436,7 @@ if (!isset($_SESSION['user_ID'])) {
 						console.log(response);
 						if (answer == "Rejected") {
 							alert("Application has been rejected!");
-						}
-						else {
+						} else {
 							alert("Application has been approved!");
 						}
 
@@ -468,6 +461,41 @@ if (!isset($_SESSION['user_ID'])) {
 				});
 			}
 		}
+
+		function editApplication() {
+			var group_ID = <?php echo $application_id; ?>;
+			var projectName = document.getElementById("input-1").value;
+			var projectDesc = document.getElementById("input-2").value;
+			var projectSkills = document.getElementById("input-3").value;
+			var projectNotes = document.getElementById("input-4").value;
+			$.ajax({
+				url: "../assets/php/open-application/process_editGroup.php",
+				method: "POST",
+				data: {
+					group_ID: group_ID,
+					projectName: projectName,
+					projectDesc: projectDesc,
+					projectSkills: projectSkills,
+					projectNotes: projectNotes
+				},
+				success: function(response) {
+					// Handle the response from the PHP script
+					console.log(response);
+					if (response == "success") {
+						alert("Application has been updated!");
+					} else {
+						alert(response);
+					}
+
+				},
+				error: function(xhr, status, error) {
+					// Handle the error
+					console.log(error);
+				},
+			});
+
+		}
+
 
 		// Initial table load
 		$(document).ready(function() {
