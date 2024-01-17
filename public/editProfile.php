@@ -1263,7 +1263,7 @@ if (!isset($_SESSION['user_ID'])) {
 			<script src="../assets/js/notification.js"></script>
 			<script src="../assets/js/editProfile.js"></script>
 
-			<script src="../assets/js/searchAPI.js"></script>
+			<script src="../assets/js/searchAPI-1.js"></script>
 			<!-- Full Calendar -->
 			<script src='../assets/plugins/fullcalendar/js/moment.min.js'></script>
 			<script src='../assets/plugins/fullcalendar/js/fullcalendar.min.js'></script>

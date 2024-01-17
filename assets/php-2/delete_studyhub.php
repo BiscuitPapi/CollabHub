@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         if ($stmt2->affected_rows > 0) {
 
             echo "Studyhub deleted in studyhub_members successfully!";
-            header("Location: ../../myStudyHub.php");
+            header("Location: ../../myStudyhub.php");
         }
         else {
             echo "Failed to delete studyhub in studyhub_members.";

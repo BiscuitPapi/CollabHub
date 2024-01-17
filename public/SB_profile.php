@@ -151,22 +151,6 @@ if (!isset($_SESSION['user_ID'])) {
 					</div>
 					<!--End wrapper-->
 
-
-
-
-
-
-					<!--Start footer-->
-					<footer class="footer">
-						<div class="container">
-							<div class="text-center">
-
-
-							</div>
-						</div>
-					</footer>
-					<!--End footer-->
-
 					<!-- Bootstrap core JavaScript-->
 					<script src="../assets/js/jquery.min.js"></script>
 					<script src="../assets/js/popper.min.js"></script>
@@ -179,9 +163,9 @@ if (!isset($_SESSION['user_ID'])) {
 
 					<!-- Custom scripts -->
 					<script src=../assets/js/app-script.js"></script>
-					<script src="../assets/js/sb-profile.js"></script>
+					<script src="../assets/js/sbProfile.js"></script>
 					<script src="../assets/js/notification.js"></script>
-					<script src="../assets/js/searchAPI.js"></script>
+					<script src="../assets/js/searchAPI-1.js"></script>
 					<script>
 						displayNotifications();
 					</script>
@@ -200,7 +184,7 @@ if (!isset($_SESSION['user_ID'])) {
 		}
 	} else {
 		// Handle invalid input for studyhub_ID
-		header("Location: myStudyHub.php");
+		header("Location: myStudyhub.php");
 		exit();
 	}
 }

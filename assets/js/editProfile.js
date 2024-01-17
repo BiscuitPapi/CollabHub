@@ -82,7 +82,8 @@ function addNewBadge() {
     
     alert("A new badge has been added!");
     // Reload the current page
-    location.reload();
+    // Redirect to a new URL
+    window.location.href = 'editProfile.php?activeTab=badge';
 }
 
 function deleteBadge(badgeID) {

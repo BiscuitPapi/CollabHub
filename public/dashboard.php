@@ -119,16 +119,7 @@ if (!isset($_SESSION['user_ID'])) {
 								<div class="card-header">StudyHub List
 									<div class="card-action">
 										<div class="dropdown">
-											<a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
-												<i class="icon-options"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="javascript:void();">Action</a>
-												<a class="dropdown-item" href="javascript:void();">Another action</a>
-												<a class="dropdown-item" href="javascript:void();">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="javascript:void();">Separated link</a>
-											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -493,51 +484,57 @@ if (!isset($_SESSION['user_ID'])) {
 
 								var tableBody = $('#yourTableBody'); // Update with your actual table body ID
 								tableBody.empty(); // Clear existing rows
-								for (var i = 0; i < data.length; i++) {
-									var row = data[i];
-									var studyhubData = row.studyhub_data;
+								if (data.length > 0) {
+									for (var i = 0; i < data.length; i++) {
+										var row = data[i];
+										var studyhubData = row.studyhub_data;
 
-									// Accessing properties of studyhub_data
-									var studyhubID = studyhubData.studyhub_ID;
-									var studyhubName = studyhubData.studyhub_name;
-									var studyhubDescription = studyhubData.studyhub_description;
-									var tempP = studyhubData.profile_pic;
-									var rowCount = studyhubData.row_count;
-									var username = studyhubData.foundName;
-									console.log(studyhubID, tempP);
+										// Accessing properties of studyhub_data
+										var studyhubID = studyhubData.studyhub_ID;
+										var studyhubName = studyhubData.studyhub_name;
+										var studyhubDescription = studyhubData.studyhub_description;
+										var tempP = studyhubData.profile_pic;
+										var rowCount = studyhubData.row_count;
+										var username = studyhubData.foundName;
+										console.log(studyhubID, tempP);
 
 
-									if (tempP == null) {
-										var html = '<tr>' +
-											'<th scope="row">' + (i + 1) + '</th>' +
-											'<td><img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
-											'<td style="text-align: center;">' + username + '</td>' +
-											'<td style="text-align: center;">' + rowCount + '</td>' +
-											'<td style="text-align: center;">' +
-											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
-											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
+										if (tempP == null) {
+											var html = '<tr>' +
+												'<th scope="row">' + (i + 1) + '</th>' +
+												'<td><img src="https://via.placeholder.com/110x110" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
+												'<td style="text-align: center;">' + username + '</td>' +
+												'<td style="text-align: center;">' + rowCount + '</td>' +
+												'<td style="text-align: center;">' +
+												'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
+												`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
 
-											'</td>' +
-											'</tr>';
+												'</td>' +
+												'</tr>';
 
-									} else {
-										var imageData = JSON.parse(studyhubData.profile_pic);
-										var html = '<tr>' +
-											'<th scope="row">' + (i + 1) + '</th>' +
-											'<td><img src="data:' + imageData.imageType + ';base64,' + imageData.imageBase64 + '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
-											'<td style="text-align: center;">' + username + '</td>' +
-											'<td style="text-align: center;">' + rowCount + '</td>' +
-											'<td style="text-align: center;">' +
-											'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
-											`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
-											'</td>' +
-											'</tr>';
+										} else {
+											var imageData = JSON.parse(studyhubData.profile_pic);
+											var html = '<tr>' +
+												'<th scope="row">' + (i + 1) + '</th>' +
+												'<td><img src="data:' + imageData.imageType + ';base64,' + imageData.imageBase64 + '" alt="profile-image" class="align-self-start mr-3 rounded-circle" id="smallProfilePicture_2" style="width: 50px; height: 50px;">' + studyhubName + '</td>' +
+												'<td style="text-align: center;">' + username + '</td>' +
+												'<td style="text-align: center;">' + rowCount + '</td>' +
+												'<td style="text-align: center;">' +
+												'<a href="SB_profile.php?studyhub_ID=' + studyhubID + '" class="btn btn-info">View</a> ' +
+												`<button onclick="joinSB(${studyhubID})" class="btn btn-success">Join</button>` +
+												'</td>' +
+												'</tr>';
 
+										}
+										tableBody.append(html);
 									}
-									tableBody.append(html);
-
-
 								}
+
+								else{
+									var html = '<tr><td colspan="4">No available StudyHub at the moment</td></tr>';
+									tableBody.append(html);
+								}
+
 
 							}
 						});

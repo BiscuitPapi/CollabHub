@@ -70,13 +70,13 @@ session_start();
 									<!--StudyHub Name-->
 									<div class="form-group">
 										<label for="input-1">StudyHub Name:</label>
-										<input type="text" class="form-control" id="input-1" name="studyhub_name" placeholder="Enter Your Name" required>
+										<input type="text" class="form-control" id="input-1" name="studyhub_name" placeholder="Enter the Studyhub name" required>
 									</div>
 
 									<!--StudyHub Description-->
 									<div class="form-group">
 										<label for="input-2">StudyHub Description:</label>
-										<input type="text" class="form-control" id="input-2" name="studyhub_description" placeholder="Enter the course name" required>
+										<input type="text" class="form-control" id="input-2" name="studyhub_description" placeholder="Enter the description" required>
 									</div>
 
 									<!--Settings-->

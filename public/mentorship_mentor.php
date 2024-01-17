@@ -681,14 +681,7 @@ if (!isset($_SESSION['user_ID'])) {
 		<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
 		<!--End Back To Top Button-->
 
-		<!--Start footer-->
-		<footer class="footer">
-			<div class="container">
-				<div class="text-center">
-				</div>
-			</div>
-		</footer>
-		<!--End footer-->
+		
 
 		</div>
 		<!--End wrapper-->
@@ -707,8 +700,8 @@ if (!isset($_SESSION['user_ID'])) {
 		<!-- Custom scripts -->
 		<script src="../assets/js/app-script.js"></script>
 		<script src="../assets/js/notification.js"></script>
-		<script src="../assets/js/MM.js"></script>
-		<script src="../assets/js/searchAPI.js"></script>
+		<script src="../assets/js/MM-1.js"></script>
+		<script src="../assets/js/searchAPI-1.js"></script>
 		<script>
 			displayNotifications();
 		</script>
